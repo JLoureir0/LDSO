@@ -26,5 +26,23 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate) {
         {item:'Procurar viagens'},
         {item:'Partilhar viagem'}
   ];
+});
+
+app.controller('SlideController', function($scope, $ionicSlideBoxDelegate, $state){
+
+  $scope.myActiveSlide=1;
+
+  
+  $scope.slideChanged = function(index) {
+    var currentIndex = $ionicSlideBoxDelegate.currentIndex();
+
+    //console.log($ionicSlideBoxDelegate.next());
+
+    if(currentIndex == 3) {
+      
+      $state.go('menu');
+    }
+  }
+
 })
 
