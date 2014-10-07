@@ -11,6 +11,10 @@ app.config(function($stateProvider, $urlRouterProvider){
     .state('menu', {
       url: "/menu",
       templateUrl: "templates/menu.html"
+    })
+    .state('login', {
+      url: "/login",
+      templateUrl: "templates/login.html"
     });
 
     $urlRouterProvider.otherwise("/welcome");
