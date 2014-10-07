@@ -33,10 +33,8 @@ app.controller('SlideController', function($scope, $ionicSlideBoxDelegate, $stat
   $scope.myActiveSlide=1;
 
   
-  $scope.slideChanged = function(index) {
+  $scope.slideChanged = function() {
     var currentIndex = $ionicSlideBoxDelegate.currentIndex();
-
-    //console.log($ionicSlideBoxDelegate.next());
 
     if(currentIndex == 3) {
       

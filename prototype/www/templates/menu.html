@@ -1,21 +1,25 @@
-<ion-side-menus ng-controller="toogleCtrl">
-  <ion-side-menu-content>
-    <div class="bar bar-header bar-positive">
-      <button class="button button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
-      <div class="h1 title">CarryIt</div>
-      <button class="button button-clear button-positive">Registar</button>
-    </div>
-  </ion-side-menu-content>
-  <ion-side-menu side="left">
-    <ion-list ng-repeat="x in items">
-      <ion-item>
-        {{ x.item }}
-      </ion-item>
-    </ion-list>
-  </ion-side-menu>
-</ion-side-menus>
+<ion-view title="'Menu'">
+  <ion-content ng-controller="toogleCtrl">
+    <ion-side-menus>
+      <ion-side-menu-content>
+        <div class="bar bar-header bar-positive">
+          <button class="button button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
+          <div class="h1 title">CarryIt</div>
+          <button class="button button-clear button-positive">Registar</button>
+        </div>
+      </ion-side-menu-content>
+      <ion-side-menu side="left">
+        <ion-list ng-repeat="x in items">
+          <ion-item>
+            {{ x.item }}
+          </ion-item>
+        </ion-list>
+      </ion-side-menu>
+    </ion-side-menus>
 
-<!--Footer-->
-<div class="bar bar-footer bar-positive">
-  <div class="title">Regista-te já</div>
-</div>
+    <!--Footer-->
+    <div class="bar bar-footer bar-positive">
+      <div class="title">Regista-te já</div>
+    </div>
+  </ion-content>
+</ion-view>
