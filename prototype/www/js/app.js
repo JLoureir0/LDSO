@@ -28,18 +28,13 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate) {
   ];
 });
 
-app.controller('SlideController', function($scope, $ionicSlideBoxDelegate, $state){
+app.controller('SlideController', function($scope, $ionicSlideBoxDelegate, $ionicGesture , $state){
 
   $scope.myActiveSlide=1;
 
   
-  $scope.slideChanged = function() {
-    var currentIndex = $ionicSlideBoxDelegate.currentIndex();
-
-    if(currentIndex == 3) {
-      
-      $state.go('menu');
-    }
+  $scope.onSwipeRight = function() {
+    $state.go('menu');
   }
 
 })
