@@ -14,15 +14,10 @@ app.config(function($stateProvider, $urlRouterProvider){
     })
     .state('login', {
       url: "/login",
-      templateUrl: "templates/login.html"
-    })
-    .state('registo', {
-      url: "/registo",
-      templateUrl: "templates/registo.html"
+      templateUrl: "templates/log-in.html"
     });
 
-    //Default startup screen
-    $urlRouterProvider.otherwise("/welcome");
+    $urlRouterProvider.otherwise("/menu");
 });
 
 // The same as $urlRouterProvider.otherwise("/welcome");
@@ -35,34 +30,20 @@ app.run(['$state', function ($state) {
 app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate) {
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
-  
-    $scope.items = [
-      {item: 'As tuas viagens'},
-      {item: 'Procurar viagens'},
-      {item: 'Partilhar viagem'},
-      {item: 'Sair'},
-    ];
   }
 
-  $scope.toggleLeftloggedOut = function() {
-    $ionicSideMenuDelegate.toggleLeft();
-    $scope.items = [
-      {item: 'Sobre nós'},
-      {item: 'Condições gerais'},
-      {item: 'Política de privacidade'},
-      {item: 'Confiança e Segurança'},
-      {item: 'Perguntas Frequentes'},
-      {item: 'Contactos'},
-      {item: 'Sair'}
-    ];
-  }
+  $scope.items = [
+        {item:'As tuas viagens'},
+        {item:'Procurar viagens'},
+        {item:'Partilhar viagem'}
+  ];
 });
 
-
 app.controller('SlideController', function($scope, $state){
+  
   // When the last slide goes right the app opens
   $scope.onSwipeRight = function() {
-    $state.go('login');
+    $state.go('menu');
   }
 
 })

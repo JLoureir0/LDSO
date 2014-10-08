@@ -1,0 +1,14 @@
+<ion-view title="'Menu'">
+  <ion-content scroll='false' ng-controller="toogleCtrl">
+
+		<ng-include src="'templates/header.html'"></ng-include>
+
+		<!--
+		<br><br><br>
+		<h1>Cenas giras e fofas</h1> -->
+
+		<ng-include src="'templates/left-menu.html'"></ng-include>
+
+		<ng-include src="'templates/footer.html'"></ng-include>
+  </ion-content>
+</ion-view>

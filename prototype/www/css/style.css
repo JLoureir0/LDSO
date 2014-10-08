@@ -29,6 +29,40 @@
     align-items: center;
 }
 
+.login {
+  padding-top: 7%;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: #fee;
+}
+
+.loginTitle {
+  font-weight: bolder;
+  font-size: 400%;
+}
+
+.loginForm {
+  padding-top: 5%;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 2%;
+  margin-bottom: 2%;
+}
+
+.externalLogins {
+  padding-top: 5%;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.facebookGoogleLoginbtn {
+  height:auto; 
+  width:auto; 
+  max-width:300px; 
+  max-height:300px;
+}
+
 /**********Slide-Box**********/
 .blue {
   background-color: blue;

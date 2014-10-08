@@ -10,7 +10,6 @@
           <button class="button button-clear button-positive">Registar</button>
         </div>
 
-	     <!-- Content -->
         <ng-include src="'templates/welcome.html'"></ng-include>
         
       </ion-side-menu-content>
