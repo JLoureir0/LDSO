@@ -31,36 +31,23 @@
 
 .login {
   padding-top: 7%;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  background-color: #fee;
 }
 
 .loginTitle {
+  text-align: center;
   font-weight: bolder;
-  font-size: 400%;
+  margin-bottom: 3%;
 }
 
-.loginForm {
-  padding-top: 5%;
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-bottom: 2%;
-  margin-bottom: 2%;
+.registerBtnContainer {
+  margin-top: 3%;
+  position: relative;
+  text-align: center;
 }
 
-.externalLogins {
-  padding-top: 5%;
-  padding-left: 20%;
-  padding-right: 20%;
-}
-
-.facebookGoogleLoginbtn {
-  height:auto; 
-  width:auto; 
-  max-width:300px; 
-  max-height:300px;
+.registerBtn {
+  width: 95%;
+  border-radius: 20px;
 }
 
 /**********Slide-Box**********/

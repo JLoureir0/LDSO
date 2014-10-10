@@ -1,14 +1,28 @@
-<ion-view title="'Menu'">
-  <ion-content scroll='false' ng-controller="toogleCtrl">
+<ion-view title="'Login'">
+  <ion-content scroll='false'>
 
-		<ng-include src="'templates/header.html'"></ng-include>
+	<!-- Content --> 
+    <div class="login">
+      <h1 class="loginTitle"> <span class="ion-person"></span> Login</h1>
 
-		<!--
-		<br><br><br>
-		<h1>Cenas giras e fofas</h1> -->
+        <div class="externalLogins">   
+          <img class="facebookGoogleLoginbtn" src="img/login-with-facebook.png" alt="Login with Facebook">
+          <img class="facebookGoogleLoginbtn" src="img/login-with-google.png" alt="Login with Google+">
+        </div>
 
-		<ng-include src="'templates/left-menu.html'"></ng-include>
+         <div class="loginForm">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Username</span>
+            <input type="text" placeholder="Username">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Password</span>
+            <input type="password" placeholder="Password">
+          </label>
+        </div>
 
-		<ng-include src="'templates/footer.html'"></ng-include>
+        <button class="button button-calm"> <strong> Login </strong> </button>
+    </div>
+
   </ion-content>
 </ion-view>

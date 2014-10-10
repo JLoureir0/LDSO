@@ -1,54 +1,28 @@
 <ion-view title="'Login'">
-  <ion-content scroll='false' ng-controller="toogleCtrl">
-    <ion-side-menus>
+  <ion-content scroll='true'>
 
-      <!-- Center content -->
-      <ion-side-menu-content> 
-        <div class="bar bar-header bar-positive">
-          <button class="button button-icon icon ion-navicon" ng-click="toggleLeftloggedOut()"></button>
-          <div class="h1 title">CarryIt</div>
-          <button class="button button-clear button-positive">Registar</button>
+  <!-- Content --> 
+    <div class="login">
+      <h1 class="loginTitle"> <span class="ion-person"></span> Login</h1>
+
+        <!-- External logins -->
+
+         <div class="loginForm">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Username</span>
+            <input type="text" placeholder="Username">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Password</span>
+            <input type="password" placeholder="Password">
+          </label>
         </div>
 
-		    <!-- Content --> 
-        <div class="login">
-          <h1 class="loginTitle"> <span class="ion-person"></span> Login</h1>
+         <div class="registerBtnContainer">
+          <button class="registerBtn button button-calm"> <strong> Login </strong> </button>
+         </div>
 
-            <div class="externalLogins">   
-              <img class="facebookGoogleLoginbtn" src="img/login-with-facebook.png" alt="Login with Facebook">
-              <img class="facebookGoogleLoginbtn" src="img/login-with-google.png" alt="Login with Google+">
-            </div>
-
-             <div class="loginForm">
-              <label class="item item-input item-floating-label">
-                <span class="input-label">Username</span>
-                <input type="text" placeholder="Username">
-              </label>
-              <label class="item item-input item-floating-label">
-                <span class="input-label">Password</span>
-                <input type="password" placeholder="Password">
-              </label>
-            </div>
-
-            <button class="button button-calm"> <strong> Login </strong> </button>
-
-        </div>
-        
-      </ion-side-menu-content>
-
-      <!-- Left menu -->
-      <ion-side-menu side="left">
-        <ion-list ng-repeat="x in items">
-          <ion-item>
-            {{ x.item }}
-          </ion-item>
-        </ion-list>
-      </ion-side-menu>
-    </ion-side-menus>
-
-    <!--Footer-->
-    <div class="bar bar-footer bar-positive">
-      <div class="title">Regista-te já</div>
     </div>
+
   </ion-content>
 </ion-view>

@@ -1,22 +1,12 @@
 <ion-view title="'Login'">
-  <ion-content scroll='false' ng-controller="toogleCtrl">
-    <ion-side-menus>
+  <ion-content scroll='true'>
 
-      <!-- Center content -->
-      <ion-side-menu-content> 
-        <div class="bar bar-header bar-positive">
-          <button class="button button-icon icon ion-navicon" ng-click="toggleLeftloggedOut()"></button>
-          <div class="h1 title">CarryIt</div>
-          <button class="button button-clear button-positive">Registar</button>
-        </div>
-
-		    <!-- Content --> 
         <div class="login">
           <h1 class="loginTitle"> <span class="ion-person-add"></span> Registo</h1>
           
              <div class="loginForm">
               <label class="item item-input item-floating-label">
-                <span class="input-label">Primeiro Proprio</span>
+                <span class="input-label">Nome Proprio</span>
                 <input type="text" placeholder="Nome Próprio">
               </label>
               <label class="item item-input item-floating-label">
@@ -32,7 +22,7 @@
                 <input type="text" placeholder="Telémovel">
               </label>
               <label class="item item-input item-floating-label">
-                <span class="input-label">umero BI / CC</span>
+                <span class="input-label">Numero BI / CC</span>
                 <input type="text" placeholder="Numero BI / CC">
               </label>
               <label class="item item-input item-floating-label">
@@ -41,25 +31,11 @@
               </label>
             </div>
 
-            <button class="button button-calm"> <strong> Regista-te! </strong> </button>
+            <div class="registerBtnContainer">
+              <button class="registerBtn button button-calm"> <strong> Regista-te! </strong> </button>
+            </div>
 
         </div>
-        
-      </ion-side-menu-content>
 
-      <!-- Left menu -->
-      <ion-side-menu side="left">
-        <ion-list ng-repeat="x in items">
-          <ion-item>
-            {{ x.item }}
-          </ion-item>
-        </ion-list>
-      </ion-side-menu>
-    </ion-side-menus>
-
-    <!--Footer-->
-    <div class="bar bar-footer bar-positive">
-      <div class="title">Regressa ao login!</div>
-    </div>
   </ion-content>
 </ion-view>

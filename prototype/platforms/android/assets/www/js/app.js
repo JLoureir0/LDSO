@@ -1,4 +1,3 @@
-
 var app = angular.module('starter', ['ionic']);
 
 app.config(function($stateProvider, $urlRouterProvider){
@@ -6,55 +5,55 @@ app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('welcome', {
       url: "/welcome",
-      templateUrl: "templates/welcome.html"
+      views: {
+        'applicationContent' :{
+          controller: "SlideController",
+          templateUrl: "templates/welcome.html"
+        }
+      }
     })
     .state('menu', {
       url: "/menu",
-      templateUrl: "templates/menu.html"
+      abstract: true,
+      views: {
+        'applicationContent' :{
+          templateUrl: "templates/menu.html",
+          controller: "toogleCtrl"
+        }
+      }
     })
-    .state('login', {
-      url: "/login",
-      templateUrl: "templates/login.html"
-    })
-    .state('registo', {
+    .state('menu.registo', {
       url: "/registo",
-      templateUrl: "templates/registo.html"
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/registo.html"
+        }
+      }
+    })
+    .state('menu.login', {
+      url: "/login",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/log-in.html"
+        }
+      }
     });
 
     //Default startup screen
-    $urlRouterProvider.otherwise("/welcome");
+    $urlRouterProvider.otherwise("welcome");
 });
 
-// The same as $urlRouterProvider.otherwise("/welcome");
-/*
-app.run(['$state', function ($state) {
-   $state.transitionTo('welcome');
-}])
-*/
-
 app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate) {
+
+    $scope.items = [
+    {item: 'As tuas viagens'},
+    {item: 'Procurar viagens'},
+    {item: 'Partilhar viagem'},
+    {item: 'Sair'},
+  ];
+
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
-  
-    $scope.items = [
-      {item: 'As tuas viagens'},
-      {item: 'Procurar viagens'},
-      {item: 'Partilhar viagem'},
-      {item: 'Sair'},
-    ];
-  }
-
-  $scope.toggleLeftloggedOut = function() {
-    $ionicSideMenuDelegate.toggleLeft();
-    $scope.items = [
-      {item: 'Sobre nós'},
-      {item: 'Condições gerais'},
-      {item: 'Política de privacidade'},
-      {item: 'Confiança e Segurança'},
-      {item: 'Perguntas Frequentes'},
-      {item: 'Contactos'},
-      {item: 'Sair'}
-    ];
   }
 });
 
@@ -62,7 +61,7 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate) {
 app.controller('SlideController', function($scope, $state){
   // When the last slide goes right the app opens
   $scope.onSwipeRight = function() {
-    $state.go('login');
+    $state.go('menu.registo');
   }
 
 })
