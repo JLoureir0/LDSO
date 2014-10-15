@@ -29,38 +29,229 @@
     align-items: center;
 }
 
+/**********Login and Register**********/
 .login {
-  padding-top: 7%;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  background-color: #fee;
+  padding-top: 15%;
 }
 
 .loginTitle {
+  text-align: center;
   font-weight: bolder;
-  font-size: 400%;
+  margin-bottom: 3%;
 }
 
-.loginForm {
-  padding-top: 5%;
-  padding-left: 20%;
-  padding-right: 20%;
+.registerBtnContainer {
+  margin-top: 3%;
+  position: relative;
+  text-align: center;
+  padding-bottom: 5%;
+}
+
+.loginBtnContainer {
+  margin-top: 3%;
+  position: relative;
+  text-align: center;
+  padding-bottom: 5%;
+}
+
+.registerBtn {
+  width: 95%;
+  border-radius: 20px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+/**********Share-Trip**********/
+.check-container {
+  padding-top: 10%;
   padding-bottom: 2%;
+}
+
+.trip-container {
+  padding-top: 15%;
+}
+
+.share-title {
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 3%;
+}
+
+.shareBtnContainer {
+  margin-top: 3%;
+  position: relative;
+  text-align: center;
+  padding-bottom: 2%;
+}
+
+.location-container {
+  padding-bottom: 3%;
+}
+
+.type-container {
+  padding-bottom: 1%;
+}
+
+
+/**********My-Trips**********/
+
+.trip-start-end {
+  float: left;
+  display: inline;
+}
+
+.trip-date {
+  float: right;
+  display: inline;
+}
+.trip-times {
+  clear: left;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.objects {
+  display: inline-block;
+}
+
+.object {
+  padding-right: 10%;
+  padding-left: 10%;
+}
+
+/**********My-Trip**********/
+
+.trip-title {
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 3%;
+}
+
+.trip-container {
+  padding-top: 15%
+}
+
+.my-trip-date {
+  text-align: center;
+  font-size: x-large;
+}
+
+.my-trip-points-container {
+  text-align: center;
+}
+
+.path-line {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  width: 70%;
+  display: inline-block;
   margin-bottom: 2%;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
-.externalLogins {
-  padding-top: 5%;
-  padding-left: 20%;
-  padding-right: 20%;
+.start-point {
+  display: inline-block;
 }
 
-.facebookGoogleLoginbtn {
-  height:auto; 
-  width:auto; 
-  max-width:300px; 
-  max-height:300px;
+.end-point {
+  display: inline-block;
+}
+
+.object-icon {
+  float: left;
+}
+
+.icons-container {
+  text-align: center;
+  display: inline-block;
+}
+
+.my-trip-objects-container {
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.my-trip-price-container {
+  text-align: center;
+}
+
+.my-trip-desv-container {
+  text-align: center;
+}
+
+
+/**********Search-Trip**********/
+.search-trip-container {
+  padding-top: 15%;
+}
+
+.available-trips {
+
+}
+
+.width-40 {
+  display: inline-block;
+  width: 100%;
+}
+
+.width-90 {
+  float: left;
+  width: 97%;
+}
+
+.width-10 {
+  float: right;
+  width: 2%;
+}
+
+.search-container {
+  padding-bottom: 3%;
+}
+
+.start-point-input {
+  float: left;
+}
+
+.start-point-gpsicon {
+  float: right;
+
+}
+
+/**********Messages**********/
+.messages-container {
+  padding-top: 15%;
+}
+
+.messages-title {
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 3%;
+}
+
+/**********Message**********/
+.message-container {
+  padding-top: 15%;
+}
+
+.message-title {
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 3%;
+}
+
+/**********Profile**********/
+.profile-container {
+  padding-top: 15%;
+}
+
+.profile-title {
+  text-align: center;
+  font-weight: bolder;
+  margin-bottom: 3%;
 }
 
 /**********Slide-Box**********/

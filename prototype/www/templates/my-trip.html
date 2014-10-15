@@ -1,0 +1,94 @@
+<ion-view title="'my-trip'">
+  <ion-content scroll='true'>
+
+  <!-- Content --> 
+    <div class="trip-container">
+      <h1 class="trip-title"> <span class="ion-model-s"></span> {{trip.startPoint}}-{{trip.destPoint}}</h1>
+
+      <div class="list card">
+
+        <div class="item item-avatar">
+          <!--<img src="/img/user-icon.png">-->
+          <h2>João Loureiro</h2>
+          <p>November 05, 2014</p>
+        </div>
+
+        <div class="item item-body">
+          <!--<img class="full-image" src="delorean.jpg">-->
+          <p>
+            This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+            the content is from a card-body consisting of an image and paragraph text. The footer
+            consists of tabs, icons aligned left, within the card-footer.
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+
+          <div class="icons-container">
+          <div class="object-icon" ng-repeat="objectType in trip.objectTypes">
+            <div ng-switch="" on="objectType">
+              <div ng-switch-when="grandes dimensões">
+                <a>
+                  <i class="icon-s fa fa-arrows fa-lg"></i>
+                </a>
+              </div>
+              <div ng-switch-when="inflamável">
+                <a>
+                  <i class="icon-s fa fa-fire fa-lg"></i>
+                </a>
+              </div>
+              <div ng-switch-when="frágil">
+                <a>
+                  <i class=" icon-s fa fa-glass fa-lg"></i>
+                </a>
+              </div>
+              <div ng-switch-default>
+                <a>
+                  <i class="icon-s fa fa-question fa-lg"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+        <div class="item item-divider my-trip-date-container">
+          <div class="my-trip-date">
+            {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+          </div>
+        </div>
+        <div class="item item-divider">
+          <div class="my-trip-points-container">
+            <div class="my-trip-points">
+              <i class="fa fa-circle fa-lg start-point"></i>
+              <div class="path-line"></div>
+              <i class="fa fa-circle-thin fa-lg end-point"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="list card">
+          <a href="#" class="item item-icon-left">
+            <i class="icon fa fa-eur"></i>
+            Preço minimo: {{trip.minPrice}} €/objeto
+          </a>
+
+          <a href="#" class="item item-icon-left">
+            <i class="icon fa fa-code-fork"></i>
+            Desvio máximo: {{trip.maxDesv}} min
+          </a>
+        </div>       
+
+       <div class="shareBtnContainer" ng-init="loadFooters()">
+        <a ng-href="#/menu/share-trip"><button class="registerBtn button button-calm"><strong>Editar viagem</strong></button></a>
+       </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -15,12 +15,24 @@
 
 	      <ion-side-menu side="left">
 	        <ion-list ng-repeat="x in items">
-	          <ion-item>
+	          <ion-item menu-close ng-click="selectItem($index)">
 	            {{ x.item }}
 	          </ion-item>
 	        </ion-list>
 	      </ion-side-menu>
 	    </ion-side-menus>
+
+	    <div class="bar bar-footer bar-positive" ng-show="showRegisterFooter">
+ 			<div class="title">
+ 				<a ng-href="#/menu/registo" class="link">Regista-te já</a>
+ 			</div>
+		</div>
+
+		<div class="bar bar-footer bar-positive" ng-show="showLoginFooter">
+			<div class="title">
+				<a ng-href="#/menu/login" class="link">Login</a>
+			</div>
+		</div>
 
 	</ion-content>
 </ion-view>
