@@ -100,7 +100,6 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
     {item: 'Procurar viagens'},
     {item: 'Partilhar viagem'},
     {item: 'Mensagens'},
-    {item: 'Perfil'},
     {item: 'Sair'}
   ];
 
@@ -166,11 +165,7 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
         $state.go('menu.messages');
         break;
     case 4:
-        $state.go('menu.profile');
-        break;
-    case 5:
         showDialog();
-        //navigator.geolocation.getCurrentPosition(onSuccess, onError);
         break;
     default:
         break;
