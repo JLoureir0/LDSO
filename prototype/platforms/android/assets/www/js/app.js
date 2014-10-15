@@ -55,7 +55,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/search-trip",
       views: {
         'menuContent' :{
-          templateUrl: "templates/search-trip.html"
+          templateUrl: "templates/search-trip.html",
+          controller: "searchTripCtrl"
         }
       }
     }).state('menu.messages', {
@@ -99,7 +100,6 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
     {item: 'Procurar viagens'},
     {item: 'Partilhar viagem'},
     {item: 'Mensagens'},
-    {item: 'Perfil'},
     {item: 'Sair'}
   ];
 
@@ -165,11 +165,7 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
         $state.go('menu.messages');
         break;
     case 4:
-        $state.go('menu.profile');
-        break;
-    case 5:
         showDialog();
-        //navigator.geolocation.getCurrentPosition(onSuccess, onError);
         break;
     default:
         break;
@@ -190,6 +186,24 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
       $scope.showLoginFooter = false;
   }
 
+
+  /*********Close the application***********/
+
+  //Function that will show popup asking if user wants to exit application or not
+  function showDialog() {
+    navigator.notification.beep(1);
+    navigator.notification.confirm("Deseja sair da aplicação?", exitApplication, "Sair", "Sim, Não");
+  }
+
+  // If the user clicks yes the application will close
+  function exitApplication(buttonIndex) {
+    if(buttonIndex == 1) {
+      navigator.app.exitApp();
+    }
+  }
+
+  /**************************************/
+
 });
 
 
@@ -199,39 +213,40 @@ app.controller('SlideController', function($scope, $state){
     $state.go('menu.login');
   }
 
-})
+});
+
+app.controller('searchTripCtrl', function($scope, $http) {
+
+  $scope.startLocation = "";
 
 
-//Function that will show popup asking if user wants to exit application or not
-function showDialog() {
-  navigator.notification.confirm("Deseja sair da aplicação?", exitApplication, "Sair", "Sim, Não");
-}
-
-function exitApplication(buttonIndex) {
-  navigator.notification.beep(1);
-  if(buttonIndex == 1) {
-    navigator.app.exitApp();
+  $scope.getCurrentLocation = function() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }
-}
 
-function onSuccess(position) {
-  alert('Latitude: '          + position.coords.latitude          + '\n' +
-        'Longitude: '         + position.coords.longitude         + '\n' +
-        'Altitude: '          + position.coords.altitude          + '\n' +
-        'Accuracy: '          + position.coords.accuracy          + '\n' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-        'Heading: '           + position.coords.heading           + '\n' +
-        'Speed: '             + position.coords.speed             + '\n' +
-        'Timestamp: '         + position.timestamp                + '\n');
-}
+  function onSuccess(position) {
 
+    var latitude = "";
+    var longitude = "";
 
-function onError(error) {
-  alert('code: '    + error.code    + '\n' +
-        'message: ' + error.message + '\n');
-}
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
 
+    var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
+    $http.get(url).
+      success(function(data, status, headers, config) {
+        $scope.startLocation = data.geonames[0].toponymName;
+      }).
+      error(function(data, status, headers, config) {
+        alert('Error, system was unable to fetch gps informations');
+      });    
+  }
 
+  function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+  }
+});
 
 
 
