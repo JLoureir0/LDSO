@@ -94,7 +94,6 @@
   padding-bottom: 1%;
 }
 
-
 /**********My-Trips**********/
 
 .trip-start-end {
@@ -183,6 +182,25 @@
   text-align: center;
 }
 
+.my-trip-image {
+  max-width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: auto;
+  width: auto\9;
+}
+
+.my-trip-trip-icon-container {
+  text-align: center;
+}
+
+.my-trip-location {
+  float:left;width:100dp;
+}
+
+.my-trip-types-icon {
+  margin-left: 50%;
+}
 
 /**********Search-Trip**********/
 .search-trip-container {

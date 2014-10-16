@@ -8,7 +8,7 @@
       <div class="list card">
 
         <div class="item item-avatar">
-          <!--<img src="/img/user-icon.png">-->
+          <img src="img/User-icon.png">
           <h2>João Loureiro</h2>
           <p>November 05, 2014</p>
         </div>
@@ -25,51 +25,53 @@
         <div class="item tabs tabs-secondary tabs-icon-left">
 
           <div class="icons-container">
-          <div class="object-icon" ng-repeat="objectType in trip.objectTypes">
-            <div ng-switch="" on="objectType">
-              <div ng-switch-when="grandes dimensões">
-                <a>
-                  <i class="icon-s fa fa-arrows fa-lg"></i>
-                </a>
-              </div>
-              <div ng-switch-when="inflamável">
-                <a>
-                  <i class="icon-s fa fa-fire fa-lg"></i>
-                </a>
-              </div>
-              <div ng-switch-when="frágil">
-                <a>
-                  <i class=" icon-s fa fa-glass fa-lg"></i>
-                </a>
-              </div>
-              <div ng-switch-default>
-                <a>
-                  <i class="icon-s fa fa-question fa-lg"></i>
-                </a>
-              </div>
-            </div>
-          </div>
+            <table>
+              <tr ng-switch="" on="objectType" class="object-icon" ng-repeat="objectType in trip.objectTypes">
+                <td ng-switch-when="grandes dimensões">
+                  <a style="margin-right: 20px;margin-left: 20px;">
+                    <i class="icon-s fa fa-arrows fa-lg"></i>
+                  </a>
+                </td>
+                <td ng-switch-when="inflamável">
+                  <a style="margin-right: 20px;margin-left: 20px;">
+                    <i class="icon-s fa fa-fire fa-lg"></i>
+                  </a>
+                </td>
+                <td ng-switch-when="frágil">
+                  <a style="margin-right: 20px;margin-left: 20px;">
+                    <i class="icon-s fa fa-glass fa-lg"></i>
+                  </a>
+                </td>
+                <td ng-switch-default>
+                  <a style="margin-right: 20px;margin-left: 20px;">
+                    <i class="icon-s fa fa-question fa-lg"></i>
+                  </a>
+                </td>
+              </tr>
+            </table>
           </div>
 
         </div>
 
       </div>
-
-
-
         <div class="item item-divider my-trip-date-container">
           <div class="my-trip-date">
             {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
           </div>
         </div>
-        <div class="item item-divider">
-          <div class="my-trip-points-container">
-            <div class="my-trip-points">
-              <i class="fa fa-circle fa-lg start-point"></i>
-              <div class="path-line"></div>
-              <i class="fa fa-circle-thin fa-lg end-point"></i>
-            </div>
-          </div>
+        <div class="item item-divider my-trip-trip-icon-container">
+
+          <table style="width:100%;">
+           <tr>
+             <td class="my-trip-location">Porto</td>
+             <td></td>
+             <td class="my-trip-location">Alfragide</td>
+           </tr>
+           <tr class="my-trip-trip-icon-container">
+           <td></td>
+             <td> <img class="my-trip-image" src="img/trip.png"> </td>
+           </tr>
+          </table>
         </div>
 
         <div class="list card">
