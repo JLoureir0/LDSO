@@ -183,6 +183,15 @@
   text-align: center;
 }
 
+.my-trip-trip-icon-container {
+  text-align: center;
+}
+
+.my-trip-image {
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
+}
 
 /**********Search-Trip**********/
 .search-trip-container {
