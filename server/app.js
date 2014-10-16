@@ -52,14 +52,14 @@ server.get('/user/:id', function (req, res, next) {
 server.post('/user', function (req, res, next) {
 
   // Make sure name is defined
-  if (req.params.name === undefined) {
+  if (req.params.name === undefined && req.params.email === undefined) {
 
     // If there are any errors, pass them to next in the correct format
     return next(new restify.InvalidArgumentError('Name must be supplied'))
   }
 
   // Create the user using the persistence engine
-  userSave.create({ name: req.params.name }, function (error, user) {
+  userSave.create({ name: req.params.name, email: req.params.email }, function (error, user) {
 
     // If there are any errors, pass them to next in the correct format
     if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
