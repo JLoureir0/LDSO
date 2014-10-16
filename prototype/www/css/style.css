@@ -94,7 +94,6 @@
   padding-bottom: 1%;
 }
 
-
 /**********My-Trips**********/
 
 .trip-start-end {
@@ -185,6 +184,8 @@
 
 .my-trip-image {
   max-width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
   height: auto;
   width: auto\9;
 }
@@ -199,7 +200,6 @@
 
 .my-trip-types-icon {
   margin-left: 50%;
-  margin-right: 50%;
 }
 
 /**********Search-Trip**********/
