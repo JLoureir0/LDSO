@@ -188,8 +188,13 @@
   height: auto;
   width: auto\9;
 }
+
 .my-trip-trip-icon-container {
   text-align: center;
+}
+
+.my-trip-location {
+  float:left;width:100dp;
 }
 
 /**********Search-Trip**********/
