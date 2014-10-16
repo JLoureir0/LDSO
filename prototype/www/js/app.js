@@ -90,7 +90,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     //Default startup screen
-    $urlRouterProvider.otherwise("welcome");
+    if(window.localStorage.getItem('has_run') == null) {
+      window.localStorage.setItem('has_run', 'true');
+      $urlRouterProvider.otherwise("/welcome");
+    } else {
+      $urlRouterProvider.otherwise("/menu/login");  
+    }
 });
 
 app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
