@@ -197,6 +197,11 @@
   float:left;width:100dp;
 }
 
+.my-trip-types-icon {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
 /**********Search-Trip**********/
 .search-trip-container {
   padding-top: 15%;

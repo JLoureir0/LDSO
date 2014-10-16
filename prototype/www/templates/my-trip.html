@@ -25,30 +25,30 @@
         <div class="item tabs tabs-secondary tabs-icon-left">
 
           <div class="icons-container">
-            <div class="object-icon" ng-repeat="objectType in trip.objectTypes">
-              <div ng-switch="" on="objectType">
-                <div ng-switch-when="grandes dimensões">
+            <table>
+              <tr ng-switch="" on="objectType" class="object-icon" ng-repeat="objectType in trip.objectTypes">
+                <td ng-switch-when="grandes dimensões">
                   <a>
-                    <i class="icon-s fa fa-arrows fa-lg"></i>
+                    <i class="my-trip-types-icon icon-s fa fa-arrows fa-lg"></i>
                   </a>
-                </div>
-                <div ng-switch-when="inflamável">
+                </td>
+                <td ng-switch-when="inflamável">
                   <a>
-                    <i class="icon-s fa fa-fire fa-lg"></i>
+                    <i class="my-trip-types-icon icon-s fa fa-fire fa-lg"></i>
                   </a>
-                </div>
-                <div ng-switch-when="frágil">
+                </td>
+                <td class="my-trip-types-icon" ng-switch-when="frágil">
                   <a>
-                    <i class=" icon-s fa fa-glass fa-lg"></i>
+                    <i class="my-trip-types-icon icon-s fa fa-glass fa-lg"></i>
                   </a>
-                </div>
-                <div ng-switch-default>
+                </td>
+                <td ng-switch-default>
                   <a>
-                    <i class="icon-s fa fa-question fa-lg"></i>
+                    <i class="my-trip-types-icon icon-s fa fa-question fa-lg"></i>
                   </a>
-                </div>
-              </div>
-            </div>
+                </td>
+              </tr>
+            </table>
           </div>
 
         </div>
