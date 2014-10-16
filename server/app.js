@@ -4,7 +4,7 @@ var restify = require('restify')
   , userSave = require('save')('user')
 
   // Create the restify server
-  , server = restify.createServer({ name: 'my-api' })
+  , server = restify.createServer({ name: 'carryit' })
 
 // Start the server listening on port 3000
 server.listen(3000, function () {
