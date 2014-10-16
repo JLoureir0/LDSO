@@ -1,0 +1,47 @@
+<ion-view title="'Menu'">
+	<ion-content scroll='false'>
+
+	    <ion-side-menus>
+	      <ion-side-menu-content> 
+	        <div class="bar bar-header bar-positive">
+	          <button class="button button-icon icon ion-navicon" ng-click="toggleLeft()"></button>
+	          <div class="h1 title">CarryIt</div>
+	          <button class="button button-clear button-positive">Registar</button>
+	        </div>
+
+	       <ion-nav-view name="menuContent"></ion-nav-view>
+	        
+	      </ion-side-menu-content>
+
+	      <ion-side-menu side="left">
+	  
+	  	 	<a ng-href="#/menu/profile" class="link">
+	  			<div class="item item-divider">
+					<ion-item menu-close class="item-avatar" ng-click="selectItem($index)">
+						<img src="img/User-icon.png">
+						<h2><strong>Ricardo Neves</strong></h2>
+	  				</ion-item>
+		 		</div>
+  			</a>
+	        <ion-list ng-repeat="x in items">
+	          <ion-item menu-close ng-click="selectItem($index)">
+	            {{ x.item }}
+	          </ion-item>
+	        </ion-list>
+	      </ion-side-menu>
+	    </ion-side-menus>
+
+	    <div class="bar bar-footer bar-positive" ng-show="showRegisterFooter">
+ 			<div class="title">
+ 				<a ng-href="#/menu/registo" class="link">Regista-te já</a>
+ 			</div>
+		</div>
+
+		<div class="bar bar-footer bar-positive" ng-show="showLoginFooter">
+			<div class="title">
+				<a ng-href="#/menu/login" class="link">Login</a>
+			</div>
+		</div>
+
+	</ion-content>
+</ion-view>

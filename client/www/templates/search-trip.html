@@ -1,0 +1,56 @@
+<ion-view title="'search_trip'">
+  <ion-content scroll='true'>
+
+  	<div class="search-trip-container">
+
+  		<h1 class="share-title"> <span class="ion-android-search"></span> Procurar Viagem</h1>
+
+  		<div class="available-trips" ng-init="loadFooters()">
+  			
+
+        <div class="search-container">
+          <div class="width-40">
+            <div class="width-90">
+              <label class="item item-input">
+                <input ng-model="startLocation" type="text" placeholder="Ponto de Partida">
+              </label>
+            </div>
+            <div ng-click="getCurrentLocation()" class="width-10">
+              <i class="fa fa-map-marker fa-2x"></i>
+            </div>
+          </div>
+
+
+          <label class="item item-input">
+            <input type="text" placeholder="Ponto de Chegada">
+          </label>
+        </div>
+
+        <div class="card" ng-repeat="trip in trips">
+          <div class="item item-divider trip-header">
+            <div class="trip-start-end">
+              {{trip.startPoint}} - {{trip.destPoint}}
+            </div>
+            <div class="trip-date">
+              {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+            </div>
+            <div class="trip-times">
+              Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
+              Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
+            </div>
+          </div>
+          <div class="item item-text-wrap">
+            <ul>
+              <div class="objects" ng-repeat="objectType in trip.objectTypes">
+                <div class="object">{{objectType}}</div>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+  		</div>
+  	
+  	</div>
+
+  </ion-content>
+</ion-view>

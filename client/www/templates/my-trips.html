@@ -1,0 +1,41 @@
+<ion-view title="'share_trip'">
+  <ion-content scroll='true'>
+
+  <!-- Content --> 
+    <div class="trip-container">
+      <h1 class="share-title"> <span class="ion-model-s"></span> Minhas viagens</h1>
+
+        <a ng-href="#/menu/my-trip" ng-repeat="trip in trips">
+         <div class="card">
+            <div class="item item-divider trip-header">
+              <div class="trip-start-end">
+                {{trip.startPoint}} - {{trip.destPoint}}
+              </div>
+              <div class="trip-date">
+                {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+              </div>
+              <div class="trip-times">
+                Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
+                Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
+              </div>
+            </div>
+            <div class="item item-text-wrap">
+              <ul>
+                <div class="objects" ng-repeat="objectType in trip.objectTypes">
+                  <div class="object">{{objectType}}</div>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </a>
+
+         <div class="shareBtnContainer" ng-init="loadFooters()">
+          <a ng-href="#/menu/share-trip">
+            <button class="registerBtn button button-calm"><strong>Partilhar viagem</strong>
+          </button></a>
+         </div>
+
+    </div>
+
+  </ion-content>
+</ion-view>
