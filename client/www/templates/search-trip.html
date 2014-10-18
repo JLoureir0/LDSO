@@ -38,13 +38,18 @@
               Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
               Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
             </div>
-          </div>
+          </div>      
           <div class="item item-text-wrap">
-            <ul>
-              <div class="objects" ng-repeat="objectType in trip.objectTypes">
-                <div class="object">{{objectType}}</div>
-              </div>
-            </ul>
+            <table class="objects-type-table">
+              <tr>
+                <td ng-repeat="objectType in trip.objectTypes">
+                  {{objectType}}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="trip-times item item-divider">
+            Preço mínimo: {{trip.minPrice}} €
           </div>
         </div>
 
