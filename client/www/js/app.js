@@ -226,6 +226,7 @@ app.controller('searchTripCtrl', function($scope, $http) {
 
 
   $scope.getCurrentLocation = function() {
+    document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }
 
@@ -241,6 +242,7 @@ app.controller('searchTripCtrl', function($scope, $http) {
     $http.get(url).
       success(function(data, status, headers, config) {
         $scope.startLocation = data.geonames[0].toponymName;
+        document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
       }).
       error(function(data, status, headers, config) {
         alert('Error, system was unable to fetch gps informations');
