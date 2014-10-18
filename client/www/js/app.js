@@ -222,9 +222,6 @@ app.controller('SlideController', function($scope, $state){
 
 app.controller('searchTripCtrl', function($scope, $http) {
 
-  $scope.startLocation = "";
-
-
   $scope.getCurrentLocation = function() {
     document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -241,7 +238,7 @@ app.controller('searchTripCtrl', function($scope, $http) {
     var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
     $http.get(url).
       success(function(data, status, headers, config) {
-        $scope.startLocation = data.geonames[0].toponymName;
+        document.getElementById("start-location-field").value = data.geonames[0].toponymName;
         document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
       }).
       error(function(data, status, headers, config) {
