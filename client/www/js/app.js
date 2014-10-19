@@ -96,6 +96,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     } else {
       $urlRouterProvider.otherwise("/menu/login");  
     }
+
 });
 
 app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
