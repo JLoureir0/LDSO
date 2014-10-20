@@ -1,33 +1,42 @@
 <ion-view title="'Login'">
   <ion-content scroll='true'>
 
-        <div class="login">
+        <div class="login" ng-controller="registerCtrl">
 
           <h1 class="loginTitle"> <span class="ion-person-add"></span> Registo</h1>
           
           <div class="loginForm">
            <label class="item item-input">
-             <input type="text" placeholder="Nome Próprio">
+             <input type="text" placeholder="Nome Próprio" ng-model="name">
            </label>
            <label class="item item-input">
-             <input type="text" placeholder="Apelido">
+             <input type="text" placeholder="Apelido" ng-model="lastName">
            </label>
            <label class="item item-input">
-             <input type="email" placeholder="Email">
+             <input type="text" placeholder="Username" ng-model="username">
            </label>
            <label class="item item-input">
-             <input type="tel" placeholder="Telémovel">
+             <input type="password" placeholder="Password" ng-model="password">
            </label>
            <label class="item item-input">
-             <input type="number" placeholder="Numero BI / CC">
+             <input type="password" placeholder="Confirm password" ng-model="confirmPassword" ng-keyup="confirmPasswordCallback()">
            </label>
            <label class="item item-input">
-             <input type="date" placeholder="Data de Nasciomento (DD/MM/AAAA)">
+             <input type="email" placeholder="Email" ng-model="email">
+           </label>
+           <label class="item item-input">
+             <input type="tel" placeholder="Telémovel" ng-model="phone">
+           </label>
+           <label class="item item-input">
+             <input type="number" placeholder="Numero BI / CC" ng-model="idNumber">
+           </label>
+           <label class="item item-input">
+             <input type="date" placeholder="Data de Nasciomento (MM/DD/AAAA)" ng-model="birthdate">
            </label>
           </div>
 
           <div class="registerBtnContainer" ng-init="loadFooters()">
-            <button class="registerBtn button button-calm"> <strong> Regista-te! </strong> </button>
+            <button ng-click="submitRegister()" class="registerBtn button button-calm"> <strong> Regista-te! </strong> </button>
           </div>
 
         </div>

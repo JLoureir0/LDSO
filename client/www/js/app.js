@@ -26,7 +26,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/registo",
       views: {
         'menuContent' :{
-          templateUrl: "templates/registo.html"
+          templateUrl: "templates/registo.html",
+          controller: "registerCtrl"
         }
       }
     })
@@ -34,7 +35,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/login",
       views: {
         'menuContent' :{
-          templateUrl: "templates/login.html"
+          templateUrl: "templates/login.html",
+          controller: "loginCtrl"
         }
       }
     }).state('menu.share-trip', {
@@ -214,6 +216,7 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 });
 
 
+
 app.controller('SlideController', function($scope, $state){
   // When the last slide goes right the app opens
   $scope.onSwipeRight = function() {
@@ -253,6 +256,67 @@ app.controller('searchTripCtrl', function($scope, $http) {
     alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
   }
+});
+
+
+app.controller('loginCtrl', function($scope) {
+
+  $scope.username = "";
+  $scope.password = "";
+
+  $scope.submitLogin = function() {
+    console.log("username: " + $scope.username + " password: " + $scope.password);
+
+    var jsonLogin = {
+      "username" : $scope.username;
+      "password" : $scope.password;
+    };
+    var json = JSON.parse(jsonLogin);
+
+  }
+});
+
+app.controller('registerCtrl', function($scope) {
+
+  $scope.name = "";
+  $scope.lastName = "";
+  $scope.username = "";
+  $scope.password = "";
+  $scope.confirmPassword = "";
+  $scope.email = "";
+  $scope.phone = "";
+  $scope.idNumber = "";
+  $scope.birthdate = "";
+
+  $scope.confirmPasswordCallback = function() {
+    if($scope.password <8 || $scope.confirmPassword <8) {
+      console.log("Password must have at least 8 characters");
+    }
+    else if($scope.password === $scope.confirmPassword) {
+      console.log("Passwords do correspond");
+    } else {
+      console.log("Passwords do not correspond");
+    }
+  }
+
+  $scope.submitRegister = function() {
+    console.log("name: " + $scope.name + " lastName: " + $scope.lastName + " username: " + $scope.username); 
+  
+    var jsonRegister = {
+      "name" : $scope.name,
+      "lastName" : $scope.lastName,
+      "username" : $scope.username,
+      "password" : $scope.password,
+      "confirmPassword" : $scope.confirmPassword,
+      "email" : $scope.email,
+      "phone" : $scope.phone,
+      "idNumber" : $scope.idNumber,
+      "birthdate" : $scope.birthdate
+    };
+    var json = JSON.parse(jsonRegister);
+
+  }
+
 });
 
 

@@ -2,7 +2,7 @@
   <ion-content scroll='true'>
 
   <!-- Content --> 
-    <div class="login">
+    <div class="login" ng-controller="loginCtrl">
 
       <h1 class="loginTitle"> <span class="ion-person"></span> Login</h1>
 
@@ -10,15 +10,16 @@
 
       <div class="loginForm">
         <label class="item item-input">
-            <input type="text" placeholder="Username">
+            <input type="text" ng-model="username" placeholder="Username">
         </label>
         <label class="item item-input">
-          <input type="password" placeholder="Password">
+          <input type="password" ng-model="password" placeholder="Password">
+
         </label>
       </div>
 
       <div class="loginBtnContainer" ng-init="loadFooters()">
-        <button class="registerBtn button button-calm"> <strong> Login </strong> </button>
+        <button ng-click="submitLogin()" class="registerBtn button button-calm"> <strong> Login </strong> </button>
       </div>
 
     </div>
