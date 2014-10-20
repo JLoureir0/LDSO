@@ -245,6 +245,7 @@ app.controller('searchTripCtrl', function($scope, $http) {
       }).
       error(function(data, status, headers, config) {
         alert('Error, system was unable to fetch gps informations');
+        document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
       });    
   }
 
