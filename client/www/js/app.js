@@ -41,7 +41,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/share-trip",
       views: {
         'menuContent' :{
-          templateUrl: "templates/share-trip.html"
+          templateUrl: "templates/share-trip.html",
+          controller: "searchTripCtrl"
         }
       }
     }).state('menu.my-trips', {
