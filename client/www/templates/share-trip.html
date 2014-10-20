@@ -1,17 +1,24 @@
 <ion-view title="'share_trip'">
   <ion-content scroll='true'>
 
-  <!-- Content --> 
     <div class="trip-container">
       <h1 class="share-title"> <span class="ion-android-share"></span> Partilhar viagem</h1>
 
          <div class="location-container">
-          <label class="item item-input">
-            <input type="text" placeholder="Ponto de partida">
-          </label>
-          <label class="item item-input">
-            <input type="text" placeholder="Ponto de chegada">
-          </label>
+          <div class="search-container">
+            <div class="width-40">
+              <div class="width-90">
+                <label class="item item-input">
+                  <input id="start-location-field" type="text" placeholder="Ponto de Partida">
+                </label>
+              </div>
+              <div ng-click="getCurrentLocation()" class="width-10">
+                <i id="search-position-icon" class="fa fa-map-marker fa-2x"></i>
+              </div>
+            </div>
+            <label class="item item-input">
+              <input type="text" placeholder="Ponto de chegada">
+            </label>
         </div>
 
         <div class="type-container">

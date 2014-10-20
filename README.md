@@ -19,6 +19,7 @@ $ ionic plugin add org.apache.cordova.device
 $ ionic plugin add org.apache.cordova.dialogs
 $ ionic plugin add org.apache.cordova.geolocation
 $ ionic plugin add org.apache.cordova.vibration
+$ ionic plugin add org.apache.cordova.splashscreen
 $ ionic build android
 ```
 

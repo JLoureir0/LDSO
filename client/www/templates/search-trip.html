@@ -12,11 +12,11 @@
           <div class="width-40">
             <div class="width-90">
               <label class="item item-input">
-                <input ng-model="startLocation" type="text" placeholder="Ponto de Partida">
+                <input id="start-location-field" type="text" placeholder="Ponto de Partida">
               </label>
             </div>
             <div ng-click="getCurrentLocation()" class="width-10">
-              <i class="fa fa-map-marker fa-2x"></i>
+              <i id="search-position-icon" class="fa fa-map-marker fa-2x"></i>
             </div>
           </div>
 
@@ -38,13 +38,18 @@
               Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
               Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
             </div>
-          </div>
+          </div>      
           <div class="item item-text-wrap">
-            <ul>
-              <div class="objects" ng-repeat="objectType in trip.objectTypes">
-                <div class="object">{{objectType}}</div>
-              </div>
-            </ul>
+            <table class="objects-type-table">
+              <tr>
+                <td ng-repeat="objectType in trip.objectTypes">
+                  {{objectType}}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="trip-times item item-divider">
+            Preço mínimo: {{trip.minPrice}} €
           </div>
         </div>
 
