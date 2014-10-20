@@ -44,7 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent' :{
           templateUrl: "templates/share-trip.html",
-          controller: "searchTripCtrl"
+          controller: "shareTripCtrl"
         }
       }
     }).state('menu.my-trips', {
@@ -227,6 +227,8 @@ app.controller('SlideController', function($scope, $state){
 
 app.controller('searchTripCtrl', function($scope, $http) {
 
+  $scope.startPoint = "";
+
   $scope.getCurrentLocation = function() {
     document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -243,7 +245,7 @@ app.controller('searchTripCtrl', function($scope, $http) {
     var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
     $http.get(url).
       success(function(data, status, headers, config) {
-        document.getElementById("start-location-field").value = data.geonames[0].toponymName;
+        $scope.startPoint = data.geonames[0].toponymName;
         document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
       }).
       error(function(data, status, headers, config) {
@@ -268,12 +270,69 @@ app.controller('loginCtrl', function($scope) {
     console.log("username: " + $scope.username + " password: " + $scope.password);
 
     var jsonLogin = {
-      "username" : $scope.username;
-      "password" : $scope.password;
+      "username" : $scope.username,
+      "password" : $scope.password
     };
-    var json = JSON.parse(jsonLogin);
+    var json = JSON.stringify(jsonLogin);
 
   }
+});
+
+app.controller('shareTripCtrl', function($scope, $http) {
+
+  $scope.startPoint = "";
+  $scope.destination = "";
+  $scope.isFragile = false;
+  $scope.isFlamable = false;
+  $scope.isLarge = false;
+  $scope.minPrice = "";
+  $scope.maxDeviation = "";
+
+  $scope.getCurrentLocation = function() {
+    document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+
+  function onSuccess(position) {
+
+    var latitude = "";
+    var longitude = "";
+
+
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+
+    var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
+    $http.get(url).
+      success(function(data, status, headers, config) {
+        $scope.startPoint = data.geonames[0].toponymName;
+        document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+      }).
+      error(function(data, status, headers, config) {
+        alert('Error, system was unable to fetch gps informations');
+        document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+      });    
+  }
+
+  function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+  }
+
+  $scope.shareTripSubmit = function() {
+      var jsonShareTrip = {
+      "startPoint" : $scope.startPoint,
+      "destination" : $scope.destination,
+      "isFragile" : $scope.isFragile,
+      "isFlamable" : $scope.isFlamable,
+      "isLarge" : $scope.isLarge,
+      "minPrice" : $scope.minPrice,
+      "maxDeviation" : $scope.maxDeviation
+    };
+    var json = JSON.stringify(jsonShareTrip);
+    console.log(json);
+  }
+
 });
 
 app.controller('registerCtrl', function($scope) {
@@ -307,11 +366,10 @@ app.controller('registerCtrl', function($scope) {
       "lastName" : $scope.lastName,
       "username" : $scope.username,
       "password" : $scope.password,
-      "confirmPassword" : $scope.confirmPassword,
       "email" : $scope.email,
-      "phone" : $scope.phone,
-      "idNumber" : $scope.idNumber,
-      "birthdate" : $scope.birthdate
+      "birthdate" : $scope.birthdate,
+      "citizenCard" : $scope.idNumber,
+      "phoneNumber" : $scope.phone
     };
     var json = JSON.parse(jsonRegister);
 

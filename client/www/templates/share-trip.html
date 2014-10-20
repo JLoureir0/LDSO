@@ -1,7 +1,7 @@
 <ion-view title="'share_trip'">
   <ion-content scroll='true'>
 
-    <div class="trip-container">
+    <div class="trip-container" ng-controller="shareTripCtrl">
       <h1 class="share-title"> <span class="ion-android-share"></span> Partilhar viagem</h1>
 
          <div class="location-container">
@@ -9,7 +9,7 @@
             <div class="width-40">
               <div class="width-90">
                 <label class="item item-input">
-                  <input id="start-location-field" type="text" placeholder="Ponto de Partida">
+                  <input id="start-location-field" type="text" placeholder="Ponto de Partida" ng-model="startPoint">
                 </label>
               </div>
               <div ng-click="getCurrentLocation()" class="width-10">
@@ -17,7 +17,7 @@
               </div>
             </div>
             <label class="item item-input">
-              <input type="text" placeholder="Ponto de chegada">
+              <input type="text" placeholder="Ponto de chegada" ng-model="destination">
             </label>
         </div>
 
@@ -26,7 +26,7 @@
             <h1 class="title">Tipos de objeto</h1>
           </div>
           <div class="check-container">
-            <ion-toggle ng-model="isFragil" toggle-class="toggle-calm">Frágil</ion-toggle>
+            <ion-toggle ng-model="isFragile" toggle-class="toggle-calm">Frágil</ion-toggle>
             <ion-toggle ng-model="isFlamable" toggle-class="toggle-calm">Inflamável</ion-toggle>
             <ion-toggle ng-model="isLarge" toggle-class="toggle-calm">Grandes Dimensões</ion-toggle>
           </div>
@@ -34,20 +34,19 @@
 
 
         <div class="info-container">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Preço mínimo</span>
-            <input type="text" placeholder="Preço mínimo">
+          <label class="item item-input">
+            <input type="text" placeholder="Preço mínimo" ng-model="minPrice">
           </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Desvio máximo</span>
-            <input type="text" placeholder="Desvio máximo">
+          <label class="item item-input">
+            <input type="text" placeholder="Desvio máximo" ng-model="maxDeviation">
           </label>
         </div>
 
          <div class="shareBtnContainer" ng-init="loadFooters()">
-          <button class="registerBtn button button-calm"><strong>Partilhar</strong></button>
+            <button ng-click="shareTripSubmit()" class="registerBtn button button-calm"><strong>Partilhar</strong></button>
          </div>
 
+      </div>
     </div>
 
   </ion-content>
