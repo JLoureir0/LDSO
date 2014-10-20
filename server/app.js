@@ -32,6 +32,10 @@ server.post('/user', function (req, res, next) {
 	{
 		return next(new restify.InvalidArgumentError('Second name must be supplied'))
 	}
+	if(req.params.username === undefined)
+	{
+		return next(new restify.InvalidArgumentError('Username must be supplied'))
+	}
 	if(req.params.password === undefined)
 	{
 		return next(new restify.InvalidArgumentError('Password must be supplied'))
@@ -39,6 +43,14 @@ server.post('/user', function (req, res, next) {
 	if(req.params.email === undefined)
 	{
 		return next(new restify.InvalidArgumentError('Email must be supplied'))
+	}
+	if(req.params.birthDate === undefined)
+	{
+		return next(new restify.InvalidArgumentError('Birth date must be supplied'))
+	}
+	if(req.params.citizenCard === undefined)
+	{
+		return next(new restify.InvalidArgumentError('Citizen card must be supplied'))
 	}
 	if(req.params.reputation === undefined)
 	{
@@ -48,8 +60,8 @@ server.post('/user', function (req, res, next) {
 	{
 		return next(new restify.InvalidArgumentError('Phone number must be supplied'))
 	}
-	userSave.create({ firstName: req.params.firstName, secondName: req.params.secondName,
-	   password: req.params.password, email: req.params.email, reputation: req.params.reputation,
+	userSave.create({ firstName: req.params.firstName, secondName: req.params.secondName, username: req.params.username,
+	   password: req.params.password, email: req.params.email, birthDate: req.params.birthDate, citizenCard: req.params.citizenCard, reputation: req.params.reputation,
 	   phoneNumber: req.params.phoneNumber, }, function (error, user)
 	   {
 			if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
@@ -62,6 +74,10 @@ server.put('/user/:id', function (req, res, next) {
 	{
 		return next(new restify.InvalidArgumentError('Password must be supplied'))
 	}
+	if(req.params.username === undefined)
+	{
+		return next(new restify.InvalidArgumentError('Username must be supplied'))
+	}
 	if(req.params.email === undefined)
 	{
 		return next(new restify.InvalidArgumentError('Email must be supplied'))
@@ -70,7 +86,7 @@ server.put('/user/:id', function (req, res, next) {
 	{
 		return next(new restify.InvalidArgumentError('Phone number must be supplied'))
 	}
-	userSave.update({ _id: req.params.id, email: req.params.email, phoneNumber: req.params.phoneNumber, password: req.params.password }, function (error, user)
+	userSave.update({ _id: req.params.id, username: req.params.username, email: req.params.email, phoneNumber: req.params.phoneNumber, password: req.params.password }, function (error, user)
 	{
 		if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
     res.send(200)
