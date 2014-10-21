@@ -114,8 +114,8 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
     /*Temporary trip*/
   $scope.trip = {
-     startPoint: 'Porto',
-     destPoint: 'Alfragide',
+     startPoint: 'Paranhos',
+     destPoint: 'Lisboa',
      weekDay: 'Qui.',
      monthDay: '21',
      month: 'Set',
@@ -128,18 +128,7 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
   /*Temporary trips*/
   $scope.trips = [
-      {startPoint: 'Porto',
-       destPoint: 'Alfragide',
-       weekDay: 'Qui.',
-       monthDay: '21',
-       month: 'Set',
-       startTime: {hour: '9', minute: '30'},
-       scheduleEndTime: {hour: '15', minute: '15'},
-       objectTypes: ['grandes dimensões', 'inflamável'],
-       minPrice: '4',
-       maxDesv: '10'
-      },
-      {startPoint: 'Porto',
+      {startPoint: 'Paranhos',
        destPoint: 'Lisboa',
        weekDay: 'Qua.',
        monthDay: '20',
@@ -331,11 +320,19 @@ app.controller('shareTripCtrl', function($scope, $http) {
     };
     var json = JSON.stringify(jsonShareTrip);
     console.log(json);
+
+    $http.post('http://172.30.44.0:3000/trip', json).
+      success(function(data, status, headers, config) {
+        console.log(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+      }); 
   }
 
 });
 
-app.controller('registerCtrl', function($scope) {
+app.controller('registerCtrl', function($scope, $http) {
 
   $scope.name = "";
   $scope.lastName = "";
@@ -362,17 +359,28 @@ app.controller('registerCtrl', function($scope) {
     console.log("name: " + $scope.name + " lastName: " + $scope.lastName + " username: " + $scope.username); 
   
     var jsonRegister = {
-      "name" : $scope.name,
-      "lastName" : $scope.lastName,
+      "firstName" : $scope.name,
+      "secondName" : $scope.lastName,
       "username" : $scope.username,
       "password" : $scope.password,
       "email" : $scope.email,
-      "birthdate" : $scope.birthdate,
+      "birthDate" : $scope.birthdate,
       "citizenCard" : $scope.idNumber,
+      "reputation" : "0",
       "phoneNumber" : $scope.phone
     };
-    var json = JSON.parse(jsonRegister);
+    
+    
+    var json = JSON.stringify(jsonRegister);
 
+
+    $http.post('http://172.30.44.0:3000/user', json).
+      success(function(data, status, headers, config) {
+        console.log(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log(data);
+      }); 
   }
 
 });

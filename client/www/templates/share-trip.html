@@ -32,7 +32,6 @@
           </div>
         </div>
 
-
         <div class="info-container">
           <label class="item item-input">
             <input type="text" placeholder="Preço mínimo" ng-model="minPrice">
@@ -43,7 +42,7 @@
         </div>
 
          <div class="shareBtnContainer" ng-init="loadFooters()">
-            <button ng-click="shareTripSubmit()" class="registerBtn button button-calm"><strong>Partilhar</strong></button>
+            <a ng-href="#/menu/my-trips" class="link"> <button ng-click="shareTripSubmit()" class="registerBtn button button-calm"><strong>Partilhar</strong></button> </a>
          </div>
 
       </div>
