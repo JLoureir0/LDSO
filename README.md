@@ -11,8 +11,9 @@ Visit our [wiki](https://bitbucket.org/jloureiro/ldso-grupo-3/wiki/Home) to know
 ```
 #!bash
 $ git clone <Repository URL>
-$ cd /to/projectfolder
+$ cd /to/projectfolder/client
 $ ionic platform add android
+$ ./icons.sh
 $ ionic plugin add com.ionic.keyboard
 $ ionic plugin add org.apache.cordova.console
 $ ionic plugin add org.apache.cordova.device
