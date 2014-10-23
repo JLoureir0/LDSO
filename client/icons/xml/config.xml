@@ -19,11 +19,11 @@
     </feature>
     <name>Carryit</name>
     <description>
-		An Ionic Framework and Cordova project.
-	</description>
+    An Ionic Framework and Cordova project.
+  </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
-		Ionic Framework Team
-	</author>
+    Ionic Framework Team
+  </author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="webviewbounce" value="false" />
