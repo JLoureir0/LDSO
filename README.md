@@ -37,20 +37,20 @@ You have three ways to run our project, either you run on a browser or on an emu
 To run on a browser:
 ```
 #!bash
-$ cd /to/projectfolder
+$ cd /to/projectfolder/client
 $ ionic serve
 ```
 
 To run on an emulator(**VERY SLOW**):
 ```
 #!bash
-$ cd /to/projectfolder
+$ cd /to/projectfolder/client
 $ ionic emulate android
 ```
 
 To run on a physical device:
 ```
 #!bash
-$ cd /to/projectfolder
+$ cd /to/projectfolder/client
 $ ionic run android
 ```
