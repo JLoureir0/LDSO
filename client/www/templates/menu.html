@@ -17,14 +17,14 @@
 	  
 	  	 	<a ng-href="#/menu/profile" class="link">
 	  			<div class="item item-divider">
-					<ion-item menu-close class="item-avatar" ng-click="selectItem($index)">
+					<ion-item nav-clear menu-close class="item-avatar" ng-click="selectItem($index)">
 						<img src="img/User-icon.png">
 						<h2><strong>Ricardo Neves</strong></h2>
 	  				</ion-item>
 		 		</div>
   			</a>
 	        <ion-list ng-repeat="x in items">
-	          <ion-item menu-close ng-click="selectItem($index)">
+	          <ion-item nav-clear menu-close ng-click="selectItem($index)">
 	            {{ x.item }}
 	          </ion-item>
 	        </ion-list>
@@ -33,7 +33,7 @@
 
 	    <div class="bar bar-footer bar-positive" ng-show="showRegisterFooter">
  			<div class="title">
- 				<a ng-href="#/menu/registo" class="link">Regista-te já</a>
+ 				<a nav-clear ng-href="#/menu/registo" class="link">Regista-te já</a>
  			</div>
 		</div>
 
