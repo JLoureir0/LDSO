@@ -1,7 +1,0 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-<<<<<<< HEAD
-=======
-
-node_modules/
->>>>>>> 89e311d7b16738512b149af45a9015fcfc582e83
