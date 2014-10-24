@@ -90,6 +90,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 				templateUrl: "templates/my-trip.html"
 			}
 		}
+	}).state('menu.trip', {
+		url: "/trip",
+		views: {
+			'menuContent' :{
+				templateUrl: "templates/trip.html"
+			}
+		}
 	});
 
     //Default startup screen
