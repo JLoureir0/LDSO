@@ -26,32 +26,34 @@
           </label>
         </div>
 
-        <div class="card" ng-repeat="trip in trips">
-          <div class="item item-divider trip-header">
-            <div class="trip-start-end">
-              {{trip.startPoint}} - {{trip.destPoint}}
+        <a ng-href="#">
+          <div nav-clear class="card" ng-repeat="trip in trips">
+            <div class="item item-divider trip-header">
+              <div class="trip-start-end">
+                {{trip.startPoint}} - {{trip.destPoint}}
+              </div>
+              <div class="trip-date">
+                {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+              </div>
+              <div class="trip-times">
+                Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
+                Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
+              </div>
+            </div>      
+            <div class="item item-text-wrap">
+              <table class="objects-type-table">
+                <tr>
+                  <td ng-repeat="objectType in trip.objectTypes">
+                    {{objectType}}
+                  </td>
+                </tr>
+              </table>
             </div>
-            <div class="trip-date">
-              {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+            <div class="trip-times item item-divider">
+              Preço mínimo: {{trip.minPrice}} €
             </div>
-            <div class="trip-times">
-              Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
-              Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
-            </div>
-          </div>      
-          <div class="item item-text-wrap">
-            <table class="objects-type-table">
-              <tr>
-                <td ng-repeat="objectType in trip.objectTypes">
-                  {{objectType}}
-                </td>
-              </tr>
-            </table>
           </div>
-          <div class="trip-times item item-divider">
-            Preço mínimo: {{trip.minPrice}} €
-          </div>
-        </div>
+        </a>
 
   		</div>
   	

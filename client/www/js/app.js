@@ -107,7 +107,7 @@ app.factory('makeRequest', function ($http, $q) {
 		sendTrip: function(json) {
 	            // the $http API is based on the deferred/promise APIs exposed by the $q service
 	            // so it returns a promise for us by default
-	            return $http.post('http://172.30.52.233:3000/trip', json)
+	            return $http.post('http://localhost:3000/trip', json)
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -118,13 +118,14 @@ app.factory('makeRequest', function ($http, $q) {
 	                }, function(response) {
 	                    // something went wrong
 	                    return $q.reject(response.data);
-	                });
+	                }
+	            );
 	        },
 
 	        getTrips: function() {
 	            // the $http API is based on the deferred/promise APIs exposed by the $q service
 	            // so it returns a promise for us by default
-	            return $http.get('http://172.30.52.233:3000/trip')
+	            return $http.get('http://localhost:3000/trip')
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -135,20 +136,21 @@ app.factory('makeRequest', function ($http, $q) {
 	                }, function(response) {
 	                    // something went wrong
 	                    return $q.reject(response.data);
-	                });
+	                }
+	            );
 	        }
-	    };
-	    
-	});
+	    };    
+	}
+);
 
 app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
 	$scope.items = [
-	{item: 'As tuas viagens'},
-	{item: 'Procurar viagens'},
-	{item: 'Partilhar viagem'},
-	{item: 'Mensagens'},
-	{item: 'Sair'}
+		{item: 'As tuas viagens'},
+		{item: 'Procurar viagens'},
+		{item: 'Partilhar viagem'},
+		{item: 'Mensagens'},
+		{item: 'Sair'}
 	];
 
 	/*Temporary trip*/
@@ -167,17 +169,17 @@ app.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
 
 	/*Temporary trips*/
 	$scope.trips = [
-	{startPoint: 'Paranhos',
-	destPoint: 'Lisboa',
-	weekDay: 'Qua.',
-	monthDay: '20',
-	month: 'Set',
-	startTime: {hour: '19', minute: '30'},
-	scheduleEndTime: {hour: '23', minute: '15'},
-	objectTypes: ['frágil', 'inflamável'],
-	minPrice: '5',
-	maxDesv: '20'
-}
+		{startPoint: 'Paranhos',
+		destPoint: 'Lisboa',
+		weekDay: 'Qua.',
+		monthDay: '20',
+		month: 'Set',
+		startTime: {hour: '19', minute: '30'},
+		scheduleEndTime: {hour: '23', minute: '15'},
+		objectTypes: ['frágil', 'inflamável'],
+		minPrice: '5',
+		maxDesv: '20'
+	}
 ];
 
 $scope.showRegisterFooter = false;
@@ -190,22 +192,22 @@ $scope.toggleLeft = function() {
 $scope.selectItem = function($index) {
 	switch($index) {
 		case 0:
-		$state.go('menu.my-trips');
-		break;
+			$state.go('menu.my-trips');
+			break;
 		case 1:
-		$state.go('menu.search-trip');
-		break;
+			$state.go('menu.search-trip');
+			break;
 		case 2:
-		$state.go('menu.share-trip');
-		break;
+			$state.go('menu.share-trip');
+			break;
 		case 3:
-		$state.go('menu.messages');
-		break;
+			$state.go('menu.messages');
+			break;
 		case 4:
-		showDialog();
-		break;
+			showDialog();
+			break;
 		default:
-		break;
+			break;
 	} 
 }
 
@@ -239,7 +241,7 @@ $scope.loadFooters = function() {
   	}
   }
 
-  /**************************************/
+/****************************************/
 
 });
 
@@ -414,7 +416,7 @@ app.controller('registerCtrl', function($scope, $http) {
 		var json = JSON.stringify(jsonRegister);
 
 
-		$http.post('http://172.30.44.0:3000/user', json).
+		$http.post('http://localhost:3000/user', json).
 		success(function(data, status, headers, config) {
 			console.log(data);
 		}).
