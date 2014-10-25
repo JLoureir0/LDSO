@@ -394,17 +394,104 @@ app.controller('registerCtrl', function($http, $scope) {
 	$scope.idNumber = "";
 	$scope.birthdate = "";
 
+	function checkIfDifferente(arg1, arg2) {
+		if(arg1 === arg2)
+			return false;
+		else
+			return true;
+	}
+
+	$scope.validateNamesCallback = function(type) {
+
+		var pattern = /^[A-Za-z]+$/;
+	
+		if(type === 'firstName') {
+			if($scope.name.match(pattern))
+				console.log("firstName is valid!");
+			else
+				console.log("firstName is NOT valid");
+		} 
+		else if(type === 'lastName') {
+			if($scope.lastName.match(pattern)) {
+				console.log("LasName is valid!");
+
+				if(!checkIfDifferente($scope.name, $scope.lastName))
+					console.log("Both firstName and lastName are NOT valid!");
+			}
+			else
+				console.log("LastName is NOT valid")
+		}
+	}
+
 	$scope.confirmPasswordCallback = function() {
 		if($scope.password <8 || $scope.confirmPassword <8) {
 			console.log("Password must have at least 8 characters");
 		}
 		else if($scope.password === $scope.confirmPassword) {
 			console.log("Passwords do correspond");
+			//encrypying password with sha-256
 			//var passwordEncrypted = CryptoJS.SHA256($scope.password);
 			//console.log(passwordEncrypted.toString());
 		} else {
 			console.log("Passwords do not correspond");
 		}
+	}
+
+	$scope.validateEmailCallback = function() {
+
+		var foundAt = false;
+		var foundDot = false; 
+
+		for (var i = 0, len = $scope.email.length; i < len; i++) {
+ 			if($scope.email[i] === '@')
+ 				foundAt = true;
+ 		 	else if($scope.email[i] === '.')
+ 		 		foundDot = true;
+		}
+
+		if(foundAt == true && foundDot == true) {
+	    	var atpos = $scope.email.indexOf("@");
+	    	var dotpos = $scope.email.lastIndexOf(".");
+	    	if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 >= $scope.email.length)
+	        	console.log("Email address is NOT valid");
+	        else
+	        	console.log("Email address is valid!");			
+		}
+		else
+			console.log("Email address is NOT valid")
+	}
+
+	$scope.validateNumbersCallback = function(type) {
+
+		var pattern = /^\d{9}$/;
+
+		if(type === 'phone') {
+			if($scope.phone.match(pattern))
+				console.log("Phone number is valid!");
+			else
+				console.log("Phone number is NOT valid");
+		}
+		else if(type === 'identification') {
+			if($scope.idNumber.match(pattern)) {
+
+				console.log("Identification number is valid!");
+
+				if(!checkIfDifferente($scope.phone, $scope.idNumber))
+					console.log("Both phone number and identification number are NOT valid!");
+			}
+			else
+				console.log("Identification number is NOT valid!");
+		}
+	}
+
+	$scope.validateDateCallback = function() {
+
+		var pattern = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
+
+		if($scope.birthdate.match(pattern))
+			console.log("birthdate is valid!");
+		else
+			console.log("birthdate is NOT valid!");
 	}
 
 	$scope.submitRegister = function() {
@@ -424,7 +511,7 @@ app.controller('registerCtrl', function($http, $scope) {
 
 
 		var json = JSON.stringify(jsonRegister);
-
+		
 		$http.post('http://localhost:3000/user', json).
 		success(function(data, status, headers, config) {
 			console.log(data);

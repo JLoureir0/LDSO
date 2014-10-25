@@ -7,10 +7,10 @@
           
           <div class="loginForm">
            <label class="item item-input">
-             <input type="text" placeholder="Nome Próprio" ng-model="name">
+             <input type="text" placeholder="Nome Próprio" ng-model="name" ng-keyup="validateNamesCallback('firstName')">
            </label>
            <label class="item item-input">
-             <input type="text" placeholder="Apelido" ng-model="lastName">
+             <input type="text" placeholder="Apelido" ng-model="lastName" ng-keyup="validateNamesCallback('lastName')">
            </label>
            <label class="item item-input">
              <input type="text" placeholder="Username" ng-model="username">
@@ -22,16 +22,16 @@
              <input type="password" placeholder="Confirm password" ng-model="confirmPassword" ng-keyup="confirmPasswordCallback()">
            </label>
            <label class="item item-input">
-             <input type="email" placeholder="Email" ng-model="email">
+             <input type="text" placeholder="Email" ng-model="email" ng-keyup="validateEmailCallback()">
            </label>
            <label class="item item-input">
-             <input type="tel" placeholder="Telémovel" ng-model="phone">
+             <input type="tel" placeholder="Telémovel" ng-model="phone" ng-keyup="validateNumbersCallback('phone')">
            </label>
            <label class="item item-input">
-             <input type="number" placeholder="Numero BI / CC" ng-model="idNumber">
+             <input type="tel" placeholder="Numero BI / CC" ng-model="idNumber" ng-keyup="validateNumbersCallback('identification')">
            </label>
            <label class="item item-input">
-             <input type="date" placeholder="Data de Nasciomento (MM/DD/AAAA)" ng-model="birthdate">
+             <input type="date" placeholder="Data de Nasciomento (MM/DD/AAAA)" ng-model="birthdate" ng-keyup="validateDateCallback()">
            </label>
           </div>
 
