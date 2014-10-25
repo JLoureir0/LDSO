@@ -309,3 +309,29 @@
 .title-slide {
     color: white;
 }
+
+
+/**********Validation icons**********/
+
+.form-icon {
+  font-size: 25px;
+  margin-right: 1%;
+}
+
+.form-list {
+  margin-bottom: 1%;
+}
+
+.green-icon {
+  color : green;
+}
+
+.red-icon {
+  color: red;
+}
+
+.neutral-icon {
+}
+
+
+

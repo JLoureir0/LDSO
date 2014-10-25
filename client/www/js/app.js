@@ -389,8 +389,10 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 
 	});
 
-app.controller('registerCtrl', function($http, $scope) {
+app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 
+
+	//Fields variables
 	$scope.name = "";
 	$scope.lastName = "";
 	$scope.username = "";
@@ -401,78 +403,148 @@ app.controller('registerCtrl', function($http, $scope) {
 	$scope.idNumber = "";
 	$scope.birthdate = "";
 
+
+	//Accept Variables
+	$scope.valName = "neutral-icon";
+	$scope.valLastname = "neutral-icon";
+	$scope.valUsername = "neutral-icon";
+	$scope.valPassword = "neutral-icon";
+	$scope.valConfirmPassword = "neutral-icon";
+	$scope.valEmail = "neutral-icon";
+	$scope.valPhone = "neutral-icon";
+	$scope.valIdNumber = "neutral-icon";
+	$scope.valBirthDate = "neutral-icon";
+
+
+	var messages = ["As passwords não correspondem", "A password tem que ter no mínimo 8 caracteres",
+					"Nome próprio só pode conter letras", "Apelido só pode conter letras", 
+					"Nome de utilizador já em utilização", "Email com formato errado", 
+					"O número de tel/tlm tem que ter 9 digitos", "O número de BI ou CC tem que ter 8 digitos", 
+					"O formato da data é mm/dd/aaaa", "Por favor preencha todos os campos"];
+
+	var messagesToDisplay = [0, 0, 0, 0, 0, 0, 0, 0];
+
+
+	//This array respects the order of the template
+	var emptyField = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+
 	function checkIfDifferente(arg1, arg2) {
 		if(arg1 === arg2)
 			return false;
 		return true;
 	}
 
+	// An alert dialog
+	function showAlert(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Informação errada',
+	     template: message
+	   });
+	 }
+
 	$scope.validateNamesCallback = function(type) {
 
 		var pattern = /^[A-Za-z]+$/;
 	
 		if(type === 'firstName') {
-			if($scope.name.match(pattern))
-				console.log("firstName is valid!");
-			else
-				console.log("firstName is NOT valid");
+			if($scope.name.length === 0) {
+				$scope.valName = "neutral-icon";
+				messagesToDisplay[2] = 0;
+				emptyField[0] = 1;
+			}
+			else {
+				if($scope.name.match(pattern)) {
+					$scope.valName = "green-icon";
+					messagesToDisplay[2] = 0;
+					emptyField[0] = 0;
+				}
+				else {
+					$scope.valName = "red-icon";
+					messagesToDisplay[2] = 1;
+					emptyField[0] = 0;
+				}
+			}
 		} 
 		else if(type === 'lastName') {
-			if($scope.lastName.match(pattern)) {
-				console.log("LasName is valid!");
-
-				if(!checkIfDifferente($scope.name, $scope.lastName))
-					console.log("Both firstName and lastName are NOT valid!");
+			if($scope.lastName.length === 0) {
+				$scope.valLastname = "neutral-icon";
+				messagesToDisplay[3] = 0;
+				emptyField[1] = 1;
 			}
-			else
-				console.log("LastName is NOT valid")
+			else {
+				if($scope.lastName.match(pattern)) {
+					$scope.valLastname = "green-icon";
+					messagesToDisplay[3] = 0;
+					emptyField[1] = 0;
+				}
+				else {
+					$scope.valLastname = "red-icon";
+					messagesToDisplay[3] = 1;
+					emptyField[1] = 0;
+				}
+			}
 		}
 	}
 
+	$scope.usernameCallback = function() {
+		if($scope.username.length === 0)
+			emptyField[2] = 1;
+		else emptyField[2] = 0;
+	}
+
+	$scope.passwordCallback = function() {
+		if($scope.password.length === 0)
+			emptyField[3] = 1;
+		else emptyField[3] = 0;
+	}
+
+
 	$scope.confirmPasswordCallback = function() {
-		if($scope.password.length <8 || $scope.confirmPassword.length <8) {
-			console.log("Password must have at least 8 characters");
+		if($scope.confirmPassword.length === 0) { 
+			$scope.valConfirmPassword = "neutral-icon";
+			messagesToDisplay[0] = 0;
+			messagesToDisplay[1] = 0;
+			emptyField[4] = 1;
+		} else if($scope.password.length <8 || $scope.confirmPassword.length <8) {
+			$scope.valConfirmPassword = "red-icon";
+			messagesToDisplay[1] = 1;
+			emptyField[4] = 0;
 		}
 		else if($scope.password === $scope.confirmPassword) {
-			console.log("Passwords do correspond");
+			$scope.valConfirmPassword = "green-icon";
+			messagesToDisplay[0] = 0;
+			messagesToDisplay[1] = 0;
+			emptyField[4] = 0;
 			//encrypying password with sha-256
 			//var passwordEncrypted = CryptoJS.SHA256($scope.password);
 			//console.log(passwordEncrypted.toString());
 		} else {
-			console.log("Passwords do not correspond");
+			$scope.valConfirmPassword = "red-icon";
+			messagesToDisplay[0] = 1;
+			messagesToDisplay[9] = 0;
+			emptyField[4] = 0;
 		}
 	}
 
 	$scope.validateEmailCallback = function() {
 
-		/*
-		var foundAt = false;
-		var foundDot = false; 
-
-		for (var i = 0, len = $scope.email.length; i < len; i++) {
- 			if($scope.email[i] === '@')
- 				foundAt = true;
- 		 	else if($scope.email[i] === '.')
- 		 		foundDot = true;
-		}
-
-		if(foundAt == true && foundDot == true) {
-	    	var atpos = $scope.email.indexOf("@");
-	    	var dotpos = $scope.email.lastIndexOf(".");
-	    	if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 >= $scope.email.length)
-	        	console.log("Email address is NOT valid");
-	        else
-	        	console.log("Email address is valid!");			
-		}
-		else
-			console.log("Email address is NOT valid")
-		*/
-
 		var pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-		if($scope.email.match(pattern))
-			console.log("Email address is valid!");
-		else console.log("Email address is not valid!");
+		if($scope.email.length === 0) {
+			$scope.valEmail = "neutral-icon";
+			messagesToDisplay[5] = 0;
+			emptyField[5] = 1;
+		}
+		else if($scope.email.match(pattern)) {
+			$scope.valEmail = "green-icon";
+			messagesToDisplay[5] = 0;
+			emptyField[5] = 0;
+		}
+		else {
+			$scope.valEmail = "red-icon";
+			messagesToDisplay[5] = 1;
+			emptyField[5] = 0;
+		}
 	}
 
 	$scope.validateNumbersCallback = function(type) {
@@ -481,21 +553,38 @@ app.controller('registerCtrl', function($http, $scope) {
 		var patternId = /^\d{8}$/;
 
 		if(type === 'phone') {
-			if($scope.phone.match(patternPhone))
-				console.log("Phone number is valid!");
-			else
-				console.log("Phone number is NOT valid");
+			if($scope.phone.length === 0) {
+				$scope.valPhone = "neutral-icon";
+				messagesToDisplay[6] = 0;
+				emptyField[6] = 1;
+			}
+			else if($scope.phone.match(patternPhone)) {
+				$scope.valPhone = "green-icon";
+				messagesToDisplay[6] = 0;
+				emptyField[6] = 0;
+			}
+			else {
+				$scope.valPhone = "red-icon";
+				messagesToDisplay[6] = 1;
+				emptyField[6] = 0;
+			}
 		}
 		else if(type === 'identification') {
-			if($scope.idNumber.match(patternId)) {
-
-				console.log("Identification number is valid!");
-
-				if(!checkIfDifferente($scope.phone, $scope.idNumber))
-					console.log("Both phone number and identification number are NOT valid!");
+			if($scope.idNumber.length === 0) {
+				$scope.valIdNumber = "neutral-icon";
+				messagesToDisplay[7] = 0;
+				emptyField[7] = 1;
 			}
-			else
-				console.log("Identification number is NOT valid!");
+			else if($scope.idNumber.match(patternId)) {
+				$scope.valIdNumber = "green-icon";
+				messagesToDisplay[7] = 0;
+				emptyField[7] = 0;
+			}
+			else { 
+				$scope.valIdNumber = "red-icon";
+				messagesToDisplay[7] = 1;
+				emptyField[7] = 0;
+			}
 		}
 	}
 
@@ -503,10 +592,21 @@ app.controller('registerCtrl', function($http, $scope) {
 
 		var pattern = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
 
-		if($scope.birthdate.match(pattern))
-			console.log("birthdate is valid!");
-		else
-			console.log("birthdate is NOT valid!");
+		if($scope.birthdate.length === 0){
+			$scope.valBirthDate = "neutral-icon";
+			messagesToDisplay[8] = 0;
+			emptyField[8] = 1;
+		}
+		else if($scope.birthdate.match(pattern)) {
+			$scope.valBirthDate = "green-icon";
+			messagesToDisplay[8] = 0;
+			emptyField[8] = 0;
+		}
+		else {
+			$scope.valBirthDate = "red-icon";
+			messagesToDisplay[8] = 1;
+			emptyField[8] = 0;
+		}
 	}
 
 	$scope.submitRegister = function() {
@@ -524,16 +624,40 @@ app.controller('registerCtrl', function($http, $scope) {
 			"phoneNumber" : $scope.phone
 		};
 
+		var isEmpty = false;
+		var isValid = true;
 
-		var json = JSON.stringify(jsonRegister);
+		for (var i = 0; i < emptyField.length; i++) {
+			if(emptyField[i] === 1) {
+				showAlert(messages[9]);
+				isEmpty = true;
+				break;
+			}
+		};
+
+		if(!isEmpty) {
+			for (var i = 0; i < messagesToDisplay.length; i++) {
+				if(messagesToDisplay[i] === 1) {
+					showAlert(messages[i]);
+					isValid = false;
+					break;
+				}
+			};
+		}
 		
-		$http.post('http://localhost:3000/user', json).
-		success(function(data, status, headers, config) {
-			console.log(data);
-		}).
-		error(function(data, status, headers, config) {
-			console.log(data);
-		}); 
+
+		if(isValid && !isEmpty) {
+			var json = JSON.stringify(jsonRegister);
+		
+			$http.post('http://localhost:3000/user', json).
+			success(function(data, status, headers, config) {
+				console.log(data);
+			}).
+			error(function(data, status, headers, config) {
+				console.log(data);
+			}); 
+		}
+		
 	}
 
 });
