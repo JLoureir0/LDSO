@@ -304,6 +304,13 @@ app.controller('loginCtrl', function($scope) {
 	$scope.username = "";
 	$scope.password = "";
 
+	$scope.confirmPasswordCallback = function() {
+		if($scope.password.length <8)
+			console.log("Password must have at least 8 characters");
+		else
+			console.log("Valid password");
+	}
+
 	$scope.submitLogin = function() {
 		console.log("username: " + $scope.username + " password: " + $scope.password);
 
@@ -312,8 +319,8 @@ app.controller('loginCtrl', function($scope) {
 			"password" : $scope.password
 		};
 		var json = JSON.stringify(jsonLogin);
-
 	}
+
 });
 
 app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
@@ -424,7 +431,7 @@ app.controller('registerCtrl', function($http, $scope) {
 	}
 
 	$scope.confirmPasswordCallback = function() {
-		if($scope.password <8 || $scope.confirmPassword <8) {
+		if($scope.password.length <8 || $scope.confirmPassword.length <8) {
 			console.log("Password must have at least 8 characters");
 		}
 		else if($scope.password === $scope.confirmPassword) {
