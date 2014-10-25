@@ -1,0 +1,486 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'update', '-g', 'ionic' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'ionic', '*' ]
+5 verbose cache add name="ionic" spec="*" args=["ionic","*"]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: '*',
+6 verbose parsed url   path: '*',
+6 verbose parsed url   href: '*' }
+7 verbose addNamed [ 'ionic', '*' ]
+8 verbose addNamed [ null, '*' ]
+9 silly lockFile bf13f592-ionic ionic@*
+10 verbose lock ionic@* /home/ricardo/.npm/bf13f592-ionic.lock
+11 silly addNameRange { name: 'ionic', range: '*', hasData: false }
+12 verbose url raw ionic
+13 verbose url resolving [ 'https://registry.npmjs.org/', './ionic' ]
+14 verbose url resolved https://registry.npmjs.org/ionic
+15 info trying registry request attempt 1 at 19:37:13
+16 verbose etag "8120QZAD4SKXI6QLPO8E0TAQM"
+17 http GET https://registry.npmjs.org/ionic
+18 http 200 https://registry.npmjs.org/ionic
+19 silly registry.get cb [ 200,
+19 silly registry.get   { date: 'Sat, 25 Oct 2014 18:37:14 GMT',
+19 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+19 silly registry.get     etag: '"2YG2Z7A7FDZH3ST0WQ6310FFD"',
+19 silly registry.get     'content-type': 'application/json',
+19 silly registry.get     'cache-control': 'max-age=60',
+19 silly registry.get     'content-length': '148232',
+19 silly registry.get     'accept-ranges': 'bytes',
+19 silly registry.get     via: '1.1 varnish',
+19 silly registry.get     age: '1',
+19 silly registry.get     'x-served-by': 'cache-lcy1127-LCY',
+19 silly registry.get     'x-cache': 'MISS',
+19 silly registry.get     'x-cache-hits': '0',
+19 silly registry.get     'x-timer': 'S1414262233.699613,VS0,VE1258',
+19 silly registry.get     vary: 'Accept',
+19 silly registry.get     'keep-alive': 'timeout=10, max=50',
+19 silly registry.get     connection: 'Keep-Alive' } ]
+20 silly addNameRange number 2 { name: 'ionic', range: '*', hasData: true }
+21 silly addNameRange versions [ 'ionic',
+21 silly addNameRange   [ '0.9.6',
+21 silly addNameRange     '0.9.8',
+21 silly addNameRange     '0.9.9',
+21 silly addNameRange     '0.9.10',
+21 silly addNameRange     '0.9.11',
+21 silly addNameRange     '0.9.12',
+21 silly addNameRange     '0.9.13',
+21 silly addNameRange     '0.9.14',
+21 silly addNameRange     '0.9.15',
+21 silly addNameRange     '0.9.16',
+21 silly addNameRange     '1.0.0-beta.1',
+21 silly addNameRange     '1.0.0-beta',
+21 silly addNameRange     '1.0.1-beta',
+21 silly addNameRange     '1.0.3-beta',
+21 silly addNameRange     '1.0.4',
+21 silly addNameRange     '1.0.5',
+21 silly addNameRange     '1.0.6',
+21 silly addNameRange     '1.0.7',
+21 silly addNameRange     '1.0.8',
+21 silly addNameRange     '1.0.9',
+21 silly addNameRange     '1.0.10',
+21 silly addNameRange     '1.0.11',
+21 silly addNameRange     '1.0.12',
+21 silly addNameRange     '1.0.13',
+21 silly addNameRange     '1.0.14',
+21 silly addNameRange     '1.0.15',
+21 silly addNameRange     '1.0.16',
+21 silly addNameRange     '1.0.17',
+21 silly addNameRange     '1.1.0-beta1',
+21 silly addNameRange     '1.1.0-beta2',
+21 silly addNameRange     '1.1.0-beta3',
+21 silly addNameRange     '1.1.0-beta4',
+21 silly addNameRange     '1.1.0-beta5',
+21 silly addNameRange     '1.1.0-beta6',
+21 silly addNameRange     '1.1.0',
+21 silly addNameRange     '1.1.1-beta1',
+21 silly addNameRange     '1.1.1-beta2',
+21 silly addNameRange     '1.1.1-beta3',
+21 silly addNameRange     '1.1.1',
+21 silly addNameRange     '1.1.3',
+21 silly addNameRange     '1.1.4',
+21 silly addNameRange     '1.1.5-beta1',
+21 silly addNameRange     '1.1.5-beta2',
+21 silly addNameRange     '1.1.5-beta3',
+21 silly addNameRange     '1.1.5-beta4',
+21 silly addNameRange     '1.1.5-beta5',
+21 silly addNameRange     '1.1.5',
+21 silly addNameRange     '1.1.6',
+21 silly addNameRange     '1.1.7-beta1',
+21 silly addNameRange     '1.1.7',
+21 silly addNameRange     '1.1.8-beta1',
+21 silly addNameRange     '1.1.8-beta2',
+21 silly addNameRange     '1.1.8-beta3',
+21 silly addNameRange     '1.1.8-beta4',
+21 silly addNameRange     '1.1.8-beta5',
+21 silly addNameRange     '1.1.8',
+21 silly addNameRange     '1.1.9-beta1',
+21 silly addNameRange     '1.1.9',
+21 silly addNameRange     '1.1.10',
+21 silly addNameRange     '1.1.11-beta1',
+21 silly addNameRange     '1.1.11-beta2',
+21 silly addNameRange     '1.1.11',
+21 silly addNameRange     '1.1.12-beta1',
+21 silly addNameRange     '1.1.12-beta2',
+21 silly addNameRange     '1.1.12-beta3',
+21 silly addNameRange     '1.1.12',
+21 silly addNameRange     '1.1.13',
+21 silly addNameRange     '1.1.14-beta1',
+21 silly addNameRange     '1.1.14-beta2',
+21 silly addNameRange     '1.1.14-beta3',
+21 silly addNameRange     '1.2.0-beta1',
+21 silly addNameRange     '1.2.0',
+21 silly addNameRange     '1.2.1-beta1',
+21 silly addNameRange     '1.2.1-beta2',
+21 silly addNameRange     '1.2.1-beta3',
+21 silly addNameRange     '1.2.1-beta4',
+21 silly addNameRange     '1.2.1',
+21 silly addNameRange     '1.2.2',
+21 silly addNameRange     '1.2.3-beta1',
+21 silly addNameRange     '1.2.3-beta2',
+21 silly addNameRange     '1.2.3-beta3',
+21 silly addNameRange     '1.2.3',
+21 silly addNameRange     '1.2.4-beta1',
+21 silly addNameRange     '1.2.4-beta2',
+21 silly addNameRange     '1.2.4-beta3',
+21 silly addNameRange     '1.2.4',
+21 silly addNameRange     '1.2.5-beta1',
+21 silly addNameRange     '1.2.5-beta2',
+21 silly addNameRange     '1.2.5-beta3',
+21 silly addNameRange     '1.2.5',
+21 silly addNameRange     '1.2.6-beta1',
+21 silly addNameRange     '1.2.6-beta2',
+21 silly addNameRange     '1.2.6-beta3',
+21 silly addNameRange     '1.2.6',
+21 silly addNameRange     '1.2.7',
+21 silly addNameRange     '1.2.8-beta1',
+21 silly addNameRange     '1.2.8-beta2',
+21 silly addNameRange     '1.2.8' ] ]
+22 verbose addNamed [ 'ionic', '1.2.8' ]
+23 verbose addNamed [ '1.2.8', '1.2.8' ]
+24 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+25 verbose lock ionic@1.2.8 /home/ricardo/.npm/74ce95ae-ionic-1-2-8.lock
+26 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+27 verbose lock https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz /home/ricardo/.npm/65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz.lock
+28 verbose addRemoteTarball [ 'https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz',
+28 verbose addRemoteTarball   'b7087e0ba85f358934fa6546a351e966afa771a3' ]
+29 info retry fetch attempt 1 at 19:37:15
+30 verbose fetch to= /home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz
+31 http GET https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+32 http 200 https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+33 verbose tar unpack /home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz
+34 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+35 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package /home/ricardo/.npm/62651881-35215-0-8634299612604082-package.lock
+36 silly lockFile 88efcb53-35215-0-8634299612604082-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz
+37 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz /home/ricardo/.npm/88efcb53-35215-0-8634299612604082-tmp-tgz.lock
+38 silly gunzTarPerm modes [ '755', '644' ]
+39 silly gunzTarPerm extractEntry package.json
+40 silly gunzTarPerm extractEntry .npmignore
+41 silly gunzTarPerm extractEntry README.md
+42 silly gunzTarPerm extractEntry LICENSE
+43 silly gunzTarPerm extractEntry .gitattributes
+44 silly gunzTarPerm extractEntry CHANGELOG.md
+45 silly gunzTarPerm extractEntry bin/ionic
+46 silly gunzTarPerm extractEntry lib/ionic.js
+47 silly gunzTarPerm extractEntry lib/hooks/after_prepare/010_add_platform_class.js
+48 silly gunzTarPerm extractEntry lib/ionic/app.js
+49 silly gunzTarPerm extractEntry lib/ionic/lib.js
+50 silly gunzTarPerm extractEntry lib/ionic/login.js
+51 silly gunzTarPerm extractEntry lib/ionic/package.js
+52 silly gunzTarPerm extractEntry lib/ionic/cordova.js
+53 silly gunzTarPerm extractEntry lib/ionic/serve.js
+54 silly gunzTarPerm extractEntry lib/ionic/setup.js
+55 silly gunzTarPerm extractEntry lib/ionic/start.js
+56 silly gunzTarPerm extractEntry lib/ionic/stats.js
+57 silly gunzTarPerm extractEntry lib/ionic/store.js
+58 silly gunzTarPerm extractEntry lib/ionic/config.js
+59 silly gunzTarPerm extractEntry lib/ionic/task.js
+60 silly gunzTarPerm extractEntry lib/ionic/bower.js
+61 silly gunzTarPerm extractEntry lib/ionic/upload.js
+62 silly gunzTarPerm extractEntry lib/ionic/project.js
+63 silly gunzTarPerm extractEntry npm-shrinkwrap.json
+64 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+65 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+66 silly lockFile 88efcb53-35215-0-8634299612604082-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz
+67 silly lockFile 88efcb53-35215-0-8634299612604082-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/tmp.tgz
+68 verbose tar pack [ '/home/ricardo/.npm/ionic/1.2.8/package.tgz',
+68 verbose tar pack   '/home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package' ]
+69 verbose tarball /home/ricardo/.npm/ionic/1.2.8/package.tgz
+70 verbose folder /home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+71 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+72 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package /home/ricardo/.npm/62651881-35215-0-8634299612604082-package.lock
+73 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+74 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz /home/ricardo/.npm/5abfca78-ardo-npm-ionic-1-2-8-package-tgz.lock
+75 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+76 silly lockFile 62651881-35215-0-8634299612604082-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262235215-0.8634299612604082/package
+77 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+78 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+79 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+80 verbose lock /home/ricardo/.npm/ionic/1.2.8/package /home/ricardo/.npm/2d78b568--ricardo-npm-ionic-1-2-8-package.lock
+81 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+82 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+83 verbose tar unpack /home/ricardo/.npm/ionic/1.2.8/package.tgz
+84 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+85 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package /home/ricardo/.npm/d724b0f7--ricardo-npm-ionic-1-2-8-package.lock
+86 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+87 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz /home/ricardo/.npm/5abfca78-ardo-npm-ionic-1-2-8-package-tgz.lock
+88 silly gunzTarPerm modes [ '755', '644' ]
+89 silly gunzTarPerm extractEntry package.json
+90 silly gunzTarPerm extractEntry .npmignore
+91 silly gunzTarPerm extractEntry README.md
+92 silly gunzTarPerm extractEntry LICENSE
+93 silly gunzTarPerm extractEntry .gitattributes
+94 silly gunzTarPerm extractEntry CHANGELOG.md
+95 silly gunzTarPerm extractEntry bin/ionic
+96 silly gunzTarPerm extractEntry lib/ionic.js
+97 silly gunzTarPerm extractEntry lib/hooks/after_prepare/010_add_platform_class.js
+98 silly gunzTarPerm extractEntry lib/ionic/app.js
+99 silly gunzTarPerm extractEntry lib/ionic/lib.js
+100 silly gunzTarPerm extractEntry lib/ionic/login.js
+101 silly gunzTarPerm extractEntry lib/ionic/package.js
+102 silly gunzTarPerm extractEntry lib/ionic/cordova.js
+103 silly gunzTarPerm extractEntry lib/ionic/serve.js
+104 silly gunzTarPerm extractEntry lib/ionic/setup.js
+105 silly gunzTarPerm extractEntry lib/ionic/start.js
+106 silly gunzTarPerm extractEntry lib/ionic/stats.js
+107 silly gunzTarPerm extractEntry lib/ionic/store.js
+108 silly gunzTarPerm extractEntry lib/ionic/config.js
+109 silly gunzTarPerm extractEntry lib/ionic/task.js
+110 silly gunzTarPerm extractEntry lib/ionic/bower.js
+111 silly gunzTarPerm extractEntry lib/ionic/upload.js
+112 silly gunzTarPerm extractEntry lib/ionic/project.js
+113 silly gunzTarPerm extractEntry npm-shrinkwrap.json
+114 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+115 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+116 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+117 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+118 verbose chmod /home/ricardo/.npm/ionic/1.2.8/package.tgz 644
+119 verbose chown /home/ricardo/.npm/ionic/1.2.8/package.tgz [ 1000, 1000 ]
+120 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+121 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+122 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+123 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+124 silly lockFile bf13f592-ionic ionic@*
+125 silly lockFile bf13f592-ionic ionic@*
+126 info outdated updating [ [ '/usr/local/lib', 'ionic', '1.2.6', '1.2.8', '*' ] ]
+127 verbose install where,what [ '/usr/local/lib', [ 'ionic@1.2.8' ] ]
+128 verbose cache add [ 'ionic@1.2.8', null ]
+129 verbose cache add name=undefined spec="ionic@1.2.8" args=["ionic@1.2.8",null]
+130 verbose parsed url { protocol: null,
+130 verbose parsed url   slashes: null,
+130 verbose parsed url   auth: null,
+130 verbose parsed url   host: null,
+130 verbose parsed url   port: null,
+130 verbose parsed url   hostname: null,
+130 verbose parsed url   hash: null,
+130 verbose parsed url   search: null,
+130 verbose parsed url   query: null,
+130 verbose parsed url   pathname: 'ionic@1.2.8',
+130 verbose parsed url   path: 'ionic@1.2.8',
+130 verbose parsed url   href: 'ionic@1.2.8' }
+131 verbose cache add name="ionic" spec="1.2.8" args=["ionic","1.2.8"]
+132 verbose parsed url { protocol: null,
+132 verbose parsed url   slashes: null,
+132 verbose parsed url   auth: null,
+132 verbose parsed url   host: null,
+132 verbose parsed url   port: null,
+132 verbose parsed url   hostname: null,
+132 verbose parsed url   hash: null,
+132 verbose parsed url   search: null,
+132 verbose parsed url   query: null,
+132 verbose parsed url   pathname: '1.2.8',
+132 verbose parsed url   path: '1.2.8',
+132 verbose parsed url   href: '1.2.8' }
+133 verbose addNamed [ 'ionic', '1.2.8' ]
+134 verbose addNamed [ '1.2.8', '1.2.8' ]
+135 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+136 verbose lock ionic@1.2.8 /home/ricardo/.npm/74ce95ae-ionic-1-2-8.lock
+137 verbose url raw ionic/1.2.8
+138 verbose url resolving [ 'https://registry.npmjs.org/', './ionic/1.2.8' ]
+139 verbose url resolved https://registry.npmjs.org/ionic/1.2.8
+140 info trying registry request attempt 1 at 19:37:15
+141 http GET https://registry.npmjs.org/ionic/1.2.8
+142 http 200 https://registry.npmjs.org/ionic/1.2.8
+143 silly registry.get cb [ 200,
+143 silly registry.get   { date: 'Sat, 25 Oct 2014 18:37:15 GMT',
+143 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+143 silly registry.get     etag: '"2YG2Z7A7FDZH3ST0WQ6310FFD"',
+143 silly registry.get     'content-type': 'application/json',
+143 silly registry.get     'cache-control': 'max-age=60',
+143 silly registry.get     'content-length': '1461',
+143 silly registry.get     'accept-ranges': 'bytes',
+143 silly registry.get     via: '1.1 varnish',
+143 silly registry.get     age: '0',
+143 silly registry.get     'x-served-by': 'cache-lhr6334-LHR',
+143 silly registry.get     'x-cache': 'MISS',
+143 silly registry.get     'x-cache-hits': '0',
+143 silly registry.get     'x-timer': 'S1414262235.861852,VS0,VE107',
+143 silly registry.get     vary: 'Accept',
+143 silly registry.get     'keep-alive': 'timeout=10, max=50',
+143 silly registry.get     connection: 'Keep-Alive' } ]
+144 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+145 verbose lock https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz /home/ricardo/.npm/65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz.lock
+146 verbose addRemoteTarball [ 'https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz',
+146 verbose addRemoteTarball   'b7087e0ba85f358934fa6546a351e966afa771a3' ]
+147 info retry fetch attempt 1 at 19:37:16
+148 verbose fetch to= /home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz
+149 http GET https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+150 http 200 https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+151 verbose tar unpack /home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz
+152 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+153 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package /home/ricardo/.npm/ebf9c939-6017-0-08612956828437746-package.lock
+154 silly lockFile 1d09778e-6017-0-08612956828437746-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz
+155 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz /home/ricardo/.npm/1d09778e-6017-0-08612956828437746-tmp-tgz.lock
+156 silly gunzTarPerm modes [ '755', '644' ]
+157 silly gunzTarPerm extractEntry package.json
+158 silly gunzTarPerm extractEntry .npmignore
+159 silly gunzTarPerm extractEntry README.md
+160 silly gunzTarPerm extractEntry LICENSE
+161 silly gunzTarPerm extractEntry .gitattributes
+162 silly gunzTarPerm extractEntry CHANGELOG.md
+163 silly gunzTarPerm extractEntry bin/ionic
+164 silly gunzTarPerm extractEntry lib/ionic.js
+165 silly gunzTarPerm extractEntry lib/hooks/after_prepare/010_add_platform_class.js
+166 silly gunzTarPerm extractEntry lib/ionic/app.js
+167 silly gunzTarPerm extractEntry lib/ionic/lib.js
+168 silly gunzTarPerm extractEntry lib/ionic/login.js
+169 silly gunzTarPerm extractEntry lib/ionic/package.js
+170 silly gunzTarPerm extractEntry lib/ionic/cordova.js
+171 silly gunzTarPerm extractEntry lib/ionic/serve.js
+172 silly gunzTarPerm extractEntry lib/ionic/setup.js
+173 silly gunzTarPerm extractEntry lib/ionic/start.js
+174 silly gunzTarPerm extractEntry lib/ionic/stats.js
+175 silly gunzTarPerm extractEntry lib/ionic/store.js
+176 silly gunzTarPerm extractEntry lib/ionic/config.js
+177 silly gunzTarPerm extractEntry lib/ionic/task.js
+178 silly gunzTarPerm extractEntry lib/ionic/bower.js
+179 silly gunzTarPerm extractEntry lib/ionic/upload.js
+180 silly gunzTarPerm extractEntry lib/ionic/project.js
+181 silly gunzTarPerm extractEntry npm-shrinkwrap.json
+182 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+183 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+184 silly lockFile 1d09778e-6017-0-08612956828437746-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz
+185 silly lockFile 1d09778e-6017-0-08612956828437746-tmp-tgz tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/tmp.tgz
+186 verbose tar pack [ '/home/ricardo/.npm/ionic/1.2.8/package.tgz',
+186 verbose tar pack   '/home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package' ]
+187 verbose tarball /home/ricardo/.npm/ionic/1.2.8/package.tgz
+188 verbose folder /home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+189 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+190 verbose lock tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package /home/ricardo/.npm/ebf9c939-6017-0-08612956828437746-package.lock
+191 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+192 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz /home/ricardo/.npm/5abfca78-ardo-npm-ionic-1-2-8-package-tgz.lock
+193 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+194 silly lockFile ebf9c939-6017-0-08612956828437746-package tar:///home/ricardo/tmp/npm-4387-kr7FlGup/1414262236017-0.08612956828437746/package
+195 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+196 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+197 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+198 verbose lock /home/ricardo/.npm/ionic/1.2.8/package /home/ricardo/.npm/2d78b568--ricardo-npm-ionic-1-2-8-package.lock
+199 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+200 silly lockFile 2d78b568--ricardo-npm-ionic-1-2-8-package /home/ricardo/.npm/ionic/1.2.8/package
+201 verbose tar unpack /home/ricardo/.npm/ionic/1.2.8/package.tgz
+202 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+203 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package /home/ricardo/.npm/d724b0f7--ricardo-npm-ionic-1-2-8-package.lock
+204 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+205 verbose lock tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz /home/ricardo/.npm/5abfca78-ardo-npm-ionic-1-2-8-package-tgz.lock
+206 silly gunzTarPerm modes [ '755', '644' ]
+207 silly gunzTarPerm extractEntry package.json
+208 silly gunzTarPerm extractEntry .npmignore
+209 silly gunzTarPerm extractEntry README.md
+210 silly gunzTarPerm extractEntry LICENSE
+211 silly gunzTarPerm extractEntry .gitattributes
+212 silly gunzTarPerm extractEntry CHANGELOG.md
+213 silly gunzTarPerm extractEntry bin/ionic
+214 silly gunzTarPerm extractEntry lib/ionic.js
+215 silly gunzTarPerm extractEntry lib/hooks/after_prepare/010_add_platform_class.js
+216 silly gunzTarPerm extractEntry lib/ionic/app.js
+217 silly gunzTarPerm extractEntry lib/ionic/lib.js
+218 silly gunzTarPerm extractEntry lib/ionic/login.js
+219 silly gunzTarPerm extractEntry lib/ionic/package.js
+220 silly gunzTarPerm extractEntry lib/ionic/cordova.js
+221 silly gunzTarPerm extractEntry lib/ionic/serve.js
+222 silly gunzTarPerm extractEntry lib/ionic/setup.js
+223 silly gunzTarPerm extractEntry lib/ionic/start.js
+224 silly gunzTarPerm extractEntry lib/ionic/stats.js
+225 silly gunzTarPerm extractEntry lib/ionic/store.js
+226 silly gunzTarPerm extractEntry lib/ionic/config.js
+227 silly gunzTarPerm extractEntry lib/ionic/task.js
+228 silly gunzTarPerm extractEntry lib/ionic/bower.js
+229 silly gunzTarPerm extractEntry lib/ionic/upload.js
+230 silly gunzTarPerm extractEntry lib/ionic/project.js
+231 silly gunzTarPerm extractEntry npm-shrinkwrap.json
+232 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+233 silly lockFile d724b0f7--ricardo-npm-ionic-1-2-8-package tar:///home/ricardo/.npm/ionic/1.2.8/package
+234 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+235 silly lockFile 5abfca78-ardo-npm-ionic-1-2-8-package-tgz tar:///home/ricardo/.npm/ionic/1.2.8/package.tgz
+236 verbose chmod /home/ricardo/.npm/ionic/1.2.8/package.tgz 644
+237 verbose chown /home/ricardo/.npm/ionic/1.2.8/package.tgz [ 1000, 1000 ]
+238 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+239 silly lockFile 65c480ba--npmjs-org-ionic-ionic-1-2-8-tgz https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz
+240 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+241 silly lockFile 74ce95ae-ionic-1-2-8 ionic@1.2.8
+242 silly resolved [ { name: 'ionic',
+242 silly resolved     version: '1.2.8',
+242 silly resolved     preferGlobal: true,
+242 silly resolved     description: 'A tool for creating and developing Ionic Framework mobile apps.',
+242 silly resolved     homepage: 'http://ionicframework.com/',
+242 silly resolved     bin: { ionic: 'bin/ionic' },
+242 silly resolved     keywords:
+242 silly resolved      [ 'ionic',
+242 silly resolved        'ionic framework',
+242 silly resolved        'ionicframework',
+242 silly resolved        'mobile',
+242 silly resolved        'app',
+242 silly resolved        'hybrid',
+242 silly resolved        'cordova',
+242 silly resolved        'phonegap' ],
+242 silly resolved     repository:
+242 silly resolved      { type: 'git',
+242 silly resolved        url: 'https://github.com/driftyco/ionic-cli.git' },
+242 silly resolved     contributors: [ [Object], [Object], [Object] ],
+242 silly resolved     license: 'MIT',
+242 silly resolved     dependencies:
+242 silly resolved      { archiver: '0.5.1',
+242 silly resolved        colors: '0.6.2',
+242 silly resolved        connect: '3.1.1',
+242 silly resolved        'cross-spawn': '0.2.3',
+242 silly resolved        'connect-livereload': '0.4.0',
+242 silly resolved        'event-stream': '3.0.x',
+242 silly resolved        finalhandler: '0.2.0',
+242 silly resolved        'form-data': '0.1.4',
+242 silly resolved        ncp: '0.4.2',
+242 silly resolved        npm: '2.1.3',
+242 silly resolved        open: '0.0.5',
+242 silly resolved        optimist: '0.6.0',
+242 silly resolved        prompt: '0.2.12',
+242 silly resolved        progress: '1.1.7',
+242 silly resolved        q: '1.0.1',
+242 silly resolved        request: '2.27.0',
+242 silly resolved        'serve-static': '1.6.1',
+242 silly resolved        shelljs: '0.2.6',
+242 silly resolved        'tiny-lr-fork': '0.0.5',
+242 silly resolved        unzip: '0.1.9',
+242 silly resolved        'vinyl-fs': '0.3.7',
+242 silly resolved        xml2js: '0.4.4' },
+242 silly resolved     readme: 'Ionic-Cli\n=========\n\nThe Ionic Framework command line utility makes it easy to start, build, run, and emulate [Ionic](http://ionicframework.com/) apps. In the future, it will also have support for our mobile development services and tools that make Ionic even more powerful.\n\nUse the `ionic --help` command for more detailed task information.\n\n## Installing\n\n```bash\n$ npm install -g ionic\n```\n\n*Note: For a global install of `-g ionic`, OSX/Linux users may need to prefix the command with `sudo`.*\n\n\n## Starting an Ionic App\n\n```bash\n$ ionic start myapp [template]\n```\n\nStarter templates can either come from a named template, a Github repo, a Codepen, or a local directory. A starter template is what becomes the `www` directory within the Cordova project.\n\n__Named template starters:__\n\n* [tabs](https://github.com/driftyco/ionic-starter-tabs) (Default)\n* [sidemenu](https://github.com/driftyco/ionic-starter-sidemenu)\n* [blank](https://github.com/driftyco/ionic-starter-blank)\n\n__Github Repo starters:__\n\n* Any Github repo url, ex: [https://github.com/driftyco/ionic-starter-tabs](https://github.com/driftyco/ionic-starter-tabs)\n* Named templates are simply aliases to Ionic starter repos\n\n__Codepen URL starters:__\n\n* Any Codepen url, ex: [http://codepen.io/ionic/pen/odqCz](http://codepen.io/ionic/pen/odqCz)\n* [Ionic Codepen Demos](http://codepen.io/ionic/public-list/)\n\n__Local directory starters:__\n\n* Relative or absolute path to a local directory\n\n__Command-line flags/options:__\n\n    --appname, -a  .......  Human readable name for the app\n                            (Use quotes around the name)\n    --id, -i  ............  Package name set in the <widget id> config\n                            ex: com.mycompany.myapp\n    --no-cordova, -w  ....  Do not create an app targeted for Cordova\n\n\n## Testing in a Browser\n\nUse `ionic serve` to start a local development server for app dev and testing. This is useful for both desktop browser testing, and to test within a device browser which is connected to the same network. Additionally, this command starts LiveReload which is used to monitor changes in the file system. As soon as you save a file the browser is refreshed automatically. View [Using Sass](https://github.com/driftyco/ionic-cli/blob/master/README.md#using-sass) if you would also like to have `ionic serve` watch the project\'s Sass files.\n\n```bash\n$ ionic serve [options]\n```\n\n__Command-line flags/options:__\n\n    [--consolelogs|-c] ......  Print app console logs to Ionic CLI\n    [--serverlogs|-s] .......  Print dev server logs to Ionic CLI\n    [--port|-p] .............  Dev server HTTP port (8100 default)\n    [--livereload-port|-i] ..  Live Reload port (35729 default)\n    [--nobrowser|-b] ........  Disable launching a browser\n    [--nolivereload|-r] .....  Do not start live reload\n\n\n## Adding a platform target\n\n```bash\n$ ionic platform ios android\n```\n\n## Building your app\n\n```bash\n$ ionic build ios\n```\n\n## Live Reload App During Development (beta)\n\nThe `run` or `emulate` command will deploy the app to the specified platform devices/emulators. You can also run __live reload__ on the specified platform device by adding the `--livereload` option. The live reload functionality is similar to `ionic serve`, but instead of developing and debugging an app using a standard browser, the compiled hybrid app itself is watching for any changes to its files and reloading the app when needed. This reduces the requirement to constantly rebuild the app for small changes. However, any changes to plugins will still require a full rebuild. For live reload to work, the dev machine and device must be on the same local network, and the device must support [web sockets](http://caniuse.com/websockets).\n\nWith live reload enabled, an app\'s console logs can also be printed to the terminal/command prompt by including the `--consolelogs` or `-c` option. Additionally, the development server\'s request logs can be printed out using `--serverlogs` or `-s` options.\n\n__Command-line flags/options for `run` and `emulate`:__\n\n    [--livereload|-l] .......  Live Reload app dev files from the device (beta)\n    [--consolelogs|-c] ......  Print app console logs to Ionic CLI (live reload req.)\n    [--serverlogs|-s] .......  Print dev server logs to Ionic CLI (live reload req.)\n    [--port|-p] .............  Dev server HTTP port (8100 default, live reload req.)\n    [--livereload-port|-i] ..  Live Reload port (35729 default, live reload req.)\n    [--debug|--release]\n\nWhile the server is running for live reload, you can use the following commands within the CLI:\n\n    restart or r to restart the client app from the root\n    goto or g and a url to have the app navigate to the given url\n    consolelogs or c to enable/disable console log output\n    serverlogs or s to enable/disable server log output\n    quit or q to shutdown the server and exit\n\n\n## Emulating your app\n\nDeploys the Ionic app on specified platform emulator. This is simply an alias for `run --emulator`.\n\n```bash\n$ ionic emulate ios [options]\n```\n\n\n## Running your app\n\nDeploys the Ionic app on specified platform devices. If a device is not found it\'ll then deploy to an emulator/simulator.\n\n```bash\n$ ionic run ios [options]\n```\n\n\n## Update Ionic lib\n\nUpdate Ionic library files, which are found in the `www/lib/ionic` directory. If bower is being used\nby the project, this command will automatically run `bower update ionic`, otherwise this command updates\nthe local static files from Ionic\'s CDN.\n\n```bash\n$ ionic lib update\n```\n*Note: Using bower? This command does not update Ionic\'s dependencies. Run `bower update` to update Ionic and all of it\'s dependencies defined in `bower.json`.*\n\n## Packaging an app (beta)\n\nUsing Ionic\'s service, you can compile and package your project into an app-store ready app without\nrequiring native SDKs on your machine.\n\n```bash\n$ ionic package debug android\n```\n\nThe third argument can be either `debug` or `release`, and the last argument can be either `android` or `ios`.\n\n\n## Cordova Commands\n\nIonic uses Cordova underneath, so you can also substitute Cordova commands to prepare/build/emulate/run, or to add additional plugins.\n\n*Note: we occasionally send anonymous usage statistics to the Ionic team to make the tool better.*\n\n\n## Using Sass\n\nBy default, starter projects are hooked up to Ionic\'s precompiled CSS file, which is found in the project\'s `www/lib/ionic/css` directory, and is linked to the app in the head of the root `index.html` file. However, Ionic projects can also be customized using [Sass](http://sass-lang.com/), which gives developers and designers "superpowers" in terms of creating and maintaining CSS. Below are two ways to setup Sass for your Ionic project (the `ionic setup sass` command simply does the manual steps for you). Once Sass has been setup for your Ionic project, then the `ionic serve` command will also watch for Sass changes.\n\n#### Setup Sass Automatically\n\n    ionic setup sass\n\n\n#### Setup Sass Manually\n\n1. Run `npm install` from the working directory of an Ionic project. This will install [gulp.js](http://gulpjs.com/) and a few handy tasks, such as [gulp-sass](https://www.npmjs.org/package/gulp-sass) and [gulp-minify-css](https://www.npmjs.org/package/gulp-minify-css).\n2. Remove `<link href="lib/ionic/css/ionic.css" rel="stylesheet">` from the `<head>` of the root `index.html` file.\n3. Remove `<link href="css/style.css" rel="stylesheet">` from the `<head>` of the root `index.html` file.\n4. Add `<link href="css/ionic.app.css" rel="stylesheet">` to the `<head>` of the root `index.html` file.\n5. In the `ionic.project` file, add the JavaScript property `"gulpStartupTasks": ["sass", "watch"]` (this can also be customized to whatever gulp tasks you\'d like).\n',
+242 silly resolved     readmeFilename: 'README.md',
+242 silly resolved     bugs: { url: 'https://github.com/driftyco/ionic-cli/issues' },
+242 silly resolved     _id: 'ionic@1.2.8',
+242 silly resolved     dist: { shasum: '863437fcc9330f85ee8469f13f9772fdc24f7775' },
+242 silly resolved     _from: 'ionic@1.2.8',
+242 silly resolved     _resolved: 'https://registry.npmjs.org/ionic/-/ionic-1.2.8.tgz' } ]
+243 info install ionic@1.2.8 into /usr/local/lib
+244 info installOne ionic@1.2.8
+245 info /usr/local/lib/node_modules/ionic unbuild
+246 info preuninstall ionic@1.2.6
+247 info uninstall ionic@1.2.6
+248 verbose true,/usr/local/lib/node_modules,/usr/local/lib/node_modules unbuild ionic@1.2.6
+249 verbose /usr/local/bin,[object Object] binRoot
+250 info /usr/local/lib/node_modules/ionic unbuild
+251 info preuninstall ionic@1.2.6
+252 info uninstall ionic@1.2.6
+253 verbose true,/usr/local/lib/node_modules,/usr/local/lib/node_modules unbuild ionic@1.2.6
+254 verbose /usr/local/bin,[object Object] binRoot
+255 error error rolling back Error: EACCES, unlink '/usr/local/bin/ionic'
+255 error error rolling back  ionic@1.2.8 { [Error: EACCES, unlink '/usr/local/bin/ionic'] errno: 3, code: 'EACCES', path: '/usr/local/bin/ionic' }
+256 error Error: EACCES, unlink '/usr/local/bin/ionic'
+256 error  { [Error: EACCES, unlink '/usr/local/bin/ionic'] errno: 3, code: 'EACCES', path: '/usr/local/bin/ionic' }
+257 error Please try running this command again as root/Administrator.
+258 error System Linux 3.13.0-37-generic
+259 error command "/usr/bin/nodejs" "/usr/bin/npm" "update" "-g" "ionic"
+260 error cwd /home/ricardo/Documents/ldso-grupo-3/client
+261 error node -v v0.10.25
+262 error npm -v 1.3.10
+263 error path /usr/local/bin/ionic
+264 error code EACCES
+265 error errno 3
+266 error stack Error: EACCES, unlink '/usr/local/bin/ionic'
+267 verbose exit [ 3, true ]

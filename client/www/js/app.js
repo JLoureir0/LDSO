@@ -404,8 +404,7 @@ app.controller('registerCtrl', function($http, $scope) {
 	function checkIfDifferente(arg1, arg2) {
 		if(arg1 === arg2)
 			return false;
-		else
-			return true;
+		return true;
 	}
 
 	$scope.validateNamesCallback = function(type) {
@@ -446,6 +445,7 @@ app.controller('registerCtrl', function($http, $scope) {
 
 	$scope.validateEmailCallback = function() {
 
+		/*
 		var foundAt = false;
 		var foundDot = false; 
 
@@ -466,20 +466,28 @@ app.controller('registerCtrl', function($http, $scope) {
 		}
 		else
 			console.log("Email address is NOT valid")
+		*/
+
+		var pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if($scope.email.match(pattern))
+			console.log("Email address is valid!");
+		else console.log("Email address is not valid!");
 	}
 
 	$scope.validateNumbersCallback = function(type) {
 
-		var pattern = /^\d{9}$/;
+		var patternPhone = /^\d{9}$/;
+		var patternId = /^\d{8}$/;
 
 		if(type === 'phone') {
-			if($scope.phone.match(pattern))
+			if($scope.phone.match(patternPhone))
 				console.log("Phone number is valid!");
 			else
 				console.log("Phone number is NOT valid");
 		}
 		else if(type === 'identification') {
-			if($scope.idNumber.match(pattern)) {
+			if($scope.idNumber.match(patternId)) {
 
 				console.log("Identification number is valid!");
 
