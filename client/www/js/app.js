@@ -1,3 +1,4 @@
+document.write('<script src="/js/sha-256.js" type="text/javascript"></script>');
 var app = angular.module('starter', ['ionic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -381,7 +382,7 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 
 	});
 
-app.controller('registerCtrl', function($scope, $http) {
+app.controller('registerCtrl', function($http, $scope) {
 
 	$scope.name = "";
 	$scope.lastName = "";
@@ -399,6 +400,8 @@ app.controller('registerCtrl', function($scope, $http) {
 		}
 		else if($scope.password === $scope.confirmPassword) {
 			console.log("Passwords do correspond");
+			//var passwordEncrypted = CryptoJS.SHA256($scope.password);
+			//console.log(passwordEncrypted.toString());
 		} else {
 			console.log("Passwords do not correspond");
 		}
@@ -421,7 +424,6 @@ app.controller('registerCtrl', function($scope, $http) {
 
 
 		var json = JSON.stringify(jsonRegister);
-
 
 		$http.post('http://localhost:3000/user', json).
 		success(function(data, status, headers, config) {
