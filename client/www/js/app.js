@@ -495,7 +495,13 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 	$scope.passwordCallback = function() {
 		if($scope.password.length === 0)
 			emptyField[3] = 1;
-		else emptyField[3] = 0;
+		else {
+			emptyField[3] = 0;
+			if($scope.password.length >= 8)
+				$scope.valPassword = "green-icon";
+			else
+				$scope.valPassword = "red-icon";
+		}
 	}
 
 
