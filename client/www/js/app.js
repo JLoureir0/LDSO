@@ -285,8 +285,6 @@ $scope.loadFooters = function() {
 
 });
 
-
-
 app.controller('SlideController', function($scope, $state){
   // When the last slide goes right the app opens
   $scope.onSwipeRight = function() {
@@ -298,9 +296,10 @@ app.controller('SlideController', function($scope, $state){
 app.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 
 	$scope.startPoint = "";
+	$scope.geoLocationIcon = "fa-map-marker";
 
 	$scope.getCurrentLocation = function() {
-		document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
+		$scope.geoLocationIcon = "fa-spinner fa-spin";
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 	}
 
@@ -315,11 +314,11 @@ app.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 		makeRequest.getLocation(latitude, longitude).
 			// then is called when service comes with an answer
 			then(function(data){
+				$scope.geoLocationIcon = "fa-map-marker";
 				$scope.startPoint = data.geonames[0].toponymName;
-				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
 			}, function(error) {
-				alert('Error, system was unable to fetch gps informations');
-				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+				$scope.geoLocationIcon = "fa-map-marker";
+				console.log('Error, system was unable to fetch gps informations');
 			});
 	}
 
@@ -365,9 +364,10 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 	$scope.isLarge = false;
 	$scope.minPrice = "";
 	$scope.maxDeviation = "";
+	$scope.geoLocationIcon = "fa-map-marker";
 
 	$scope.getCurrentLocation = function() {
-		document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
+		$scope.geoLocationIcon = "fa-spinner fa-spin";
 		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 	}
 
@@ -384,10 +384,10 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 			// then is called when service comes with an answer
 			then(function(data){
 				$scope.startPoint = data.geonames[0].toponymName;
-				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+				$scope.geoLocationIcon = "fa-map-marker";
 			}, function(error) {
-				alert('Error, system was unable to fetch gps informations');
-				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+				$scope.geoLocationIcon = "fa-map-marker";
+				console.log('Error, system was unable to fetch gps informations');
 			});
 	}  
 
