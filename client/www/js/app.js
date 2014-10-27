@@ -312,11 +312,13 @@ app.controller('loginCtrl', function($scope) {
 	}
 
 	$scope.submitLogin = function() {
+		$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
 		console.log("username: " + $scope.username + " password: " + $scope.password);
+		console.log($scope.passwordEncrypted.toString());
 
 		var jsonLogin = {
 			"username" : $scope.username,
-			"password" : $scope.password
+			"password" : $scope.passwordEncrypted.toString()
 		};
 		var json = JSON.stringify(jsonLogin);
 	}
@@ -522,8 +524,8 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 			messagesToDisplay[1] = 0;
 			emptyField[4] = 0;
 			//encrypying password with sha-256
-			//var passwordEncrypted = CryptoJS.SHA256($scope.password);
-			//console.log(passwordEncrypted.toString());
+			$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
+			console.log($scope.passwordEncrypted.toString());
 		} else {
 			$scope.valConfirmPassword = "red-icon";
 			messagesToDisplay[0] = 1;
@@ -622,7 +624,7 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 			"firstName" : $scope.name,
 			"secondName" : $scope.lastName,
 			"username" : $scope.username,
-			"password" : $scope.password,
+			"password" : $scope.passwordEncrypted.toString(),
 			"email" : $scope.email,
 			"birthDate" : $scope.birthdate,
 			"citizenCard" : $scope.idNumber,
@@ -651,7 +653,6 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 			};
 		}
 		
-
 		if(isValid && !isEmpty) {
 			var json = JSON.stringify(jsonRegister);
 		
@@ -663,7 +664,6 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 				console.log(data);
 			}); 
 		}
-		
 	}
 
 });
