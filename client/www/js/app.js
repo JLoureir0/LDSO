@@ -120,10 +120,10 @@ app.factory('makeRequest', function ($http, $q) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
 	            	} else {
-	                        // invalid response
-	                        return $q.reject(response.data);
-	                    }
-	                }, function(response) {
+                        // invalid response
+                        return $q.reject(response.data);
+                    }
+                }, function(response) {
 	                    // something went wrong
 	                    return $q.reject(response.data);
 	                }
@@ -138,15 +138,31 @@ app.factory('makeRequest', function ($http, $q) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
 	            	} else {
-	                        // invalid response
-	                        return $q.reject(response.data);
-	                    }
-	                }, function(response) {
+                        // invalid response
+                        return $q.reject(response.data);
+	                }
+               	}, function(response) {
 	                    // something went wrong
 	                    return $q.reject(response.data);
 	                }
 	            );
-	        }
+	        },
+
+	        register: function(json) {
+	        	return $http.post('http://localhost:3000/user', json)
+	        	.then(function(response){
+	        		if(typeof response.data === 'object') {
+	        			return response.data;
+	        		} else {
+	        			// invalid response
+	        			return $q.reject(response.data);
+	        		}
+	        	}, function(response) {
+	        			// something went wrong
+	        			return $q.reject(response.data);
+	        		}
+	        	);
+	        },
 	    };    
 	}
 );
@@ -391,7 +407,7 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 
 	});
 
-app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
+app.controller('registerCtrl', function($http, $scope, $ionicPopup, makeRequest) {
 
 
 	//Fields variables
@@ -655,14 +671,11 @@ app.controller('registerCtrl', function($http, $scope, $ionicPopup) {
 		
 		if(isValid && !isEmpty) {
 			var json = JSON.stringify(jsonRegister);
-		
-			$http.post('http://localhost:3000/user', json).
-			success(function(data, status, headers, config) {
-				console.log(data);
-			}).
-			error(function(data, status, headers, config) {
-				console.log(data);
-			}); 
+
+			var response = makeRequest.register(json);
+
+			console.log(response);
+			
 		}
 	}
 
