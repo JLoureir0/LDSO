@@ -163,6 +163,22 @@ app.factory('makeRequest', function ($http, $q) {
 	        		}
 	        	);
 	        },
+
+	        getLocation: function(latitude, longitude) {
+	        	return $http.get("http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14")
+	        	.then(function(response){
+	        		if(typeof response.data === 'object') {
+	        			return response.data;
+	        		} else {
+	        			// invalid response
+	        			return $q.reject(response.data);
+	        		}
+	        	}, function(response) {
+	        			// something went wrong
+	        			return $q.reject(response.data);
+	        		}
+	        	);
+	        }
 	    };    
 	}
 );
@@ -279,7 +295,7 @@ app.controller('SlideController', function($scope, $state){
 
 });
 
-app.controller('searchTripCtrl', function($scope, $http) {
+app.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 
 	$scope.startPoint = "";
 
@@ -296,16 +312,15 @@ app.controller('searchTripCtrl', function($scope, $http) {
 		latitude = position.coords.latitude;
 		longitude = position.coords.longitude;
 
-		var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
-		$http.get(url).
-		success(function(data, status, headers, config) {
-			$scope.startPoint = data.geonames[0].toponymName;
-			document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
-		}).
-		error(function(data, status, headers, config) {
-			alert('Error, system was unable to fetch gps informations');
-			document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
-		});    
+		makeRequest.getLocation(latitude, longitude).
+			// then is called when service comes with an answer
+			then(function(data){
+				$scope.startPoint = data.geonames[0].toponymName;
+				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+			}, function(error) {
+				alert('Error, system was unable to fetch gps informations');
+				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+			});
 	}
 
 	function onError(error) {
@@ -365,17 +380,16 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 		latitude = position.coords.latitude;
 		longitude = position.coords.longitude;
 
-		var url = "http://api.geonames.org/findNearbyJSON?lat=" + latitude + "&lng=" + longitude + "&username=ldso_14";
-		$http.get(url).
-		success(function(data, status, headers, config) {
-			$scope.startPoint = data.geonames[0].toponymName;
-			document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
-		}).
-		error(function(data, status, headers, config) {
-			alert('Error, system was unable to fetch gps informations');
-			document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
-		});    
-	}
+		makeRequest.getLocation(latitude, longitude).
+			// then is called when service comes with an answer
+			then(function(data){
+				$scope.startPoint = data.geonames[0].toponymName;
+				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+			}, function(error) {
+				alert('Error, system was unable to fetch gps informations');
+				document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
+			});
+	}  
 
 	function onError(error) {
 		alert('code: '    + error.code    + '\n' +
