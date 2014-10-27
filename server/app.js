@@ -1,6 +1,8 @@
 var restify = require('restify');
 var server = restify.createServer({ name: 'Carryit' });
 
+var userSave = require('save')('user');
+
 server.use(restify.fullResponse()).use(restify.bodyParser());
 
 server.listen(3000, function() {
@@ -8,5 +10,7 @@ server.listen(3000, function() {
 });
 
 server.get('/user.json', function(req, res) {
-  res.send(200);
+  userSave.find({}, function (err, users) {
+    res.send(JSON.stringify({ data: users }));
+  });
 });
