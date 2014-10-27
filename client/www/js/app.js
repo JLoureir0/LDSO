@@ -318,13 +318,29 @@ app.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 				$scope.startPoint = data.geonames[0].toponymName;
 			}, function(error) {
 				$scope.geoLocationIcon = "fa-map-marker";
-				console.log('Error, system was unable to fetch gps informations');
+				alert('Error, system was unable to fetch gps informations');
 			});
 	}
 
 	function onError(error) {
-		alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+		switch(error.code) {
+		case 1:
+			alert('Erro: Permissão negada');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		case 2:
+			alert('Erro: Posição indisponível');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		case 3:
+			alert('Erro: Tempo de ligação expirado');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		default:
+			$scope.geoLocationIcon = "fa-map-marker";
+			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			break;
+		}
 	}
 });
 
@@ -372,10 +388,8 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 	}
 
 	function onSuccess(position) {
-
 		var latitude = "";
 		var longitude = "";
-
 
 		latitude = position.coords.latitude;
 		longitude = position.coords.longitude;
@@ -387,13 +401,29 @@ app.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 				$scope.geoLocationIcon = "fa-map-marker";
 			}, function(error) {
 				$scope.geoLocationIcon = "fa-map-marker";
-				console.log('Error, system was unable to fetch gps informations');
+				alert('Error, system was unable to fetch gps informations');
 			});
 	}  
 
 	function onError(error) {
-		alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
+		switch(error.code) {
+		case 1:
+			alert('Erro: Permissão negada');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		case 2:
+			alert('Erro: Posição indisponível');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		case 3:
+			alert('Erro: Tempo de ligação expirado');
+			$scope.geoLocationIcon = "fa-map-marker";
+			break;
+		default:
+			$scope.geoLocationIcon = "fa-map-marker";
+			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			break;
+		}
 	}
 
 	$scope.shareTripSubmit = function() {
