@@ -14,3 +14,9 @@ server.get('/user.json', function(req, res) {
     res.send(JSON.stringify({ data: users }));
   });
 });
+
+server.post('/user.json', function(req, res) {
+  userSave.create(req.params, function(err, user) {
+    res.send(201, user);
+  });
+});
