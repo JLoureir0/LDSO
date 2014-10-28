@@ -8,6 +8,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	$scope.username = "";
 	$scope.password = "";
 	$scope.confirmPassword = "";
+	$scope.passwordEncrypted = "";
 	$scope.email = "";
 	$scope.phone = "";
 	$scope.idNumber = "";
