@@ -1,22 +1,28 @@
-var expect = require('chai').expect;
+var expect  = require('chai').expect;
 var restify = require('restify');
 
-var client = restify.createJsonClient( {
-  url: 'http://localhost:3000'
-});
+var client  = restify.createJsonClient( { url: 'http://localhost:3000' });
 
-var user = {
-  firstName: 'John',
-  lastName: 'Doe',
-  username: 'john_doe',
-  password: '123456789',
-  email: 'johndoe@example.org',
-  birthdate: '12-12-1980',
-  citizenCard: '11111111',
-  phoneNumber: '123456789'
-}
+var user    = {
+  first_name   : 'John',
+  last_name    : 'Doe',
+  username     : 'john_doe',
+  password     : '123456789',
+  email        : 'johndoe@example.org',
+  birth_date   : '12-12-1980',
+  citizen_card : '11111111',
+  phone_number : '123456789'
+};
 
 describe('Server', function() {
+
+  it('should have Content-Type: application/json; charset=utf-8', function(done) {
+    client.get('/user.json', function(err, req, res, obj) {
+      expect(res.headers['content-type']).to.be.equal('application/json; charset=utf-8');
+      done();
+    });
+  });
+
   describe('/user.json', function() {
     describe('get request', function() {
       it('should return 200', function(done) {
@@ -27,17 +33,18 @@ describe('Server', function() {
       });
       it('should return a json with a data property', function(done) {
         client.get('/user.json', function(err, req, res, obj) {
-          expect(JSON.parse(obj)).to.have.a.property('data');
+          expect(obj).to.have.a.property('data');
           done();
         });
       });
       it('should return an array in the data property', function(done) {
         client.get('/user.json', function(err, req, res, obj) {
-          expect(JSON.parse(obj).data).to.be.an.instanceof(Array);
+          expect(obj.data).to.be.an.instanceof(Array);
           done();
         });
       });
     });
+
     describe('post request', function() {
       it('should return 201 on create', function(done) {
         client.post('/user.json', user, function(err, req, res, obj) {

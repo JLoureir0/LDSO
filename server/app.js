@@ -1,9 +1,14 @@
-var restify = require('restify');
-var server = restify.createServer({ name: 'Carryit' });
+var restify  = require('restify');
+var server   = restify.createServer({ name: 'Carryit' });
 
 var userSave = require('save')('user');
 
-server.use(restify.fullResponse()).use(restify.bodyParser());
+server.use(restify.fullResponse());
+server.use(restify.bodyParser());
+server.use(function(req, res, next) {
+  res.charSet('utf-8');
+  next();
+});
 
 server.listen(3000, function() {
   console.log(server.name + ' listening at ' + server.url);
@@ -11,7 +16,7 @@ server.listen(3000, function() {
 
 server.get('/user.json', function(req, res) {
   userSave.find({}, function (err, users) {
-    res.send(JSON.stringify({ data: users }));
+    res.send({ data: users });
   });
 });
 
