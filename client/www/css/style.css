@@ -29,9 +29,18 @@
     align-items: center;
 }
 
+.footer {
+  margin-top: 50%
+}
+
 /**********Login and Register**********/
 .login {
   padding-top: 15%;
+}
+
+.register {
+  padding-top: 15%; 
+  padding-bottom: 10%;
 }
 
 .loginTitle {
