@@ -19,17 +19,15 @@ function verify_user_attributes(user, next) {
   parse_password(user.password, next);
   parse_email(user.email, next);
   parse_birth_date(user.birth_date, next);
-  if(user.citizen_card === undefined)
-    return next(new restify.InvalidArgumentError('Citizen card must be supplied'));
-  if(user.phone_number === undefined)
-    return next(new restify.InvalidArgumentError('Phone number must be supplied'));
+  parse_citizen_card(user.citizen_card, next);
+  parse_phone_number(user.phone_number, next);
 }
 
 function parse_first_name(first_name, next) {
   if(first_name === undefined)
     return next(new restify.InvalidArgumentError('First name must be supplied'));
 
-  if(typeof first_name !== 'string' || !(/^[a-zA-Z]+$/.test(first_name)))
+  if(typeof first_name !== 'string' || !(/^[a-zA-Z\u00C0-\u00FF]+$/.test(first_name)))
     return next(new restify.InvalidArgumentError('First name must be a string with only letters'));
 }
 
@@ -37,7 +35,7 @@ function parse_last_name(last_name, next) {
   if(last_name === undefined)
     return next(new restify.InvalidArgumentError('Last name must be supplied'));
 
-  if(typeof last_name !== 'string' || !(/^[a-zA-Z]+$/.test(last_name)))
+  if(typeof last_name !== 'string' || !(/^[\u00C0-\u00FFa-zA-Z]+$/.test(last_name)))
     return next(new restify.InvalidArgumentError('Last name must be a string with only letters'));
 }
 
@@ -71,6 +69,22 @@ function parse_birth_date(birth_date, next) {
 
   if(typeof birth_date !== 'string' || !(/^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/.test(birth_date)))
     return next(new restify.InvalidArgumentError('Birth date must be a string with the format yyyy/mm/dd'));
+}
+
+function parse_citizen_card(citizen_card, next) {
+  if(citizen_card === undefined)
+    return next(new restify.InvalidArgumentError('Citizen card must be supplied'));
+
+  if(typeof citizen_card !== 'string' || !(/^[0-9]+$/.test(citizen_card)))
+    return next(new restify.InvalidArgumentError('Citizen card must be a string with only numbers'));
+}
+
+function parse_phone_number(phone_number, next) {
+  if(phone_number === undefined)
+    return next(new restify.InvalidArgumentError('Phone number must be supplied'));
+
+  if(typeof phone_number !== 'string' || !(/^[0-9]{9}$/.test(phone_number)))
+    return next(new restify.InvalidArgumentError('Phone number must be a string with only 9 numbers'));
 }
 
 function parse_user(user) {

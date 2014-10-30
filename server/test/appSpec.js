@@ -178,12 +178,30 @@ describe('Server', function() {
           done();
         });
       });
+      it('should return 409 and an error message if citizen_card is invalid', function(done) {
+        var user_invalid_citizen_card = JSON.parse(JSON.stringify(user));
+        user_invalid_citizen_card.citizen_card = 'Inval1d';
+        client.post('/users.json', user_invalid_citizen_card, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Citizen card must be a string with only numbers');
+          done();
+        });
+      });
       it('should return 409 and an error message if no phone_number passed', function(done) {
         var user_no_phone_number = JSON.parse(JSON.stringify(user));
         delete user_no_phone_number.phone_number;
         client.post('/users.json', user_no_phone_number, function(err, req, res, obj) {
           expect(res.statusCode).to.be.equal(409);
           expect(obj.message).to.be.equal('Phone number must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and an error message if phone_number is invalid', function(done) {
+        var user_invalid_phone_number = JSON.parse(JSON.stringify(user));
+        user_invalid_phone_number.phone_number = '11111';
+        client.post('/users.json', user_invalid_phone_number, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Phone number must be a string with only 9 numbers');
           done();
         });
       });
