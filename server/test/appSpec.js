@@ -52,10 +52,96 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return the user on create', function(done) {
+      it('should return the user on create and his reputation equals to zero', function(done) {
         client.post('/user.json', user, function(err, req, res, obj) {
-          user._id = obj._id;
-          expect(obj).to.be.deep.equal(user);
+          var response_user = JSON.parse(JSON.stringify(user));
+          response_user._id = obj._id;
+          response_user.reputation = 0;
+          expect(obj).to.be.deep.equal(response_user);
+          done();
+        });
+      });
+      it('should return 409 and a error message if no first_name passed', function(done) {
+        var user_no_first_name = JSON.parse(JSON.stringify(user));
+        delete user_no_first_name.first_name;
+        client.post('/user.json', user_no_first_name, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('First name must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no last_name passed', function(done) {
+        var user_no_last_name = JSON.parse(JSON.stringify(user));
+        delete user_no_last_name.last_name;
+        client.post('/user.json', user_no_last_name, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Last name must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no username passed', function(done) {
+        var user_no_username = JSON.parse(JSON.stringify(user));
+        delete user_no_username.username;
+        client.post('/user.json', user_no_username, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Username must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no password passed', function(done) {
+        var user_no_password = JSON.parse(JSON.stringify(user));
+        delete user_no_password.password;
+        client.post('/user.json', user_no_password, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Password must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no email passed', function(done) {
+        var user_no_email = JSON.parse(JSON.stringify(user));
+        delete user_no_email.email;
+        client.post('/user.json', user_no_email, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Email must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no birth_date passed', function(done) {
+        var user_no_birth_date = JSON.parse(JSON.stringify(user));
+        delete user_no_birth_date.birth_date;
+        client.post('/user.json', user_no_birth_date, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Birth date must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no citizen_card passed', function(done) {
+        var user_no_citizen_card = JSON.parse(JSON.stringify(user));
+        delete user_no_citizen_card.citizen_card;
+        client.post('/user.json', user_no_citizen_card, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Citizen card must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and a error message if no phone_number passed', function(done) {
+        var user_no_phone_number = JSON.parse(JSON.stringify(user));
+        delete user_no_phone_number.phone_number;
+        client.post('/user.json', user_no_phone_number, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Phone number must be supplied');
+          done();
+        });
+      });
+      it('should only parse the correct attributes', function(done) {
+        var user_with_another_attribute = JSON.parse(JSON.stringify(user));
+        user_with_another_attribute.another_attribute = 'ATTRIBUTE';
+        var response_user = JSON.parse(JSON.stringify(user));
+
+        client.post('/user.json', user_with_another_attribute, function(err, req, res, obj) {
+          response_user._id = obj._id;
+          response_user.reputation = 0;
+          expect(obj).to.be.deep.equal(response_user);
           done();
         });
       });
