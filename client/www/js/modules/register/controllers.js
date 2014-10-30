@@ -1,4 +1,4 @@
-var module = angular.module('registerModule');
+var module = angular.module('registerModule', ['starter']);
 
 module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeRequest) {
 
@@ -39,12 +39,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	//This array respects the order of the template
 	var emptyField = [1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-	function checkIfDifferente(arg1, arg2) {
-		if(arg1 === arg2)
-			return false;
-		return true;
-	}
-
+	
 	// An alert dialog
 	function showAlert(message) {
 	   var alertPopup = $ionicPopup.alert({
@@ -52,6 +47,8 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	     template: message
 	   });
 	 }
+	 
+
 
 	$scope.validateNamesCallback = function(type) {
 

@@ -1,6 +1,14 @@
 var module = angular.module('tripsModule');
 
-module.controller('searchTripCtrl', function($scope, $http ,makeRequest) {
+module.controller('searchTripCtrl', function($scope, $http , $ionicPopup, makeRequest) {
+
+	// An alert dialog
+	function showAlert(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Erro',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	 }
 
 	$scope.startPoint = "";
 
@@ -27,23 +35,23 @@ module.controller('searchTripCtrl', function($scope, $http ,makeRequest) {
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
-				alert('Error, system was unable to fetch gps informations');
+				showAlert('O sistema não conseguiu receber as informações do GPS');
 			});
 	}  
 
 	function onError(error) {
 		switch(error.code) {
 		case 1:
-			alert('Erro: Permissão negada');
+			showAlert('Permissão negada');
 			break;
 		case 2:
-			alert('Erro: Posição indisponível');
+			showAlert('Posição indisponível');
 			break;
 		case 3:
-			alert('Erro: Tempo de ligação expirado');
+			showAlert('Tempo de ligação expirado');
 			break;
 		default:
-			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			showAlert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 			break;
 		}
 		setTimeout(resetSpinner, 0);
@@ -83,23 +91,23 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
-				alert('Error, system was unable to fetch gps informations');
+				showAlert('O sistema não conseguiu receber as informações do GPS');
 			});
 	}  
 
 	function onError(error) {
 		switch(error.code) {
 		case 1:
-			alert('Erro: Permissão negada');
+			showAlert('Permissão negada');
 			break;
 		case 2:
-			alert('Erro: Posição indisponível');
+			showAlert('Posição indisponível');
 			break;
 		case 3:
-			alert('Erro: Tempo de ligação expirado');
+			showAlert('Tempo de ligação expirado');
 			break;
 		default:
-			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			showAlert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 			break;
 		}
 		setTimeout(resetSpinner, 0);
