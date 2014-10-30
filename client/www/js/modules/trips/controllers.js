@@ -7,11 +7,16 @@ module.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 
 	$scope.getCurrentLocation = function() {
 		$scope.geoLocationIcon = "fa-spinner fa-spin";
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError); }, 0);
+	}
+
+	function resetSpinner() {
+		if($scope.geoLocationIcon === "fa-spinner fa-spin") {
+			document.getElementById("search-position-icon").className="fa fa-map-marker fa-2x";
+		}
 	}
 
 	function onSuccess(position) {
-
 		var latitude = "";
 		var longitude = "";
 
@@ -21,33 +26,31 @@ module.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 		makeRequest.getLocation(latitude, longitude).
 			// then is called when service comes with an answer
 			then(function(data){
-				$scope.geoLocationIcon = "fa-map-marker";
 				$scope.startPoint = data.geonames[0].toponymName;
+				setTimeout(resetSpinner(), 0);
 			}, function(error) {
-				$scope.geoLocationIcon = "fa-map-marker";
+				setTimeout(resetSpinner(), 0);
 				alert('Error, system was unable to fetch gps informations');
 			});
-	}
+			setTimeout(resetSpinner(), 5000); // Timeout 5 seconds
+	}  
 
 	function onError(error) {
 		switch(error.code) {
 		case 1:
 			alert('Erro: Permissão negada');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		case 2:
 			alert('Erro: Posição indisponível');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		case 3:
 			alert('Erro: Tempo de ligação expirado');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		default:
-			$scope.geoLocationIcon = "fa-map-marker";
 			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 			break;
 		}
+		setTimeout(resetSpinner, 0);
 	}
 });
 
@@ -64,7 +67,13 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 
 	$scope.getCurrentLocation = function() {
 		$scope.geoLocationIcon = "fa-spinner fa-spin";
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError); }, 0);
+	}
+
+	function resetSpinner() {
+		if($scope.geoLocationIcon === "fa-spinner fa-spin") {
+			document.getElementById("search-position-icon").className="fa fa-map-marker fa-2x";
+		}
 	}
 
 	function onSuccess(position) {
@@ -78,32 +87,30 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 			// then is called when service comes with an answer
 			then(function(data){
 				$scope.startPoint = data.geonames[0].toponymName;
-				$scope.geoLocationIcon = "fa-map-marker";
+				setTimeout(resetSpinner(), 0);
 			}, function(error) {
-				$scope.geoLocationIcon = "fa-map-marker";
+				setTimeout(resetSpinner(), 0);
 				alert('Error, system was unable to fetch gps informations');
 			});
+			setTimeout(resetSpinner(), 5000); // Timeout 5 seconds
 	}  
 
 	function onError(error) {
 		switch(error.code) {
 		case 1:
 			alert('Erro: Permissão negada');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		case 2:
 			alert('Erro: Posição indisponível');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		case 3:
 			alert('Erro: Tempo de ligação expirado');
-			$scope.geoLocationIcon = "fa-map-marker";
 			break;
 		default:
-			$scope.geoLocationIcon = "fa-map-marker";
 			alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 			break;
 		}
+		setTimeout(resetSpinner, 0);
 	}
 
 	$scope.shareTripSubmit = function() {
