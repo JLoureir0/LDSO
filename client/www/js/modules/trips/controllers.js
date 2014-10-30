@@ -112,7 +112,7 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 			"destination" : $scope.destination,
 			"isFragile" : $scope.isFragile,
 			"isFlamable" : $scope.isFlamable,
-			"isLarge" : $scope.isLarge,
+			//"isLarge" : $scope.isLarge,
 			"minPrice" : $scope.minPrice,
 			"maxDeviation" : $scope.maxDeviation
 		};
@@ -125,7 +125,8 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 			then(function(data){
 				console.log(data);
 			}, function(error) {
-				console.log(error);
+				alert("Erro: " + "Resposta do servidor não recebida");
+
 			});
 	}
 
