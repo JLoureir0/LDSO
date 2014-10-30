@@ -9,7 +9,7 @@ var user    = {
   username     : 'john_doe',
   password     : '123456789',
   email        : 'johndoe@example.org',
-  birth_date   : '1980-12-12',
+  birth_date   : '1980/12/12',
   citizen_card : '11111111',
   phone_number : '123456789'
 };
@@ -124,6 +124,15 @@ describe('Server', function() {
           done();
         });
       });
+      it('should return 409 and an error message if password is invalid', function(done) {
+        var user_invalid_password = JSON.parse(JSON.stringify(user));
+        user_invalid_password.password = ['password'];
+        client.post('/users.json', user_invalid_password, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Password must be a string');
+          done();
+        });
+      });
       it('should return 409 and an error message if no email passed', function(done) {
         var user_no_email = JSON.parse(JSON.stringify(user));
         delete user_no_email.email;
@@ -133,12 +142,30 @@ describe('Server', function() {
           done();
         });
       });
+      it('should return 409 and an error message if email is invalid', function(done) {
+        var user_invalid_email = JSON.parse(JSON.stringify(user));
+        user_invalid_email.email = 'Inval1d';
+        client.post('/users.json', user_invalid_email, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Email must be a string and valid');
+          done();
+        });
+      });
       it('should return 409 and an error message if no birth_date passed', function(done) {
         var user_no_birth_date = JSON.parse(JSON.stringify(user));
         delete user_no_birth_date.birth_date;
         client.post('/users.json', user_no_birth_date, function(err, req, res, obj) {
           expect(res.statusCode).to.be.equal(409);
           expect(obj.message).to.be.equal('Birth date must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and an error message if birth_date is invalid', function(done) {
+        var user_invalid_birth_date = JSON.parse(JSON.stringify(user));
+        user_invalid_birth_date.birth_date = 'Inval1d';
+        client.post('/users.json', user_invalid_birth_date, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Birth date must be a string with the format yyyy/mm/dd');
           done();
         });
       });

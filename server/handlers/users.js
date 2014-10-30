@@ -16,12 +16,9 @@ function verify_user_attributes(user, next) {
   parse_first_name(user.first_name, next);
   parse_last_name(user.last_name, next);
   parse_username(user.username, next);
-  if(user.password === undefined)
-    return next(new restify.InvalidArgumentError('Password must be supplied'));
-  if(user.email === undefined)
-    return next(new restify.InvalidArgumentError('Email must be supplied'));
-  if(user.birth_date === undefined)
-    return next(new restify.InvalidArgumentError('Birth date must be supplied'));
+  parse_password(user.password, next);
+  parse_email(user.email, next);
+  parse_birth_date(user.birth_date, next);
   if(user.citizen_card === undefined)
     return next(new restify.InvalidArgumentError('Citizen card must be supplied'));
   if(user.phone_number === undefined)
@@ -49,6 +46,31 @@ function parse_username(username, next) {
     return next(new restify.InvalidArgumentError('Username must be supplied'));
   if(typeof username !== 'string')
     return next(new restify.InvalidArgumentError('Username must be a string'));
+}
+
+function parse_password(password, next) {
+  if(password === undefined)
+    return next(new restify.InvalidArgumentError('Password must be supplied'));
+  if(typeof password !== 'string')
+    return next(new restify.InvalidArgumentError('Password must be a string'));
+}
+
+function parse_email(email, next) {
+  if(email === undefined)
+    return next(new restify.InvalidArgumentError('Email must be supplied'));
+
+  var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if(typeof email !== 'string' || !(regex.test(email)))
+    return next(new restify.InvalidArgumentError('Email must be a string and valid'));
+}
+
+function parse_birth_date(birth_date, next) {
+  if(birth_date === undefined)
+    return next(new restify.InvalidArgumentError('Birth date must be supplied'));
+
+  if(typeof birth_date !== 'string' || !(/^[0-9]{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/.test(birth_date)))
+    return next(new restify.InvalidArgumentError('Birth date must be a string with the format yyyy/mm/dd'));
 }
 
 function parse_user(user) {
