@@ -15,8 +15,7 @@ exports.handle_user = function(req, res, next) {
 function verify_user_attributes(user, next) {
   parse_first_name(user.first_name, next);
   parse_last_name(user.last_name, next);
-  if(user.username === undefined)
-    return next(new restify.InvalidArgumentError('Username must be supplied'));
+  parse_username(user.username, next);
   if(user.password === undefined)
     return next(new restify.InvalidArgumentError('Password must be supplied'));
   if(user.email === undefined)
@@ -34,7 +33,7 @@ function parse_first_name(first_name, next) {
     return next(new restify.InvalidArgumentError('First name must be supplied'));
 
   if(typeof first_name !== 'string' || !(/^[a-zA-Z]+$/.test(first_name)))
-    return next(new restify.InvalidArgumentError('First name must only contain letters'));
+    return next(new restify.InvalidArgumentError('First name must be a string with only letters'));
 }
 
 function parse_last_name(last_name, next) {
@@ -42,7 +41,14 @@ function parse_last_name(last_name, next) {
     return next(new restify.InvalidArgumentError('Last name must be supplied'));
 
   if(typeof last_name !== 'string' || !(/^[a-zA-Z]+$/.test(last_name)))
-    return next(new restify.InvalidArgumentError('Last name must only contain letters'));
+    return next(new restify.InvalidArgumentError('Last name must be a string with only letters'));
+}
+
+function parse_username(username, next) {
+  if(username === undefined)
+    return next(new restify.InvalidArgumentError('Username must be supplied'));
+  if(typeof username !== 'string')
+    return next(new restify.InvalidArgumentError('Username must be a string'));
 }
 
 function parse_user(user) {

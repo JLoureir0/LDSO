@@ -75,7 +75,7 @@ describe('Server', function() {
         user_invalid_first_name.first_name = 'Inval1d';
         client.post('/users.json', user_invalid_first_name, function(err, req, res, obj) {
           expect(res.statusCode).to.be.equal(409);
-          expect(obj.message).to.be.equal('First name must only contain letters');
+          expect(obj.message).to.be.equal('First name must be a string with only letters');
           done();
         });
       });
@@ -93,7 +93,7 @@ describe('Server', function() {
         user_invalid_last_name.last_name = 'Inval1d';
         client.post('/users.json', user_invalid_last_name, function(err, req, res, obj) {
           expect(res.statusCode).to.be.equal(409);
-          expect(obj.message).to.be.equal('Last name must only contain letters');
+          expect(obj.message).to.be.equal('Last name must be a string with only letters');
           done();
         });
       });
@@ -103,6 +103,15 @@ describe('Server', function() {
         client.post('/users.json', user_no_username, function(err, req, res, obj) {
           expect(res.statusCode).to.be.equal(409);
           expect(obj.message).to.be.equal('Username must be supplied');
+          done();
+        });
+      });
+      it('should return 409 and an error message if username is invalid', function(done) {
+        var user_invalid_username = JSON.parse(JSON.stringify(user));
+        user_invalid_username.username = ['john_doe'];
+        client.post('/users.json', user_invalid_username, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Username must be a string');
           done();
         });
       });
