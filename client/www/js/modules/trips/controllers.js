@@ -1,19 +1,16 @@
 var module = angular.module('tripsModule');
 
-module.controller('searchTripCtrl', function($scope, $http, makeRequest) {
+module.controller('searchTripCtrl', function($scope, $http ,makeRequest) {
 
 	$scope.startPoint = "";
-	$scope.geoLocationIcon = "fa-map-marker";
 
 	$scope.getCurrentLocation = function() {
-		$scope.geoLocationIcon = "fa-spinner fa-spin";
-		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError); }, 0);
+		document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
+		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy:true, maximumAge:Infinity, timeout:30000}); }, 0);
 	}
 
 	function resetSpinner() {
-		if($scope.geoLocationIcon === "fa-spinner fa-spin") {
-			document.getElementById("search-position-icon").className="fa fa-map-marker fa-2x";
-		}
+		document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
 	}
 
 	function onSuccess(position) {
@@ -26,13 +23,12 @@ module.controller('searchTripCtrl', function($scope, $http, makeRequest) {
 		makeRequest.getLocation(latitude, longitude).
 			// then is called when service comes with an answer
 			then(function(data){
-				$scope.startPoint = data.geonames[0].toponymName;
+				document.getElementById("start-location-field").value = data.geonames[0].toponymName;
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
 				alert('Error, system was unable to fetch gps informations');
 			});
-			setTimeout(resetSpinner(), 5000); // Timeout 5 seconds
 	}  
 
 	function onError(error) {
@@ -63,17 +59,14 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 	$scope.isLarge = false;
 	$scope.minPrice = "";
 	$scope.maxDeviation = "";
-	$scope.geoLocationIcon = "fa-map-marker";
 
 	$scope.getCurrentLocation = function() {
-		$scope.geoLocationIcon = "fa-spinner fa-spin";
-		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError); }, 0);
+		document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
+		setTimeout(function () { navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy:true, maximumAge:Infinity, timeout:30000}); }, 0);
 	}
 
 	function resetSpinner() {
-		if($scope.geoLocationIcon === "fa-spinner fa-spin") {
-			document.getElementById("search-position-icon").className="fa fa-map-marker fa-2x";
-		}
+		document.getElementById("search-position-icon").className = "fa fa-map-marker fa-2x";
 	}
 
 	function onSuccess(position) {
@@ -86,13 +79,12 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 		makeRequest.getLocation(latitude, longitude).
 			// then is called when service comes with an answer
 			then(function(data){
-				$scope.startPoint = data.geonames[0].toponymName;
+				document.getElementById("start-location-field").value = data.geonames[0].toponymName; 
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
 				alert('Error, system was unable to fetch gps informations');
 			});
-			setTimeout(resetSpinner(), 5000); // Timeout 5 seconds
 	}  
 
 	function onError(error) {

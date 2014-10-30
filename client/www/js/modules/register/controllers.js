@@ -207,7 +207,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 
 	$scope.validateDateCallback = function() {
 
-		var pattern = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/;
+		var pattern = /^\d{4}[\/](0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])$/;
 
 		if($scope.birthdate.length === 0){
 			$scope.valBirthDate = "neutral-icon";
