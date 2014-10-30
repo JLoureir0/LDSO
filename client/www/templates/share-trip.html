@@ -8,17 +8,24 @@
           <div class="search-container">
             <div class="width-40">
               <div class="width-90">
-                <label class="item item-input">
-                  <input id="start-location-field" type="text" placeholder="Ponto de Partida" ng-model="startPoint">
-                </label>
+                <div class="form-list list-insert">
+                  <label class="item item-input">
+                    <i class="form-icon ion-location placeholder-icon"></i>
+                    <input id="start-location-field" type="text" placeholder="Ponto de Partida" ng-model="startPoint">
+                  </label>
+                </div>
               </div>
               <div ng-click="getCurrentLocation()" class="width-10">
                 <i id="search-position-icon" class="fa {{geoLocationIcon}} fa-2x"></i>
               </div>
             </div>
-            <label class="item item-input">
-              <input type="text" placeholder="Ponto de chegada" ng-model="destination">
-            </label>
+
+            <div class="form-list list-insert">
+              <label class="item item-input">
+                <i class="form-icon ion-pin placeholder-icon"></i>
+                <input type="text" placeholder="Ponto de chegada" ng-model="destination">
+              </label>
+            </div>
         </div>
 
         <div class="type-container">
@@ -33,12 +40,21 @@
         </div>
 
         <div class="info-container">
-          <label class="item item-input">
-            <input type="text" placeholder="Preço mínimo" ng-model="minPrice">
-          </label>
-          <label class="item item-input">
-            <input type="text" placeholder="Desvio máximo" ng-model="maxDeviation">
-          </label>
+
+          <div class="form-list list-insert">
+              <label class="item item-input">
+                <i class="form-icon fa fa-eur placeholder-icon"></i>
+                <input type="text" placeholder="Preço mínimo" ng-model="minPrice">
+              </label>
+          </div>
+
+          <div class="form-list list-insert">
+              <label class="item item-input">
+                <i class="form-icon fa fa-level-up placeholder-icon"></i>
+                <input type="text" placeholder="Desvio máximo (minutos)" ng-model="maxDeviation">
+              </label>
+          </div>
+
         </div>
 
          <div class="shareBtnContainer" ng-init="loadFooters()">
