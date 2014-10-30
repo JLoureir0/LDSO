@@ -9,7 +9,7 @@ var user    = {
   username     : 'john_doe',
   password     : '123456789',
   email        : 'johndoe@example.org',
-  birth_date   : '12-12-1980',
+  birth_date   : '1980-12-12',
   citizen_card : '11111111',
   phone_number : '123456789'
 };
@@ -61,7 +61,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no first_name passed', function(done) {
+      it('should return 409 and an error message if no first_name passed', function(done) {
         var user_no_first_name = JSON.parse(JSON.stringify(user));
         delete user_no_first_name.first_name;
         client.post('/users.json', user_no_first_name, function(err, req, res, obj) {
@@ -70,7 +70,16 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no last_name passed', function(done) {
+      it('should return 409 and an error message if first_name is invalid', function(done) {
+        var user_invalid_first_name = JSON.parse(JSON.stringify(user));
+        user_invalid_first_name.first_name = 'Inval1d';
+        client.post('/users.json', user_invalid_first_name, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('First name must only contain letters');
+          done();
+        });
+      });
+      it('should return 409 and an error message if no last_name passed', function(done) {
         var user_no_last_name = JSON.parse(JSON.stringify(user));
         delete user_no_last_name.last_name;
         client.post('/users.json', user_no_last_name, function(err, req, res, obj) {
@@ -79,7 +88,16 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no username passed', function(done) {
+      it('should return 409 and an error message if last_name is invalid', function(done) {
+        var user_invalid_last_name = JSON.parse(JSON.stringify(user));
+        user_invalid_last_name.last_name = 'Inval1d';
+        client.post('/users.json', user_invalid_last_name, function(err, req, res, obj) {
+          expect(res.statusCode).to.be.equal(409);
+          expect(obj.message).to.be.equal('Last name must only contain letters');
+          done();
+        });
+      });
+      it('should return 409 and an error message if no username passed', function(done) {
         var user_no_username = JSON.parse(JSON.stringify(user));
         delete user_no_username.username;
         client.post('/users.json', user_no_username, function(err, req, res, obj) {
@@ -88,7 +106,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no password passed', function(done) {
+      it('should return 409 and an error message if no password passed', function(done) {
         var user_no_password = JSON.parse(JSON.stringify(user));
         delete user_no_password.password;
         client.post('/users.json', user_no_password, function(err, req, res, obj) {
@@ -97,7 +115,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no email passed', function(done) {
+      it('should return 409 and an error message if no email passed', function(done) {
         var user_no_email = JSON.parse(JSON.stringify(user));
         delete user_no_email.email;
         client.post('/users.json', user_no_email, function(err, req, res, obj) {
@@ -106,7 +124,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no birth_date passed', function(done) {
+      it('should return 409 and an error message if no birth_date passed', function(done) {
         var user_no_birth_date = JSON.parse(JSON.stringify(user));
         delete user_no_birth_date.birth_date;
         client.post('/users.json', user_no_birth_date, function(err, req, res, obj) {
@@ -115,7 +133,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no citizen_card passed', function(done) {
+      it('should return 409 and an error message if no citizen_card passed', function(done) {
         var user_no_citizen_card = JSON.parse(JSON.stringify(user));
         delete user_no_citizen_card.citizen_card;
         client.post('/users.json', user_no_citizen_card, function(err, req, res, obj) {
@@ -124,7 +142,7 @@ describe('Server', function() {
           done();
         });
       });
-      it('should return 409 and a error message if no phone_number passed', function(done) {
+      it('should return 409 and an error message if no phone_number passed', function(done) {
         var user_no_phone_number = JSON.parse(JSON.stringify(user));
         delete user_no_phone_number.phone_number;
         client.post('/users.json', user_no_phone_number, function(err, req, res, obj) {

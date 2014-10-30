@@ -13,10 +13,8 @@ exports.handle_user = function(req, res, next) {
 };
 
 function verify_user_attributes(user, next) {
-  if(user.first_name === undefined)
-    return next(new restify.InvalidArgumentError('First name must be supplied'));
-  if(user.last_name === undefined)
-    return next(new restify.InvalidArgumentError('Last name must be supplied'));
+  parse_first_name(user.first_name, next);
+  parse_last_name(user.last_name, next);
   if(user.username === undefined)
     return next(new restify.InvalidArgumentError('Username must be supplied'));
   if(user.password === undefined)
@@ -29,6 +27,22 @@ function verify_user_attributes(user, next) {
     return next(new restify.InvalidArgumentError('Citizen card must be supplied'));
   if(user.phone_number === undefined)
     return next(new restify.InvalidArgumentError('Phone number must be supplied'));
+}
+
+function parse_first_name(first_name, next) {
+  if(first_name === undefined)
+    return next(new restify.InvalidArgumentError('First name must be supplied'));
+
+  if(typeof first_name !== 'string' || !(/^[a-zA-Z]+$/.test(first_name)))
+    return next(new restify.InvalidArgumentError('First name must only contain letters'));
+}
+
+function parse_last_name(last_name, next) {
+  if(last_name === undefined)
+    return next(new restify.InvalidArgumentError('Last name must be supplied'));
+
+  if(typeof last_name !== 'string' || !(/^[a-zA-Z]+$/.test(last_name)))
+    return next(new restify.InvalidArgumentError('Last name must only contain letters'));
 }
 
 function parse_user(user) {
