@@ -1,192 +1,60 @@
-var restify = require('restify'), userSave = require('save')('user'), server = restify.createServer({ name: 'my-api' }),
-tripSave = require('save')('trip')
+var restify    = require('restify');
+var server     = restify.createServer({ name: 'Carryit' });
 
-server.listen(3000, function () {
-	console.log('%s listening at %s', server.name, server.url)
-})
+var user_save  = require('save')('user');
 
-server.use(restify.fullResponse()).use(restify.bodyParser())
+var users_hdlr = require('./handlers/users.js');
+var user_hdlr  = require('./handlers/user.js');
 
-server.get('/user', function (req, res, next) {
-	userSave.find({}, function (error, users) {
-		res.send(users)
-	})
-})
+server.use(restify.fullResponse());
+server.use(restify.bodyParser());
+server.use(function(req, res, next) {
+  res.charSet('utf-8');
+  next();
+});
 
-server.get('/user/:id', function (req, res, next) {
-	userSave.findOne({ _id: req.params.id }, function (error, user) {
-	if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-		if (user) {
-			res.send(user)
-		} else {
-			res.send(404)
-		}
-	})
-})
+server.use(restify.queryParser());
 
-server.post('/user', function (req, res, next) {
-	if (req.params.firstName === undefined)
-	{
-		return next(new restify.InvalidArgumentError('First name must be supplied'))
-	}
-	if(req.params.secondName === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Second name must be supplied'))
-	}
-	if(req.params.username === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Username must be supplied'))
-	}
-	if(req.params.password === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Password must be supplied'))
-	}
-	if(req.params.email === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Email must be supplied'))
-	}
-	if(req.params.birthDate === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Birth date must be supplied'))
-	}
-	if(req.params.citizenCard === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Citizen card must be supplied'))
-	}
-	if(req.params.reputation === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Reputation must be supplied'))
-	}
-	if(req.params.phoneNumber === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Phone number must be supplied'))
-	}
-	userSave.create({ firstName: req.params.firstName, secondName: req.params.secondName, username: req.params.username,
-	   password: req.params.password, email: req.params.email, birthDate: req.params.birthDate, citizenCard: req.params.citizenCard, reputation: req.params.reputation,
-	   phoneNumber: req.params.phoneNumber}, function (error, user)
-	   {
-			if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-				res.send(201, user)
-		})
-})
+server.listen(3000, function() {
+  console.log(server.name + ' listening at ' + server.url);
+});
 
-server.put('/user/:id', function (req, res, next) {
-	if (req.params.password === undefined) 
-	{
-		return next(new restify.InvalidArgumentError('Password must be supplied'))
-	}
-	if(req.params.username === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Username must be supplied'))
-	}
-	if(req.params.email === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Email must be supplied'))
-	}
-	if(req.params.phoneNumber === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Phone number must be supplied'))
-	}
-	userSave.update({ _id: req.params.id, username: req.params.username, email: req.params.email, phoneNumber: req.params.phoneNumber, password: req.params.password }, function (error, user)
-	{
-		if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-    res.send(200)
-  })
-})
+server.get('/users.json', function(req, res) {
+  user_save.find({}, function (err, users) {
+    res.send({ data: users });
+  });
+});
 
-server.del('/user/:id', function (req, res, next) {
-  userSave.delete(req.params.id, function (error, user) {
-    if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-    res.send()
-  })
-})
+server.post('/users.json', users_hdlr.handle_params, function(req, res) {
+  user_save.create(req.params, function(err, user) {
+    res.send(201, user);
+  });
+});
 
-server.get('/trip', function (req, res, next) {
-	tripSave.find({}, function (error, trips) {
-		res.send(trips)
-	})
-})
+server.get(/^\/users\/(.+)\.json$/, function(req, res, next) {
+  user_save.findOne({ _id: req.params[0] }, function(err, user) {
+    if(err)
+      return next(new restify.InvalidArgumentError(JSON.stringify(err.errors)));
 
-server.get('/trip/:id', function (req, res, next) {
-	tripSave.findOne({ _id: req.params.id }, function (error, trip) {
-	if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-		if (trip) {
-			res.send(trip)
-		} else {
-			res.send(404)
-		}
-	})
-})
+    if(user)
+      res.send({ data: user});
+    else
+      res.send(404);
+  });
+});
 
-server.post('/trip', function (req, res, next) {
-	if (req.params.startPoint === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Start point name must be supplied'))
-	}
-	if(req.params.destination === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Destination name must be supplied'))
-	}
-	if(req.params.isFragile === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Is fragile must be supplied'))
-	}
-	if(req.params.isFlamable === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Is flamable must be supplied'))
-	}
-	if(req.params.minPrice === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Min price must be supplied'))
-	}
-	if(req.params.maxDeviation === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Max deviation date must be supplied'))
-	}
-	tripSave.create({ startPoint: req.params.startPoint, destination: req.params.destination, isFragile: req.params.isFragile,
-	   isFlamable: req.params.isFlamable, isLarge: req.params.isLarge, minPrice: req.params.minPrice, maxDeviation: req.params.maxDeviation }, function (error, user)
-	   {
-			if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-				res.send(201, user)
-		})
-})
+server.put(/^\/users\/(.+)\.json$/, user_hdlr.handle_params, function(req, res, next) {
+  user_save.update(req.params, function (err, user) {
+    if(err)
+      res.send(404);
+    res.send(user);
+  });
+});
 
-server.put('/trip/:id', function (req, res, next) {
-	if (req.params.startPoint === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Start point name must be supplied'))
-	}
-	if(req.params.destination === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Destination name must be supplied'))
-	}
-	if(req.params.isFragile === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Is fragile must be supplied'))
-	}
-	if(req.params.isFlamable === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Is flamable must be supplied'))
-	}
-	if(req.params.minPrice === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Min price must be supplied'))
-	}
-	if(req.params.maxDeviation === undefined)
-	{
-		return next(new restify.InvalidArgumentError('Max deviation date must be supplied'))
-	}
-	userSave.update({ _id: req.params.id, startPoint: req.params.startPoint, destination: req.params.destination, isFragile: req.params.isFragile,
-	   isFlamable: req.params.isFlamable, isLarge: req.params.isLarge, minPrice: req.params.minPrice, maxDeviation: req.params.maxDeviation }, function (error, user)
-	{
-		if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-    res.send(200)
-  })
-})
-
-server.del('/trip/:id', function (req, res, next) {
-  tripSave.delete(req.params.id, function (error, trip) {
-    if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
-    res.send()
-  })
-})
+server.del(/^\/users\/(.+)\.json$/, function(req, res) {
+  user_save.delete(req.params[0], function(err, user) {
+    if(err)
+      res.send(404);
+    res.send(200);
+  });
+});

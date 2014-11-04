@@ -1,0 +1,22 @@
+{
+  "name": "CarryitAPI",
+  "version": "0.1.0",
+  "description": "JSON API for the app Carryit",
+  "private": true,
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "restify": "^2.8.3",
+    "save": "^0.0.20"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2"
+  },
+  "scripts": {
+    "test": "clear && mocha"
+  },
+  "author": "LDSO Grupo 3",
+  "license": "ISC"
+}
