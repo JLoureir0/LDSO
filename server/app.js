@@ -6,8 +6,12 @@ var user_save  = require('save')('user');
 var users_hdlr = require('./handlers/users.js');
 var user_hdlr  = require('./handlers/user.js');
 
+var logger     = require('restify-logger');
+//logger.format('dev', ':method :url :status :response-time ms');
+
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
+server.use(logger('dev'));
 server.use(function(req, res, next) {
   res.charSet('utf-8');
   next();
