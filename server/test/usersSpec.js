@@ -1,7 +1,6 @@
 var expect  = require('chai').expect;
 var restify = require('restify');
-
-var client  = restify.createJsonClient( { url: 'http://localhost:3000' });
+var client  = restify.createJsonClient({ url: 'http://localhost:3000' });
 
 var user    = {
   first_name   : 'John',
@@ -120,7 +119,7 @@ describe('/users.json', function() {
       user_invalid_password.password = ['password'];
       client.post('/users.json', user_invalid_password, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Password must be a string');
+        expect(obj.message).to.be.equal('Password must be a string with at least 8 characters');
         done();
       });
     });

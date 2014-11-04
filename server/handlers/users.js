@@ -1,8 +1,6 @@
 var restify = require('restify');
 
-exports.version = '0.1.0';
-
-exports.handle_user = function(req, res, next) {
+exports.handle_params = function(req, res, next) {
   var user = req.params;
 
   verify_user_attributes(user, next);
@@ -49,8 +47,8 @@ function parse_username(username, next) {
 function parse_password(password, next) {
   if(password === undefined)
     return next(new restify.InvalidArgumentError('Password must be supplied'));
-  if(typeof password !== 'string')
-    return next(new restify.InvalidArgumentError('Password must be a string'));
+  if(typeof password !== 'string' || password.length < 7)
+    return next(new restify.InvalidArgumentError('Password must be a string with at least 8 characters'));
 }
 
 function parse_email(email, next) {
