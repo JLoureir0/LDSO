@@ -3,11 +3,10 @@ var server     = restify.createServer({ name: 'Carryit' });
 
 var user_save  = require('save')('user');
 
+var logger     = require('restify-logger');
+
 var users_hdlr = require('./handlers/users.js');
 var user_hdlr  = require('./handlers/user.js');
-
-var logger     = require('restify-logger');
-//logger.format('dev', ':method :url :status :response-time ms');
 
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
