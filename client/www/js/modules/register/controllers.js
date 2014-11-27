@@ -13,6 +13,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	$scope.phone = "";
 	$scope.idNumber = "";
 	$scope.birthdate = "";
+	$scope.birthdateToSend = "";
 
 
 	//Accept Variables
@@ -203,10 +204,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	}
 
 	$scope.validateDateCallback = function() {
-
-		/*
-		
-		var pattern = /^\d{4}[\/](0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])$/;
+		var pattern = /^\d{4}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01])$/;
 
 		if($scope.birthdate.length === 0){
 			$scope.valBirthDate = "neutral-icon";
@@ -214,21 +212,16 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 			emptyField[8] = 1;
 		}
 		else if($scope.birthdate.match(pattern)) {
-			alert('entrou');
 			$scope.valBirthDate = "green-icon";
 			messagesToDisplay[8] = 0;
 			emptyField[8] = 0;
+			$scope.birthdateToSend = $scope.birthdate.replace(/-/gi, "/");
 		}
 		else {
 			$scope.valBirthDate = "red-icon";
 			messagesToDisplay[8] = 1;
 			emptyField[8] = 0;
 		}
-		*/
-
-		$scope.valBirthDate = "green-icon";
-		messagesToDisplay[8] = 0;
-		emptyField[8] = 0;
 	}
 
 	$scope.submitRegister = function() {
@@ -240,7 +233,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 			"username" : $scope.username,
 			"password" : $scope.passwordEncrypted.toString(),
 			"email" : $scope.email,
-			"birth_date" : $scope.birthdate,
+			"birth_date" : $scope.birthdateToSend,
 			"citizen_card" : $scope.idNumber,
 			"reputation" : "0",
 			"phone_number" : $scope.phone
@@ -269,11 +262,8 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 		
 		if(isValid && !isEmpty) {
 			var json = JSON.stringify(jsonRegister);
-
 			var response = makeRequest.register(json);
-
 			console.log(response);
-			
 		}
 	}
 
