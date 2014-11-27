@@ -7,7 +7,7 @@ var timeout = 5000;
 module.factory('makeRequest', function ($http, $q) {
 	return {
 		sendTrip: function(json) {
-	            return $http.post('http://localhost:3000/trip', json, {timeout: timeout})
+	            return $http.post('http://localhost:3000/trip.json', json, {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -23,7 +23,7 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        getTrips: function() {
-	            return $http.get('http://localhost:3000/trip', {timeout: timeout})
+	            return $http.get('http://localhost:3000/trip.json', {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -39,7 +39,7 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        register: function(json) {
-	        	return $http.post('http://localhost:3000/user', json, {timeout: timeout})
+	        	return $http.post('http://172.30.51.128:3000/users.json', json, {timeout: timeout})
 	        	.then(function(response){
 	        		if(typeof response.data === 'object') {
 	        			return response.data;
@@ -71,7 +71,8 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        sendLogin: function(encoded) {
-	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
+	        	//172.30.51.128
+	        	return $http.get("http://172.30.51.128:3000/users.json", { headers: { 'Authorization': encoded } })
 	        	.then(function(response){
 	        		if(typeof response.data === 'object') {
 	        			return response.data;

@@ -204,6 +204,8 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 
 	$scope.validateDateCallback = function() {
 
+		/*
+		
 		var pattern = /^\d{4}[\/](0?[1-9]|1[012])[\/](0?[1-9]|[12][0-9]|3[01])$/;
 
 		if($scope.birthdate.length === 0){
@@ -212,6 +214,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 			emptyField[8] = 1;
 		}
 		else if($scope.birthdate.match(pattern)) {
+			alert('entrou');
 			$scope.valBirthDate = "green-icon";
 			messagesToDisplay[8] = 0;
 			emptyField[8] = 0;
@@ -221,21 +224,26 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 			messagesToDisplay[8] = 1;
 			emptyField[8] = 0;
 		}
+		*/
+
+		$scope.valBirthDate = "green-icon";
+		messagesToDisplay[8] = 0;
+		emptyField[8] = 0;
 	}
 
 	$scope.submitRegister = function() {
 		console.log("name: " + $scope.name + " lastName: " + $scope.lastName + " username: " + $scope.username); 
 
 		var jsonRegister = {
-			"firstName" : $scope.name,
-			"secondName" : $scope.lastName,
+			"first_name" : $scope.name,
+			"last_name" : $scope.lastName,
 			"username" : $scope.username,
 			"password" : $scope.passwordEncrypted.toString(),
 			"email" : $scope.email,
-			"birthDate" : $scope.birthdate,
-			"citizenCard" : $scope.idNumber,
+			"birth_date" : $scope.birthdate,
+			"citizen_card" : $scope.idNumber,
 			"reputation" : "0",
-			"phoneNumber" : $scope.phone
+			"phone_number" : $scope.phone
 		};
 
 		var isEmpty = false;
