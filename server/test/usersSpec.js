@@ -1,6 +1,5 @@
 var expect  = require('chai').expect;
 var restify = require('restify');
-var client  = restify.createJsonClient({ url: 'http://localhost:3000' });
 
 var user    = {
   first_name   : 'John',
@@ -12,6 +11,13 @@ var user    = {
   citizen_card : '11111111',
   phone_number : '123456789'
 };
+
+var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
+
+var client  = restify.createJsonClient({
+  url: 'http://localhost:3000',
+  headers: { 'Authorization': authorization }
+});
 
 describe('/users.json', function() {
   describe('get request', function() {
