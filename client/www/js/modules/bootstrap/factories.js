@@ -71,18 +71,26 @@ module.factory('makeRequest', function ($http, $q, BACache) {
 	        },
 
 	        sendLogin: function(encoded) {
-	        	//172.30.51.128
 	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
 	        	.then(function(response){
-	        		if(typeof response.data === 'object') {
-	        			BACache.put("session", encoded);
-	        			return response.data;
-	        		} else {
-	        			// invalid response
-	        			return $q.reject(response.data);
+	        		var info = {};
+	        		switch(response.status) {
+	        			case 200:
+	        				info.code = response.status;
+	        				info.data = response.data;
+	        				break;
+	        			case 401:
+	        				info.code = response.status;
+	        				info.data = response.data;
+	        				break;
+	        			default:
+	        				info.code = response.status;
+	        				info.data = response.data;
 	        		}
+	        		return $q.reject(info);
 	        	}, function(response) {
 	        			// something went wrong
+	        			console.log('error1');
 	        			return $q.reject(response.data);
 	        		}
 	        	);

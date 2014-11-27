@@ -15,7 +15,6 @@ module.controller('loginCtrl', function($scope, makeRequest) {
 	$scope.submitLogin = function() {
 		$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
 		console.log("username: " + $scope.username + " password: " + $scope.password);
-		console.log($scope.passwordEncrypted.toString());
 
 		var jsonLogin = {
 			"username" : $scope.username,
@@ -24,9 +23,9 @@ module.controller('loginCtrl', function($scope, makeRequest) {
 		var json = JSON.stringify(jsonLogin);
 
 		var username_password = "Basic " + btoa($scope.username + ':' + $scope.passwordEncrypted);
-		var received = makeRequest.sendLogin(username_password);
+		var response = makeRequest.sendLogin(username_password);
 
-		console.log(received);
+		console.log(response);
 	}
 
 });
