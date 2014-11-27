@@ -3,11 +3,12 @@ var module = angular.module('starter');
 
 var timeout = 5000;
 
-module.factory('makeRequest', function ($http, $q) {
+/*
+* Singleton that will provide a singleton to make a server request
+*/
+module.factory('makeRequest', ['$cacheFactory', function ($http, $q, BACache) {
 	return {
 		sendTrip: function(json) {
-	            // the $http API is based on the deferred/promise APIs exposed by the $q service
-	            // so it returns a promise for us by default
 	            return $http.post('http://localhost:3000/trip', json, {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
@@ -24,8 +25,6 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        getTrips: function() {
-	            // the $http API is based on the deferred/promise APIs exposed by the $q service
-	            // so it returns a promise for us by default
 	            return $http.get('http://localhost:3000/trip', {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
@@ -74,4 +73,12 @@ module.factory('makeRequest', function ($http, $q) {
 	        }
 	    };    
 	}
-);
+]);
+
+
+/*
+* Singleton that will provide a cache for server authentication
+*/
+module.factory('BACache', ['$cacheFactory', function($cacheFactory){
+	return $cacheFactory('BACache', {capacity: 1});
+}]);
