@@ -1,12 +1,15 @@
-var restify    = require('restify');
-var server     = restify.createServer({ name: 'Carryit' });
+var restify       = require('restify');
+var server        = restify.createServer({ name: 'Carryit' });
 
-var user_save  = require('save')('user');
+var user_save     = require('save')('user');
 
-var logger     = require('restify-logger');
+var passport      = require('passport');
+var passport_http = require('passport-http');
 
-var users_hdlr = require('./handlers/users.js');
-var user_hdlr  = require('./handlers/user.js');
+var logger        = require('restify-logger');
+
+var users_hdlr    = require('./handlers/users.js');
+var user_hdlr     = require('./handlers/user.js');
 
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
@@ -18,11 +21,37 @@ server.use(function(req, res, next) {
 
 server.use(restify.queryParser());
 
+server.use(passport.initialize());
+
+passport.use(new passport_http.BasicStrategy(function(username, password, done) {
+  if(username === password)
+    done(null, { id: username });
+  else
+    done(null, false);
+}));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(null, { id: id });
+});
+
+function authentication(req, res, next) {
+  if (!req.isAuthenticated())
+    res.send(401);
+  else
+    next();
+}
+
+server.use(passport.authenticate('basic', { session: false }));
+
 server.listen(3000, function() {
   console.log(server.name + ' listening at ' + server.url);
 });
 
-server.get('/users.json', function(req, res) {
+server.get('/users.json', authentication, function(req, res) {
   user_save.find({}, function (err, users) {
     res.send({ data: users });
   });

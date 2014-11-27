@@ -8,6 +8,8 @@
     "test": "test"
   },
   "dependencies": {
+    "passport": "^0.2.1",
+    "passport-http": "^0.2.2",
     "restify": "^2.8.3",
     "restify-logger": "^2.0.1",
     "save": "^0.0.20"
