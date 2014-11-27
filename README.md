@@ -32,23 +32,23 @@ You have to install the following:
 
 ###How to run ###
 
-You have three ways to run our project, either you run on a browser or on an emulator or on a physical device.
+You have three ways to run our project, either run it on a browse, an emulator or a physical device.
 
-To run on a browser:
+To run it on a browser:
 ```
 #!bash
 $ cd /to/projectfolder/client
 $ ionic serve
 ```
 
-To run on an emulator(**VERY SLOW**):
+To run it on an emulator(**VERY SLOW**):
 ```
 #!bash
 $ cd /to/projectfolder/client
 $ ionic emulate android
 ```
 
-To run on a physical device:
+To run it on a physical device:
 ```
 #!bash
 $ cd /to/projectfolder/client
