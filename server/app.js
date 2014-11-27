@@ -11,9 +11,13 @@ var logger        = require('restify-logger');
 var users_hdlr    = require('./handlers/users.js');
 var user_hdlr     = require('./handlers/user.js');
 
+restify.CORS.ALLOW_HEADERS.push('authorization');
+
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
+
 server.use(logger('dev'));
+
 server.use(function(req, res, next) {
   res.charSet('utf-8');
   next();
