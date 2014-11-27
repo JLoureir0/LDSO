@@ -1,12 +1,10 @@
 var module = angular.module('starter');
-
-
 var timeout = 5000;
 
 /*
 * Singleton that will provide a singleton to make a server request
 */
-module.factory('makeRequest', ['$cacheFactory', function ($http, $q) {
+module.factory('makeRequest', function ($http, $q) {
 	return {
 		sendTrip: function(json) {
 	            return $http.post('http://localhost:3000/trip', json, {timeout: timeout})
@@ -89,8 +87,7 @@ module.factory('makeRequest', ['$cacheFactory', function ($http, $q) {
 	        }
 	    };    
 	}
-]);
-
+)
 
 /*
 * Singleton that will provide a cache for server authentication

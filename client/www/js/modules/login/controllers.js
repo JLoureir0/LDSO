@@ -23,14 +23,12 @@ module.controller('loginCtrl', function($scope, makeRequest) {
 		};
 		var json = JSON.stringify(jsonLogin);
 
-		var username_password = "Basic" + btoa($scope.username + ':' + $scope.passwordEncrypted);
-
+		// to change password to passwordEncrypted
+		var username_password = "Basic " + btoa($scope.username + ':' + $scope.password);
 
 		var received = makeRequest.sendLogin(username_password);
 
-
 		console.log(received);
-
 	}
 
 });
