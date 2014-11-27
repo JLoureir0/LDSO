@@ -4,7 +4,7 @@ var timeout = 5000;
 /*
 * Singleton that will provide a singleton to make a server request
 */
-module.factory('makeRequest', function ($http, $q) {
+module.factory('makeRequest', function ($http, $q, BACache) {
 	return {
 		sendTrip: function(json) {
 	            return $http.post('http://localhost:3000/trip.json', json, {timeout: timeout})
@@ -75,6 +75,7 @@ module.factory('makeRequest', function ($http, $q) {
 	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
 	        	.then(function(response){
 	        		if(typeof response.data === 'object') {
+	        			BACache.put("session", encoded);
 	        			return response.data;
 	        		} else {
 	        			// invalid response
@@ -93,6 +94,6 @@ module.factory('makeRequest', function ($http, $q) {
 /*
 * Singleton that will provide a cache for server authentication
 */
-module.factory('BACache', ['$cacheFactory', function($cacheFactory){
+module.factory('BACache', ['$cacheFactory', function($cacheFactory) {
 	return $cacheFactory('BACache', {capacity: 1});
 }]);
