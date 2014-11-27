@@ -11,9 +11,13 @@ var logger        = require('restify-logger');
 var users_hdlr    = require('./handlers/users.js');
 var user_hdlr     = require('./handlers/user.js');
 
+restify.CORS.ALLOW_HEADERS.push('authorization');
+
 server.use(restify.fullResponse());
 server.use(restify.bodyParser());
+
 server.use(logger('dev'));
+
 server.use(function(req, res, next) {
   res.charSet('utf-8');
   next();
@@ -24,10 +28,17 @@ server.use(restify.queryParser());
 server.use(passport.initialize());
 
 passport.use(new passport_http.BasicStrategy(function(username, password, done) {
-  if(username === password)
-    done(null, { id: username });
-  else
-    done(null, false);
+  user_save.findOne({ username: username }, function(err, user) {
+    if(!user)
+      return done(new restify.InvalidArgumentError('No user'));
+    if(err)
+      return done(new restify.InvalidArgumentError(JSON.stringify(err.errors)));
+
+    if(password === user.password)
+      done(null, { id: username });
+    else
+      done(null, false);
+  });
 }));
 
 passport.serializeUser(function(user, done) {
@@ -45,13 +56,11 @@ function authentication(req, res, next) {
     next();
 }
 
-server.use(passport.authenticate('basic', { session: false }));
-
 server.listen(3000, function() {
   console.log(server.name + ' listening at ' + server.url);
 });
 
-server.get('/users.json', authentication, function(req, res) {
+server.get('/users.json', passport.authenticate('basic', { session: false }), authentication, function(req, res) {
   user_save.find({}, function (err, users) {
     res.send({ data: users });
   });
