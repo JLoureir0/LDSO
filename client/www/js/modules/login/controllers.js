@@ -1,6 +1,6 @@
 var module = angular.module('loginModule');
 
-module.controller('loginCtrl', function($scope, makeRequest) {
+module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache) {
 
 	$scope.username = "";
 	$scope.password = "";
@@ -23,9 +23,24 @@ module.controller('loginCtrl', function($scope, makeRequest) {
 		var json = JSON.stringify(jsonLogin);
 
 		var username_password = "Basic " + btoa($scope.username + ':' + $scope.passwordEncrypted);
-		var response = makeRequest.sendLogin(username_password);
-
-		console.log(response);
+		
+		makeRequest.sendLogin(username_password).
+			// then is called when service comes with an answer
+			then(function(data) {
+				BACache.put('session', username_password);
+				$state.go('menu.profile');
+			}, function(error) {
+				showAlert('Por favor reintroduza as suas credenciais!');
+				//showAlert('Error: ' + error.code);
+		});
 	}
+
+	// An alert dialog
+	function showAlert(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Acesso negado',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	 }
 
 });

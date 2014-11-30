@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 
-module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state) {
+module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache) {
 
 	$scope.items = [
 		{item: 'As tuas viagens'},
@@ -68,7 +68,6 @@ $scope.selectItem = function($index) {
 	} 
 }
 
-
 $scope.loadFooters = function() {
 
 	if($state.current.url === '/login')
@@ -80,6 +79,11 @@ $scope.loadFooters = function() {
 		$scope.showLoginFooter = true;
 	else 
 		$scope.showLoginFooter = false;
+}
+
+$scope.checkIfLoggedIn = function() {
+	if(BACache.get('session') != null)
+		$state.go('menu.profile');
 }
 
 

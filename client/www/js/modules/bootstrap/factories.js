@@ -4,7 +4,7 @@ var timeout = 5000;
 /*
 * Singleton that will provide a singleton to make a server request
 */
-module.factory('makeRequest', function ($http, $q, BACache) {
+module.factory('makeRequest', function ($http, $q) {
 	return {
 		sendTrip: function(json) {
 	            return $http.post('http://localhost:3000/trip.json', json, {timeout: timeout})
@@ -74,27 +74,27 @@ module.factory('makeRequest', function ($http, $q, BACache) {
 	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
 	        	.then(function(response){
 	        		var info = {};
-	        		switch(response.status) {
-	        			case 200:
-	        				info.code = response.status;
-	        				info.data = response.data;
-	        				break;
-	        			case 401:
-	        				info.code = response.status;
-	        				info.data = response.data;
-	        				break;
-	        			default:
-	        				info.code = response.status;
-	        				info.data = response.data;
+
+	        		if(response.status === 200) {
+	        			info.code = response.status;
+	        			info.data = response.data;
+	        			return info.date;
+	        		} else {
+	        			info.code = response.status;
+	        			info.data = response.data;
+	        			return $q.reject(info);
 	        		}
-	        		return $q.reject(info);
 	        	}, function(response) {
 	        			// something went wrong
 	        			console.log('error1');
-	        			return $q.reject(response.data);
+	        			var info = {};
+	        			info.code = response.status;
+	        			info.data = response.data;
+	        			return $q.reject(info);
 	        		}
 	        	);
 	        }
+
 	    };    
 	}
 )
