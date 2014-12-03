@@ -24,7 +24,7 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 		var username_password = "Basic " + btoa($scope.username + ':' + $scope.passwordEncrypted);
 		
 		makeRequest.sendLogin(username_password, $scope.username).
-			// then is called when service comes with an answer
+			// login was done with sucess
 			then(function(data) {
 				BACache.put('session', username_password);
 				makeRequest.setUserName($scope.username);

@@ -2,6 +2,10 @@ var module = angular.module('starter');
 
 module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache, makeRequest) {
 
+	$scope.json = makeRequest.getUserJson();
+	$scope.$watch('json', function() {
+		alert($scope.json);
+	});
 
 	$scope.items = [
 		{item: 'As tuas viagens'},
