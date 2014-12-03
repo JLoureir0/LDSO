@@ -132,7 +132,6 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 			emptyField[4] = 0;
 			//encrypying password with sha-256
 			$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
-			console.log($scope.passwordEncrypted.toString());
 		} else {
 			$scope.valConfirmPassword = "red-icon";
 			messagesToDisplay[0] = 1;
@@ -225,7 +224,6 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	}
 
 	$scope.submitRegister = function() {
-		console.log("name: " + $scope.name + " lastName: " + $scope.lastName + " username: " + $scope.username); 
 
 		var jsonRegister = {
 			"first_name" : $scope.name,
@@ -263,7 +261,6 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 		if(isValid && !isEmpty) {
 			var json = JSON.stringify(jsonRegister);
 			var response = makeRequest.register(json);
-			console.log(response);
 		}
 	}
 

@@ -73,24 +73,15 @@ module.factory('makeRequest', function ($http, $q) {
 	        sendLogin: function(encoded) {
 	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
 	        	.then(function(response){
-	        		var info = {};
 
-	        		if(response.status === 200) {
-	        			info.code = response.status;
-	        			info.data = response.data;
-	        			return info.date;
+	        		if(response.status === 200 && typeof response.data === 'object') {
+	        			return response.data;
 	        		} else {
-	        			info.code = response.status;
-	        			info.data = response.data;
-	        			return $q.reject(info);
+	        			return $q.reject(response);
 	        		}
 	        	}, function(response) {
 	        			// something went wrong
-	        			console.log('error1');
-	        			var info = {};
-	        			info.code = response.status;
-	        			info.data = response.data;
-	        			return $q.reject(info);
+	        			return $q.reject(response);
 	        		}
 	        	);
 	        }

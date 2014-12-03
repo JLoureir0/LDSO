@@ -80,7 +80,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
 		url: '/profile',
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/profile.html"
+				templateUrl: "templates/profile.html",
+				controller: "loginCtrl"
 			}
 		}
 	}).state('menu.my-trip', {
