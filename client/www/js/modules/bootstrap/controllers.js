@@ -2,10 +2,7 @@ var module = angular.module('starter');
 
 module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache, makeRequest) {
 
-	$scope.json = makeRequest.getUserJson();
-	$scope.$watch('json', function() {
-		alert($scope.json);
-	});
+	$scope.username;
 
 	$scope.items = [
 		{item: 'As tuas viagens'},
@@ -48,10 +45,6 @@ $scope.showRegisterFooter = false;
 $scope.showLoginFooter = false;
 
 $scope.toggleLeft = function() {
-	if(typeof makeRequest.getUserJson() !== 'undefined') {
-		$scope.username = makeRequest.getUserJson()['data'].first_name + " " + makeRequest.getUserJson()['data'].last_name;
-	}
-	else $scope.username = '';
 	$ionicSideMenuDelegate.toggleLeft();
 }
 
@@ -88,6 +81,14 @@ $scope.loadFooters = function() {
 		$scope.showLoginFooter = true;
 	else 
 		$scope.showLoginFooter = false;
+
+    var alreadySetUrsername = makeRequest.getUserName();
+	if(typeof alreadySetUrsername !== 'undefined') {
+		$scope.username = alreadySetUrsername;
+	}
+	else {
+		$scope.username = "";
+	}
 }
 
 $scope.checkIfLoggedIn = function() {
