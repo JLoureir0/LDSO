@@ -84,6 +84,22 @@ module.factory('makeRequest', function ($http, $q) {
 	        			return $q.reject(response);
 	        		}
 	        	);
+	        },
+
+	        sendPassword: function(encoded, jsonPassword) {
+	        	return $http.put("http://localhost:3000/users/" + "2.json", jsonPassword, { headers: { 'Authorization': encoded } })
+	        	.then(function(response){
+
+	        		if(response.status === 200 && typeof response.data === 'object') {
+	        			return response.data;
+	        		} else {
+	        			return $q.reject(response);
+	        		}
+	        	}, function(response) {
+	        			// something went wrong
+	        			return $q.reject(response);
+	        		}
+	        	);
 	        }
 
 	    };    
