@@ -1,14 +1,14 @@
 <ion-view title="'profile'">
   <ion-content scroll='true'>
 
-  	<div class="profile-container" ng-init="loadFooters()">
+  	<div class="profile-container">
   		
   		<h2 class="profile-title"> <span class="fa fa-user"></span> Perfil</h2>
 
   		<div class="list card">
 		  <div class="item item-avatar">
 		    <img src="img/User-icon.png">
-		    <h2><strong>{{profileInfo.first_name}}</strong></h2>
+		    <h2><strong>{{profileInfo.first_name + " " + profileInfo.last_name}}</strong></h2>
 		    <p>Experiência: Amador</p>
 		  </div>
 
@@ -56,12 +56,12 @@
 				  Editar
 				</div>
 			</a>
-			<a class="tab-item" href="#">
+			
 				<div nav-clear>
 					<i class="icon ion-key"></i>
-					Alterar password
+					<button ng-click="changePassword()"> <strong>Alterar password</strong> </button>
 				</div>
-			</a>
+		
 		</div>
 
   	</div>

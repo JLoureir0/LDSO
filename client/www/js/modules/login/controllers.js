@@ -29,7 +29,7 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 			then(function(data) {
 				BACache.put('session', username_password);
 				$scope.profileInfo = data['data'][0];
-				console.log($scope.profileInfo);
+				console.log(JSON.stringify(data));
 				console.log($scope.profileInfo.first_name);
 				$state.go('menu.profile');
 			}, function(error) {
