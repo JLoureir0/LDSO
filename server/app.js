@@ -30,7 +30,7 @@ server.use(passport.initialize());
 passport.use(new passport_http.BasicStrategy(function(username, password, done) {
   user_save.findOne({ username: username }, function(err, user) {
     if(!user)
-      return done(new restify.InvalidArgumentError('No user'));
+      return done(new restify.InvalidCredentialsError('Wrong username or password'));
     if(err)
       return done(new restify.InvalidArgumentError(JSON.stringify(err.errors)));
 
@@ -58,6 +58,14 @@ function authentication(req, res, next) {
 
 server.listen(3000, function() {
   console.log(server.name + ' listening at ' + server.url);
+});
+
+server.get('/login', passport.authenticate('basic', { session: false }), function(req, res) {
+  if (req.isAuthenticated())
+    res.send(200);
+  else
+    res.send(401);
+
 });
 
 server.get('/users.json', passport.authenticate('basic', { session: false }), authentication, function(req, res) {

@@ -20,27 +20,6 @@ var client  = restify.createJsonClient({
 });
 
 describe('/users.json', function() {
-  describe('get request', function() {
-    it('should return 200', function(done) {
-      client.get('/users.json', function(err, req, res, obj) {
-        expect(res.statusCode).to.be.equal(200);
-        done();
-      });
-    });
-    it('should return a json with a data property', function(done) {
-      client.get('/users.json', function(err, req, res, obj) {
-        expect(obj).to.have.a.property('data');
-        done();
-      });
-    });
-    it('should return an array in the data property', function(done) {
-      client.get('/users.json', function(err, req, res, obj) {
-        expect(obj.data).to.be.an.instanceof(Array);
-        done();
-      });
-    });
-  });
-
   describe('post request', function() {
     it('should return 201 on create', function(done) {
       client.post('/users.json', user, function(err, req, res, obj) {
@@ -210,6 +189,33 @@ describe('/users.json', function() {
         response_user._id = obj._id;
         response_user.reputation = 0;
         expect(obj).to.be.deep.equal(response_user);
+        done();
+      });
+    });
+  });
+
+  describe('get request', function() {
+    it('should return 200', function(done) {
+      client.get('/users.json', function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+    });
+    it('should have Content-Type: application/json; charset=utf-8', function(done) {
+      client.get('/users.json', function(err, req, res, obj) {
+        expect(res.headers['content-type']).to.be.equal('application/json; charset=utf-8');
+        done();
+      });
+    });
+    it('should return a json with a data property', function(done) {
+      client.get('/users.json', function(err, req, res, obj) {
+        expect(obj).to.have.a.property('data');
+        done();
+      });
+    });
+    it('should return an array in the data property', function(done) {
+      client.get('/users.json', function(err, req, res, obj) {
+        expect(obj.data).to.be.an.instanceof(Array);
         done();
       });
     });
