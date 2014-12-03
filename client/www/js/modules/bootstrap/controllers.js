@@ -1,6 +1,7 @@
 var module = angular.module('starter');
 
-module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache) {
+module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache, makeRequest) {
+
 
 	$scope.items = [
 		{item: 'As tuas viagens'},
@@ -43,6 +44,10 @@ $scope.showRegisterFooter = false;
 $scope.showLoginFooter = false;
 
 $scope.toggleLeft = function() {
+	if(typeof makeRequest.getUserJson() !== 'undefined') {
+		$scope.username = makeRequest.getUserJson()['data'].first_name + " " + makeRequest.getUserJson()['data'].last_name;
+	}
+	else $scope.username = '';
 	$ionicSideMenuDelegate.toggleLeft();
 }
 

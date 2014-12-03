@@ -4,7 +4,6 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 
 	$scope.username = "";
 	$scope.password = "";
-	$scope.profileInfo;
 
 	$scope.confirmPasswordCallback = function() {
 		if($scope.password.length <8)
@@ -24,13 +23,11 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 
 		var username_password = "Basic " + btoa($scope.username + ':' + $scope.passwordEncrypted);
 		
-		makeRequest.sendLogin(username_password).
+		makeRequest.sendLogin(username_password, $scope.username).
 			// then is called when service comes with an answer
 			then(function(data) {
 				BACache.put('session', username_password);
-				$scope.profileInfo = data['data'][0];
-				console.log($scope.profileInfo);
-				console.log($scope.profileInfo.first_name);
+				makeRequest.setUserName($scope.username);
 				$state.go('menu.profile');
 			}, function(error) {
 				showAlert('Por favor reintroduza as suas credenciais!');

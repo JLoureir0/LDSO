@@ -1,13 +1,15 @@
 var module = angular.module('starter');
 var timeout = 5000;
-
+var ip = "172.30.51.128";
+var username;
+var userJson;
 /*
 * Singleton that will provide a singleton to make a server request
 */
 module.factory('makeRequest', function ($http, $q) {
 	return {
 		sendTrip: function(json) {
-	            return $http.post('http://localhost:3000/trip.json', json, {timeout: timeout})
+	            return $http.post('http://' + ip + ':3000/trip.json', json, {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -23,7 +25,7 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        getTrips: function() {
-	            return $http.get('http://localhost:3000/trip.json', {timeout: timeout})
+	            return $http.get('http://' + ip + ':3000/trip.json', {timeout: timeout})
 	            .then(function(response) {
 	            	if (typeof response.data === 'object') {
 	            		return response.data;
@@ -39,7 +41,7 @@ module.factory('makeRequest', function ($http, $q) {
 	        },
 
 	        register: function(json) {
-	        	return $http.post('http://localhost:3000/users.json', json, {timeout: timeout})
+	        	return $http.post('http://' + ip + ':3000/users.json', json, {timeout: timeout})
 	        	.then(function(response){
 	        		if(typeof response.data === 'object') {
 	        			return response.data;
@@ -70,12 +72,12 @@ module.factory('makeRequest', function ($http, $q) {
 	        	);
 	        },
 
-	        sendLogin: function(encoded) {
-	        	return $http.get("http://localhost:3000/users.json", { headers: { 'Authorization': encoded } })
-	        	.then(function(response){
-
+	        getUser: function(encoded, username) {
+	        	return $http.get('http://' + ip + ':3000/users/2.json', { headers: { 'Authorization': encoded } })
+	        	.then(function(response) {
 	        		if(response.status === 200 && typeof response.data === 'object') {
-	        			return response.data;
+	        			userJson = response.data;
+	        			return userJson;
 	        		} else {
 	        			return $q.reject(response);
 	        		}
@@ -84,6 +86,33 @@ module.factory('makeRequest', function ($http, $q) {
 	        			return $q.reject(response);
 	        		}
 	        	);
+	        },
+
+	        sendLogin: function(encoded, username) {
+	        	return $http.get('http://' + ip + ':3000/login', { headers: { 'Authorization': encoded } })
+	        	.then(function(response) {
+	        		if(response.status === 200) {
+	        			return response.data;
+	        		} else {
+	        			return $q.reject(response);
+	        		}
+	        	}, function(response) {
+	        			// something went wrong
+	        			return $q.reject(response);
+	        		}
+	        	);	   		
+	        },
+
+	       	setUserName: function(user) {
+				username = user;
+	        },
+
+	        getUserName: function() {
+	        	return username;
+	        },
+
+	        getUserJson: function() {
+	        	return userJson;
 	        }
 
 	    };    

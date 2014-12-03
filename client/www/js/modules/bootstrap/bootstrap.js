@@ -3,8 +3,8 @@ angular.module('registerModule', []);
 angular.module('loginModule', []);
 angular.module('messagesModule', []);
 angular.module('welcomeModule', []);
-angular.module('profileModule', []);
 angular.module('tripsModule', []);
+angular.module('profileModule', []);
 
 // Lastly, define your "main" module and inject all other modules as dependencies
 angular.module('starter',
@@ -15,6 +15,6 @@ angular.module('starter',
     'welcomeModule',
     'profileModule',
     'tripsModule',
-    'ionic',
+    'ionic'
   ]
 );

@@ -3,13 +3,17 @@
 
   	<div class="profile-container" ng-init="loadFooters()">
   		
-  		<h2 class="profile-title"> <span class="fa fa-user"></span> Perfil</h2>
+  		<h2 class="profile-title" ng-init="loadProfile()"> <span class="fa fa-user"></span> Perfil</h2>
 
   		<div class="list card">
 		  <div class="item item-avatar">
 		    <img src="img/User-icon.png">
-		    <h2><strong>{{profileInfo.first_name}}</strong></h2>
-		    <p>Experiência: Amador</p>
+		    <h2><strong>{{profileInfo.first_name + " " + profileInfo.last_name}}</strong></h2>
+		    <div ng-switch = "profileInfo.reputation">
+		    	<p ng-switch-when="0">Amador</p>
+  				<p ng-switch-when="1">Professional</p>
+ 				<p ng-switch-default></p> 
+		    </div>
 		  </div>
 
 		  <div class="item item-body">
@@ -23,28 +27,28 @@
 
 		  <a href="" class="item item-icon-left">
 		    <i class="icon ion-home"></i>
-		    Trofa
+		    {{profileInfo.first_name}}
 		  </a>
 
 		  <a href="" class="item item-icon-left">
 		    <i class="icon ion-ios7-telephone"></i>
-		    919987690
+		    {{profileInfo.phone_number}}
 		  </a>
 
 		  <a href="" class="item item-icon-left">
 		    <i class="icon ion-card"></i>
-		    154758458
+		    {{profileInfo.citizen_card}}
 		  </a>
 
 		  <a href="" class="item item-icon-left">
 		    <i class="icon ion-ios7-calendar-outline"></i>
-		    09/05/1993
+		    {{profileInfo.birth_date}}
 		  </a>
 
 
 		  <a href="" class="item item-icon-left">
 		    <i class="icon ion-android-mail"></i>
-		    ricardoneves65@gmail.com
+		    {{profileInfo.email}}
 		  </a>
 
 		</div>
