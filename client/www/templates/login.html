@@ -4,7 +4,7 @@
   <!-- Content --> 
     <div class="login" ng-controller="loginCtrl" ng-init="checkIfLoggedIn()">
 
-      <h1 class="loginTitle"> <span class="ion-person"></span> Login</h1>
+      <h1 class="loginTitle" ng-init="updateFootersAndSidebar()"> <span class="ion-person"></span> Login</h1>
 
       <!-- External logins -->
 
@@ -26,7 +26,7 @@
 
       </div>
 
-      <div class="loginBtnContainer" ng-init="loadFooters()">
+      <div class="loginBtnContainer">
         <button ng-click="submitLogin()" class="registerBtn button button-calm"> <strong> Login </strong> </button>
       </div>
 

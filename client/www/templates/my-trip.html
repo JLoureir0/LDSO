@@ -2,7 +2,7 @@
   <ion-content scroll='true'>
 
   <!-- Content --> 
-    <div class="trip-container">
+    <div class="trip-container"  ng-init="updateFootersAndSidebar()">
       <h1 class="trip-title"> <span class="ion-model-s"></span> {{trip.startPoint}}-{{trip.destPoint}}</h1>
 
       <div class="list card">
@@ -85,7 +85,7 @@
           </a>
         </div>       
 
-        <div class="shareBtnContainer" ng-init="loadFooters()">
+        <div class="shareBtnContainer">
           <a ng-href="#/menu/share-trip"><button nav-clear class="registerBtn button button-calm"><strong>Editar viagem</strong></button></a>
         </div>
 

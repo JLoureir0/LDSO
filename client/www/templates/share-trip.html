@@ -2,7 +2,7 @@
   <ion-content scroll='true'>
 
     <div class="trip-container" ng-controller="shareTripCtrl">
-      <h1 class="share-title"> <span class="ion-android-share"></span> Partilhar viagem</h1>
+      <h1 class="share-title" ng-init="updateFootersAndSidebar()"> <span class="ion-android-share"></span> Partilhar viagem</h1>
 
          <div class="location-container">
           <div class="search-container">
@@ -57,7 +57,7 @@
 
         </div>
 
-         <div class="shareBtnContainer" ng-init="loadFooters()">
+         <div class="shareBtnContainer">
             <a ng-href="#/menu/my-trips" class="link"> <button nav-clear ng-click="shareTripSubmit()" class="registerBtn button button-calm"><strong>Partilhar</strong></button> </a>
          </div>
 
