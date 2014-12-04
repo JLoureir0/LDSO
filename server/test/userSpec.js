@@ -6,11 +6,12 @@ var user    = {
   first_name   : 'John',
   last_name    : 'Doe',
   username     : 'john_doe',
-  password     : '123456789',
+  password     : '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225',
   email        : 'johndoe@example.org',
   birth_date   : '1980/12/12',
   citizen_card : '11111111',
-  phone_number : '123456789'
+  phone_number : '123456789',
+  home_town    : 'Porto'
 };
 
 describe('/users/:id.json', function() {
@@ -20,6 +21,8 @@ describe('/users/:id.json', function() {
     client.post('/users.json', user, function(err, req, res, obj) {
       user._id = obj._id;
       user.reputation = obj.reputation;
+
+      user.biography = obj.biography;
       url = '/users/' + user._id + '.json';
       done();
     });

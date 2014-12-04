@@ -19,6 +19,7 @@ function verify_user_attributes(user, next) {
   parse_birth_date(user.birth_date, next);
   parse_citizen_card(user.citizen_card, next);
   parse_phone_number(user.phone_number, next);
+  parse_home_town(user.home_town, next);
 }
 
 function parse_first_name(first_name, next) {
@@ -85,10 +86,19 @@ function parse_phone_number(phone_number, next) {
     return next(new restify.InvalidArgumentError('Phone number must be a string with only 9 numbers'));
 }
 
+function parse_home_town(home_town, next) {
+  if(home_town === undefined)
+    return next(new restify.InvalidArgumentError('Home town must be supplied'));
+
+  if(typeof home_town !== 'string' || !(/^[\u00C0-\u00FFa-zA-Z]+(\s[\u00C0-\u00FFa-zA-Z]+)*$/.test(home_town)))
+    return next(new restify.InvalidArgumentError('Home town must be a string with only letters'));
+}
+
 function parse_user(user) {
   var new_user = {};
 
   new_user.reputation = 0;
+  new_user.biography = 'My biography is HARD CORE';
 
   var user_attributes = [
     'first_name',
@@ -98,7 +108,8 @@ function parse_user(user) {
     'email',
     'birth_date',
     'citizen_card',
-    'phone_number'
+    'phone_number',
+    'home_town'
   ];
 
   for(var key in user)
