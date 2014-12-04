@@ -3,7 +3,7 @@
 
         <div class="register" ng-controller="registerCtrl" ng-init="checkIfLoggedIn()">
 
-          <h1 class="loginTitle"> <span class="ion-person-add"></span> Registo</h1>
+          <h1 class="loginTitle" ng-init="updateFootersAndSidebar()"> <span class="ion-person-add"></span> Registo</h1>
           
           <div class="registerForm">
             <div class="form-list list-insert">
@@ -24,6 +24,13 @@
               <label class="item item-input">
                 <i class="form-icon ion-person placeholder-icon"></i>
                 <input type="text" placeholder="Username" ng-model="username" ng-change="usernameCallback()">
+              </label>
+            </div>
+
+            <div class="form-list list-insert">
+              <label class="item item-input">
+                <i class="form-icon ion-map placeholder-icon {{valLocalidade}}"></i>
+                <input type="text" placeholder="Localidade" ng-model="localidade" ng-change="localidadeCallback()">
               </label>
             </div>
 
@@ -70,7 +77,7 @@
             </div>
           </div>
 
-            <div class="registerBtnContainer" ng-init="loadFooters()">
+            <div class="registerBtnContainer">
               <button nav-clear ng-click="submitRegister()" class="registerBtn button button-calm"> <strong> Regista-te! </strong> </button>
             </div>
         </div>

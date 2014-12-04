@@ -3,14 +3,7 @@ var module = angular.module('starter');
 module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache, makeRequest) {
 
 	$scope.username;
-
-	$scope.items = [
-		{item: 'As tuas viagens'},
-		{item: 'Procurar viagens'},
-		{item: 'Partilhar viagem'},
-		{item: 'Mensagens'},
-		{item: 'Sair'}
-	];
+	$scope.items;
 
 	/*Temporary trip*/
 	$scope.trip = {
@@ -70,7 +63,7 @@ $scope.selectItem = function($index) {
 	} 
 }
 
-$scope.loadFooters = function() {
+$scope.updateFootersAndSidebar = function() {
 
 	if($state.current.url === '/login')
 		$scope.showRegisterFooter = true;
@@ -88,6 +81,22 @@ $scope.loadFooters = function() {
 	}
 	else {
 		$scope.username = "";
+	}
+
+	var userhash = BACache.get('session');
+	if(typeof username !== 'undefined') {
+		$scope.items = [
+			{item: 'As tuas viagens'},
+			{item: 'Procurar viagens'},
+			{item: 'Partilhar viagem'},
+			{item: 'Mensagens'},
+			{item: 'Sair'}
+		];
+	} else {
+		$scope.items = [
+			{item: 'Procurar viagens'},
+			{item: 'Sair'}
+		];
 	}
 }
 
