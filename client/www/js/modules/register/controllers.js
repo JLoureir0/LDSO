@@ -103,7 +103,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 	}
 
 	$scope.localidadeCallback = function() {
-		var pattern = /^[A-Za-z]+$/;
+		var pattern = /^[\u00C0-\u00FFa-zA-Z]+(\s[\u00C0-\u00FFa-zA-Z]+)*$/;
 		if($scope.localidade.length === 0) {
 			$scope.valLocalidade = "neutral-icon";
 			messagesToDisplay[4] = 0;
