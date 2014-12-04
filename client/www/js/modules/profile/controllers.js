@@ -3,6 +3,11 @@ var module = angular.module('profileModule');
 module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACache) {
 
 	$scope.profileInfo;
+	$scope.checkedPasswords = false;
+
+	$scope.data = {};
+	$scope.oldPassword;
+	$scope.newPassword;
 
 	$scope.loadProfile = function() {
 
@@ -26,6 +31,14 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 		}
 	}
 
+	// validates passwords before send them to server
+	$scope.passwordCallback = function() {
+		if($scope.data.newPassword < 8 || $scope.data.confirmPassword < 8 || ($scope.data.newPassword.trim() !== $scope.data.confirmPassword.trim()))
+			$scope.checkedPasswords = false;
+		else 
+			$scope.checkedPasswords = true;
+	}
+
 	// An alert dialog
 	function showAlert(message) {
 	   var alertPopup = $ionicPopup.alert({
@@ -37,13 +50,13 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 // Triggered on a button click, or some other target
 $scope.changePassword = function() {
 
-	$scope.data = {};
-	$scope.oldPassword;
-	$scope.newPassword;
 
   // An elaborate, custom popup
   var myPopup = $ionicPopup.show({
-    template: 'Password Antiga: <input type="password" ng-model="data.oldPassword">Password Nova: <input type="password" ng-model="data.newPassword">Confirmar: <input type="password" ng-model="data.confirmPassword">',
+    template: 'Password Antiga: <input type="password" ng-model="data.oldPassword">' +
+    'Password Nova: <input type="password" ng-model="data.newPassword">' +
+    'Confirmar: <input type="password" ng-model="data.confirmPassword" ng-change = "passwordCallback()">' +
+    '<div class="icon-validate"><i ng-if="checkedPasswords" class="ion-checkmark-round"></i></div>',
     title: 'Alterar password',
     scope: $scope,
     buttons: [
@@ -73,19 +86,6 @@ $scope.changePassword = function() {
         	makeRequest.sendPassword(username_password, jsonPassword).
 			// then is called when service comes with an answer
 				then(function(data) {
-					/*
-					BACache.put('session', username_password);
-					$scope.profileInfo = data['data'][0];
-					console.log(JSON.stringify(data));
-					console.log($scope.profileInfo.first_name);
-					$state.go('menu.profile');
-					*/
-
-					// if the password inside user object is the same as the newPassword written by user
-						// Compute new hash and Show alert that password has been changed
-					// else show alert that password has not been changed
-
-					
 					showPasswordAlert("<div style='text-align: center'>Password alterada com sucesso.</div>");
 					console.log('password alterada');
 				}, function(error) {
@@ -103,9 +103,6 @@ $scope.changePassword = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Password',
      template: message
-   });
-   alertPopup.then(function(res) {
-     console.log('Thank you for not eating my delicious ice cream cone');
    });
  };
 });

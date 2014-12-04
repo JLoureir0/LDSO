@@ -104,7 +104,6 @@ module.factory('makeRequest', function ($http, $q) {
         },
 
         sendPassword: function(encoded, jsonPassword) {
-        	alert(JSON.stringify(jsonPassword));
         	return $http.put('http://' + ip + ':3000/users/' + '2.json', JSON.stringify(jsonPassword), { headers: { 'Authorization': encoded } })
         	.then(function(response){
         		if(response.status === 200 && typeof response.data === 'object') {

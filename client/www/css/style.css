@@ -343,4 +343,21 @@
 }
 
 
+/**********Change Password**********/
+
+div.popup-body {
+  padding-bottom: 4px;
+}
+
+div.popup-buttons {
+  padding-top: 2px;
+}
+div.icon-validate {
+  text-align: center;
+  padding-top: 4px;
+  font-size: 30px;
+  color: green;
+}
+
+
 
