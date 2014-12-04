@@ -15,8 +15,9 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 		if(typeof json === 'undefined') {
 			var currentHash = BACache.get('session');
 			var username = makeRequest.getUserName();
-			
-			if(typeof username !== 'undefined') {
+
+			console.log(currentHash);
+			if(typeof currentHash !== 'undefined') {
 				makeRequest.getUser(currentHash, username).
 				then(function(data) {
 					$scope.profileInfo = data['data'];
@@ -26,8 +27,9 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 			} else {
 				showAlert('Acesso negado, no hash in cache');
 			}
+
 		} else {
-			$scope.profileInfo = json;
+			$scope.profileInfo = json.data;
 		}
 	}
 
