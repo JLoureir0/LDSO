@@ -5,11 +5,12 @@ var user    = {
   first_name   : 'John',
   last_name    : 'Doe',
   username     : 'john_doe',
-  password     : '123456789',
+  password     : '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225',
   email        : 'johndoe@example.org',
   birth_date   : '1980/12/12',
   citizen_card : '11111111',
-  phone_number : '123456789'
+  phone_number : '123456789',
+  home_town    : 'Porto'
 };
 
 var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
@@ -32,6 +33,7 @@ describe('/users.json', function() {
         var response_user = JSON.parse(JSON.stringify(user));
         response_user._id = obj._id;
         response_user.reputation = 0;
+        response_user.biography = 'My biography is HARD CORE';
         expect(obj).to.be.deep.equal(response_user);
         done();
       });
@@ -180,6 +182,24 @@ describe('/users.json', function() {
         done();
       });
     });
+    it('should return 409 and an error message if no home_town passed', function(done) {
+      var user_no_home_town = JSON.parse(JSON.stringify(user));
+      delete user_no_home_town.home_town;
+      client.post('/users.json', user_no_home_town, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Home town must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if home_town is invalid', function(done) {
+      var user_invalid_home_town = JSON.parse(JSON.stringify(user));
+      user_invalid_home_town.home_town = '11111';
+      client.post('/users.json', user_invalid_home_town, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Home town must be a string with only letters');
+        done();
+      });
+    });
     it('should only parse the correct attributes', function(done) {
       var user_with_another_attribute = JSON.parse(JSON.stringify(user));
       user_with_another_attribute.another_attribute = 'ATTRIBUTE';
@@ -188,6 +208,7 @@ describe('/users.json', function() {
       client.post('/users.json', user_with_another_attribute, function(err, req, res, obj) {
         response_user._id = obj._id;
         response_user.reputation = 0;
+        response_user.biography = 'My biography is HARD CORE';
         expect(obj).to.be.deep.equal(response_user);
         done();
       });
