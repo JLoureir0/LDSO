@@ -98,6 +98,13 @@ module.config(function($stateProvider, $urlRouterProvider) {
 				templateUrl: "templates/trip.html"
 			}
 		}
+	}).state('menu.edit-message', {
+		url: "/edit-message",
+		views: {
+			'menuContent' :{
+				templateUrl: "templates/edit-message.html"
+			}
+		}
 	});
 
     //Default startup screen
