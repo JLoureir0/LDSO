@@ -119,7 +119,6 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 			"destination" : $scope.destination,
 			"isFragile" : $scope.isFragile,
 			"isFlamable" : $scope.isFlamable,
-			//"isLarge" : $scope.isLarge,
 			"minPrice" : $scope.minPrice,
 			"maxDeviation" : $scope.maxDeviation
 		};

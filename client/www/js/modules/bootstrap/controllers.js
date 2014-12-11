@@ -58,6 +58,9 @@ $scope.selectItem = function($index) {
 		case 4:
 			showDialog();
 			break;
+		case 5:
+			logOut();
+			break;
 		default:
 			break;
 	} 
@@ -75,9 +78,9 @@ $scope.updateFootersAndSidebar = function() {
 	else 
 		$scope.showLoginFooter = false;
 
-    var alreadySetUrsername = makeRequest.getUserName();
-	if(typeof alreadySetUrsername !== 'undefined') {
-		$scope.username = alreadySetUrsername;
+    var alreadySetUsername = makeRequest.getUserName();
+	if(typeof alreadySetUsername !== 'undefined') {
+		$scope.username = alreadySetUsername;
 	}
 	else {
 		$scope.username = "";
@@ -90,7 +93,8 @@ $scope.updateFootersAndSidebar = function() {
 			{item: 'Procurar viagens'},
 			{item: 'Partilhar viagem'},
 			{item: 'Mensagens'},
-			{item: 'Sair'}
+			{item: 'Sair'},
+			{item: 'Terminar sessão'}
 		];
 	} else {
 		$scope.items = [
@@ -103,6 +107,13 @@ $scope.updateFootersAndSidebar = function() {
 $scope.checkIfLoggedIn = function() {
 	if(BACache.get('session') != null)
 		$state.go('menu.profile');
+}
+
+
+function logOut() {
+	console.log('log-off');
+	BACache.removeAll();
+	$scope.updateFootersAndSidebar();
 }
 
 
