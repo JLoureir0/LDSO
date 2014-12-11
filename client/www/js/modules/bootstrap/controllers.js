@@ -59,6 +59,7 @@ $scope.selectItem = function($index) {
 			showDialog();
 			break;
 		case 5:
+			$state.go('menu.edit-message');
 			logOut();
 			break;
 		default:
