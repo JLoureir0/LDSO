@@ -102,7 +102,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
 		url: "/edit-message",
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/edit-message.html"
+				templateUrl: "templates/edit-message.html",
+				controller: "messageCtrl"
 			}
 		}
 	});
