@@ -56,11 +56,11 @@ $scope.selectItem = function($index) {
 			$state.go('menu.messages');
 			break;
 		case 4:
-			showDialog();
+			$state.go('menu.login');
+			logOut();
 			break;
 		case 5:
-			$state.go('menu.edit-message');
-			logOut();
+			showDialog();
 			break;
 		default:
 			break;
@@ -94,8 +94,8 @@ $scope.updateFootersAndSidebar = function() {
 			{item: 'Procurar viagens'},
 			{item: 'Partilhar viagem'},
 			{item: 'Mensagens'},
-			{item: 'Sair'},
-			{item: 'Terminar sessão'}
+			{item: 'Terminar sessão'},
+			{item: 'Sair'}
 		];
 	} else {
 		$scope.items = [
@@ -112,8 +112,9 @@ $scope.checkIfLoggedIn = function() {
 
 
 function logOut() {
-	console.log('log-off');
+	console.log(BACache.info());
 	BACache.removeAll();
+	console.log(BACache.info());
 	$scope.updateFootersAndSidebar();
 }
 

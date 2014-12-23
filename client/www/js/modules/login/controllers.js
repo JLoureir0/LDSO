@@ -1,6 +1,6 @@
 var module = angular.module('loginModule');
 
-module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache, $ionicLoading) {
 
 	$scope.username = "";
 	$scope.password = "";
@@ -13,6 +13,10 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 	}
 
 	$scope.submitLogin = function() {
+
+		// show loading
+		show();
+		
 		$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
 
 		var jsonLogin = {
@@ -32,7 +36,20 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 			}, function(error) {
 				showAlert('Por favor reintroduza as suas credenciais!');
 		});
+
+
 	}
+
+	function show() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...',
+	      duration: 500
+	    });
+  	};
+  
+  	function hide(){
+    	$ionicLoading.hide();
+  	};
 
 	// An alert dialog
 	function showAlert(message) {

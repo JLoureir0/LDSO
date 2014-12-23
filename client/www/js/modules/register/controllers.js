@@ -1,6 +1,6 @@
 var module = angular.module('registerModule', ['starter']);
 
-module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeRequest) {
+module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeRequest, $state) {
 
 	//Fields variables
 	$scope.name = "";
@@ -43,9 +43,9 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 
 	
 	// An alert dialog
-	function showAlert(message) {
+	function showAlert(message, title) {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'Informação errada',
+	     title: title,
 	     template: message
 	   });
 	 }
@@ -263,7 +263,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 
 		for (var i = 0; i < emptyField.length; i++) {
 			if(emptyField[i] === 1) {
-				showAlert(messages[9]);
+				showAlert(messages[9], 'Informação errada');
 				isEmpty = true;
 				break;
 			}
@@ -272,7 +272,7 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 		if(!isEmpty) {
 			for (var i = 0; i < messagesToDisplay.length; i++) {
 				if(messagesToDisplay[i] === 1) {
-					showAlert(messages[i]);
+					showAlert(messages[i], 'Informação errada');
 					isValid = false;
 					break;
 				}
@@ -282,6 +282,12 @@ module.controller('registerCtrl', function($http, $scope, $ionicPopup, makeReque
 		if(isValid && !isEmpty) {
 			var json = JSON.stringify(jsonRegister);
 			var response = makeRequest.register(json);
+
+			// inform user that registration went well
+			showAlert("Registo realizado com sucesso, pode proceder ao Log-in!", "Sucesso");
+
+			// change state
+			$state.go('menu.login');
 		}
 	}
 

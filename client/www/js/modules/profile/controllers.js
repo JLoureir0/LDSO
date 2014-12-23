@@ -11,21 +11,23 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 
 	$scope.loadProfile = function() {
 
+		console.log(BACache.info().size);
+
 		var json = makeRequest.getUserJson();
 		if(typeof json === 'undefined') {
 			var currentHash = BACache.get('session');
 			var username = makeRequest.getUserName();
 
 			console.log(currentHash);
-			if(typeof currentHash !== 'undefined') {
+			if(currentHash) {
 				makeRequest.getUser(currentHash, username).
 				then(function(data) {
 					$scope.profileInfo = data['data'];
 				}, function(error) {
-					showAlert('Acesso negado');
+					showAlert('Acesso negado!');
 				});
 			} else {
-				showAlert('Acesso negado, no hash in cache');
+				showAlert('Acesso negado!');
 			}
 
 		} else {
