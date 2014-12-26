@@ -274,7 +274,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 					"password" : newEncoded.toString()
 				};
 
-	        	makeRequest.sendPassword(username_password, jsonPassword).
+	        	makeRequest.sendPassword(username, username_password, jsonPassword).
 				// then is called when service comes with an answer
 					then(function(data) {
 						showAlert("Password", "<div style='text-align: center'>Password alterada com sucesso.</div>");
