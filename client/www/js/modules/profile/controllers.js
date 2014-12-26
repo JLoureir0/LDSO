@@ -163,7 +163,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	    template: 'Nova localidade: <input type="text" ng-model="data.newHomeTown">' +
 	    'Novo contacto: <input type="text" ng-model="data.newContact">' +
 	    'Novo email: <input type="text" ng-model="data.newEmail">',
-	    title: 'Alterar password',
+	    title: 'Alterar dados',
 	    scope: $scope,
 	    buttons: [
 	      { text: 'Cancelar' },
