@@ -75,29 +75,44 @@ $scope.toggleLeft = function() {
 }
 
 $scope.selectItem = function($index) {
-	switch($index) {
-		case 0:
-			$state.go('menu.my-trips');
-			break;
-		case 1:
-			$state.go('menu.search-trip');
-			break;
-		case 2:
-			$state.go('menu.share-trip');
-			break;
-		case 3:
-			$state.go('menu.messages');
-			break;
-		case 4:
-			$state.go('menu.login');
-			logOut();
-			break;
-		case 5:
-			showDialog();
-			break;
-		default:
-			break;
-	} 
+
+	var currentHash = BACache.get('session');
+	if(currentHash) {
+		switch($index) {
+			case 0:
+				$state.go('menu.my-trips');
+				break;
+			case 1:
+				$state.go('menu.search-trip');
+				break;
+			case 2:
+				$state.go('menu.share-trip');
+				break;
+			case 3:
+				$state.go('menu.messages');
+				break;
+			case 4:
+				$state.go('menu.login');
+				logOut();
+				break;
+			case 5:
+				showDialog();
+				break;
+			default:
+				break;
+		}
+	} else {
+			switch($index) {
+			case 0:
+				$state.go('menu.search-trip');
+				break;
+			case 1:
+				showDialog();
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 $scope.updateFootersAndSidebar = function() {

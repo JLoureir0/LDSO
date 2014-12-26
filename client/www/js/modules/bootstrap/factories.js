@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 var timeout = 5000;
-var ip = "192.168.1.4";
+var ip = "localhost";
 var username;
 var userJson;
 /*
