@@ -151,6 +151,7 @@ function logOut() {
 	BACache.removeAll();
 	makeRequest.resetUserVariables();
 	$scope.updateFootersAndSidebar();
+	$state.go('login');
 }
 
 
