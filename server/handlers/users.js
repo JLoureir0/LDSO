@@ -112,9 +112,12 @@ function parse_user(user) {
     'home_town'
   ];
 
-  for(var key in user)
+  for(var key in user) {
     if(user_attributes.indexOf(key) !== -1)
       new_user[key] = user[key];
+    if(key === 'username')
+      new_user._id = user[key];
+  }
 
   return new_user;
 }
