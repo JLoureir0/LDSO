@@ -36,8 +36,6 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 			}, function(error) {
 				showAlert('Por favor reintroduza as suas credenciais!');
 		});
-
-
 	}
 
 	function show() {

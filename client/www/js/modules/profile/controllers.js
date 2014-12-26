@@ -1,6 +1,6 @@
 var module = angular.module('profileModule');
 
-module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACache) {
+module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache) {
 
 	$scope.profileInfo;
 	$scope.checkedPasswords = false;
@@ -10,9 +10,6 @@ module.controller('profileCtrl', function($scope, $ionicPopup, makeRequest, BACa
 	$scope.newPassword;
 
 	$scope.loadProfile = function() {
-
-		console.log(BACache.info().size);
-
 		if(BACache.info().size === 0) {
 			showAlert('Não tem sessão iniciada');
 		} else {
