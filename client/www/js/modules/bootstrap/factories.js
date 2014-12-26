@@ -73,7 +73,7 @@ module.factory('makeRequest', function ($http, $q) {
         },
 
         getUser: function(encoded, username) {
-        	return $http.get('http://' + ip + ':3000/users/2.json', { headers: { 'Authorization': encoded } })
+        	return $http.get('http://' + ip + ':3000/users/1.json', { headers: { 'Authorization': encoded } })
         	.then(function(response) {
         		if(response.status === 200 && typeof response.data === 'object') {
         			userJson = response.data;
@@ -128,6 +128,11 @@ module.factory('makeRequest', function ($http, $q) {
 
         getUserJson: function() {
         	return userJson;
+        },
+
+        resetUserVariables: function() {
+            username = undefined;
+            userJson = undefined;
         }
     };
 });

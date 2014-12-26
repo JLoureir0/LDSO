@@ -69,6 +69,7 @@ $scope.selectItem = function($index) {
 
 $scope.updateFootersAndSidebar = function() {
 
+	// deal with footers
 	if($state.current.url === '/login')
 		$scope.showRegisterFooter = true;
 	else
@@ -79,6 +80,7 @@ $scope.updateFootersAndSidebar = function() {
 	else 
 		$scope.showLoginFooter = false;
 
+	// deal with side menu
     var alreadySetUsername = makeRequest.getUserName();
 	if(typeof alreadySetUsername !== 'undefined') {
 		$scope.username = alreadySetUsername;
@@ -89,6 +91,7 @@ $scope.updateFootersAndSidebar = function() {
 
 	var userhash = BACache.get('session');
 	if(typeof username !== 'undefined') {
+		document.getElementById("menu_username").style.display = 'inline';
 		$scope.items = [
 			{item: 'As tuas viagens'},
 			{item: 'Procurar viagens'},
@@ -98,6 +101,7 @@ $scope.updateFootersAndSidebar = function() {
 			{item: 'Sair'}
 		];
 	} else {
+		document.getElementById("menu_username").style.display = 'none';
 		$scope.items = [
 			{item: 'Procurar viagens'},
 			{item: 'Sair'}
@@ -110,11 +114,9 @@ $scope.checkIfLoggedIn = function() {
 		$state.go('menu.profile');
 }
 
-
 function logOut() {
-	console.log(BACache.info());
 	BACache.removeAll();
-	console.log(BACache.info());
+	makeRequest.resetUserVariables();
 	$scope.updateFootersAndSidebar();
 }
 
