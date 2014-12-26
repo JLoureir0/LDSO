@@ -22,7 +22,17 @@
 				{{profileInfo.biography}}
 		    </p>
 		  </div>
+
+			<div class="item tabs tabs-secondary tabs-icon-left">
+				<a class="tab-item" ng-click="changeDescription()">
+					<div nav-clear>
+					  <i class="fa fa-file-text fa-2x"></i>
+					   Alterar descrição
+					</div>
+				</a>
+			</div>
 		</div>
+
 		<div class="list card">
 
 		  <a href="" class="item item-icon-left">
@@ -54,16 +64,16 @@
 		</div>
 
 		<div class="item tabs tabs-secondary tabs-icon-left">
-			<a class="tab-item" href="#">
+			<a class="tab-item" ng-click="changeProfileInfo()">
 				<div nav-clear>
 				  <i class="fa fa-cog fa-2x"></i>
-				  Editar
+				   Editar
 				</div>
 			</a>
 			<a class="tab-item" ng-click="changePassword()">
 				<div nav-clear>
-				  <i class="fa fa-cog fa-2x"></i>
-				  Alterar password
+				  <i class="fa fa-lock fa-2x"></i>
+				   Alterar password
 				</div>
 			</a>
 		</div>
