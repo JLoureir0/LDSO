@@ -42,8 +42,9 @@ describe('/trips.json', function() {
   describe('post request', function() {
     it('should return 201 and the trip on create', function(done) {
       client.post('/trips.json', trip, function(err, req, res, obj) {
-        var response_trip = JSON.parse(JSON.stringify(trip));
-        response_trip._id = obj._id;
+        var response_trip      = JSON.parse(JSON.stringify(trip));
+        response_trip._id      = obj._id;
+        response_trip.username = user.username;
         expect(res.statusCode).to.be.equal(201);
         expect(obj).to.be.deep.equal(response_trip);
         done();
@@ -200,6 +201,7 @@ describe('/trips.json', function() {
 
       client.post('/trips.json', trip_with_another_attribute, function(err, req, res, obj) {
         response_trip._id = obj._id;
+        response_trip.username = user.username;
         expect(obj).to.be.deep.equal(response_trip);
         done();
       });
