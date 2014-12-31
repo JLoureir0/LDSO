@@ -1,6 +1,15 @@
 var module = angular.module('tripsModule');
 
-module.controller('searchTripCtrl', function($scope, $http , $ionicPopup, makeRequest) {
+module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeRequest) {
+
+	$scope.getExistingTrips = function() {
+	
+		var response = makeRequest.getTrips();
+		var tripsJson = JSON.stringify(response);
+		alert(tripsJson);
+	
+		//fill trips array with the trips received from the server
+	}
 
 	// An alert dialog
 	function showAlert(message) {
@@ -58,7 +67,7 @@ module.controller('searchTripCtrl', function($scope, $http , $ionicPopup, makeRe
 	}
 });
 
-module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
+module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, makeRequest, BACache) {
 
 	$scope.startPoint = "";
 	$scope.destination = "";
@@ -114,26 +123,64 @@ module.controller('shareTripCtrl', function($scope, $http, makeRequest) {
 	}
 
 	$scope.shareTripSubmit = function() {
-		var jsonShareTrip = {
-			"startPoint" : $scope.startPoint,
-			"destination" : $scope.destination,
-			"isFragile" : $scope.isFragile,
-			"isFlamable" : $scope.isFlamable,
-			"minPrice" : $scope.minPrice,
-			"maxDeviation" : $scope.maxDeviation
-		};
-		var json = JSON.stringify(jsonShareTrip);
-		console.log(json);
 
-		//call service
-		makeRequest.sendTrip(json).
-			// then is called when service comes with an answer
-			then(function(data){
-				console.log(data);
-			}, function(error) {
-				alert("Erro: " + "Resposta do servidor não recebida");
+		if(BACache.info().size === 0) {
+			showAlert('Não tem sessão iniciada');
+			// change state
+			$state.go('menu.login');
+		} else {
 
-			});
+			var username = makeRequest.getUserName();
+			var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+			var username_password = "Basic " + btoa(username + ':' + userEncryptedPassword);
+
+			var vehicleCode = -1;
+			var vehicleType = document.getElementById("selectVehicle");
+			var vehicle = vehicleType.options[vehicleType.selectedIndex].value;
+
+			if(vehicle === "Viatura de passageiros") {
+				vehicleCode = 0;
+			} else if(vehicle === "Viatura de mercadorias") {
+				vehicleCode = 1;
+			}
+
+			vehicleCode = vehicleCode.toString(); 
+			$scope.isFragile = $scope.isFragile.toString();
+			$scope.isFlamable = $scope.isFlamable.toString();
+			$scope.isLarge = $scope.isLarge.toString();
+			$scope.startPoint = document.getElementById("start-location-field").value;
+
+			var jsonShareTrip = {
+				"starting_point" : $scope.startPoint,
+				"destination" : $scope.destination,
+				"fragile" : $scope.isFragile,
+				"flamable" : $scope.isFlamable,
+				"big_dimensions" : $scope.isLarge,
+				"vehicle" : vehicleCode,
+				"min_price" : $scope.minPrice,
+				"max_deviation" : $scope.maxDeviation
+			};
+			var json = JSON.stringify(jsonShareTrip);
+			console.log(json);
+
+			//call service
+			makeRequest.sendTrip(json, username_password).
+				// then is called when service comes with an answer
+				then(function(data){
+					console.log(data);
+				}, function(error) {
+					alert("Erro: " + "Resposta do servidor não recebida");
+				});
+
+			}
 	}
+
+	// An alert dialog
+	function showAlert(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Erro',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	 }
 
 });

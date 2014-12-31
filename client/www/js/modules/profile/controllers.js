@@ -18,6 +18,8 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	$scope.loadProfile = function() {
 		if(BACache.info().size === 0) {
 			showAlert('Não tem sessão iniciada');
+			// change state
+			$state.go('menu.login');
 		} else {
 			var json = makeRequest.getUserJson();
 			if(typeof json === 'undefined') {
@@ -35,7 +37,6 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 				} else {
 					showAlert('Acesso negado!');
 				}
-
 			} else {
 				$scope.profileInfo = json.data;
 			}

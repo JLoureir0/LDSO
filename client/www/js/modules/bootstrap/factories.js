@@ -1,15 +1,16 @@
 var module = angular.module('starter');
 var timeout = 5000;
-var ip = "192.168.1.6";
+var ip = "localhost";
 var username;
 var userJson;
+var userEncryptedPassword;
 /*
 * Singleton that will provide a singleton to make a server request
 */
 module.factory('makeRequest', function ($http, $q) {
 	return {
-		sendTrip: function(json) {
-            return $http.post('http://' + ip + ':3000/trip.json', json, {timeout: timeout})
+		sendTrip: function(json, encoded) {
+            return $http.post('http://' + ip + ':3000/trips.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response) {
             	if (typeof response.data === 'object') {
             		return response.data;
@@ -25,7 +26,7 @@ module.factory('makeRequest', function ($http, $q) {
         },
 
         getTrips: function() {
-            return $http.get('http://' + ip + ':3000/trip.json', {timeout: timeout})
+            return $http.get('http://' + ip + ':3000/trips.json', {timeout: timeout})
             .then(function(response) {
             	if (typeof response.data === 'object') {
             		return response.data;
@@ -124,6 +125,14 @@ module.factory('makeRequest', function ($http, $q) {
 
         getUserName: function() {
         	return username;
+        },
+
+        setUserEncryptedPassword: function(encryptedPassword) {
+            userEncryptedPassword = encryptedPassword;
+        },
+
+        getUserEncryptedPassword: function() {
+            return userEncryptedPassword;
         },
 
         getUserJson: function() {

@@ -1,12 +1,11 @@
 <ion-view title="'search_trip'">
   <ion-content scroll='true'>
 
-  	<div class="search-trip-container">
+  	<div class="search-trip-container" ng-init="getExistingTrips()">
 
   		<h1 class="share-title"> <span class="ion-android-search"></span> Procurar Viagem</h1>
 
   		<div class="available-trips" ng-init="updateFootersAndSidebar()">
-  			
 
         <div class="search-container">
           <div class="width-40">
@@ -19,7 +18,6 @@
               <i id="search-position-icon" class="fa fa-map-marker fa-2x"></i>
             </div>
           </div>
-
 
           <label class="item item-input">
             <input type="text" placeholder="Ponto de Chegada" ng-model="destPoint">
