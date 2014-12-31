@@ -1,11 +1,14 @@
 var restify = require('restify');
 
 exports.handle_params = function(req, res, next) {
-  var trip = req.params;
+  var trip     = req.params;
+  var username = req.user.id;
 
   verify_trip_attributes(trip, next);
 
   req.params = parse_trip(trip);
+
+  req.params.username = username;
 
   next();
 };
