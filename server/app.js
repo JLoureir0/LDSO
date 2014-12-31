@@ -2,6 +2,7 @@ var restify       = require('restify');
 var server        = restify.createServer({ name: 'Carryit' });
 
 var user_save     = require('save')('user');
+var trip_save     = require('save')('trip');
 
 var passport      = require('passport');
 var passport_http = require('passport-http');
@@ -10,6 +11,8 @@ var logger        = require('restify-logger');
 
 var users_hdlr    = require('./handlers/users.js');
 var user_hdlr     = require('./handlers/user.js');
+
+var trips_hdlr    = require('./handlers/trips.js');
 
 restify.CORS.ALLOW_HEADERS.push('authorization');
 
@@ -105,5 +108,17 @@ server.del(/^\/users\/(.+)\.json$/, function(req, res) {
     if(err)
       res.send(404);
     res.send(200);
+  });
+});
+
+server.get('/trips.json', function(req, res) {
+  trip_save.find({}, function (err, trips) {
+    res.send({ data: trips });
+  });
+});
+
+server.post('/trips.json', passport.authenticate('basic', { session: false }), authentication, trips_hdlr.handle_params, function(req, res) {
+  trip_save.create(req.params, function(err, trip) {
+    res.send(201, trip);
   });
 });
