@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 var timeout = 5000;
-var ip = "192.168.1.65";
+var ip = "192.168.1.6";
 var username;
 var userJson;
 /*
@@ -73,7 +73,7 @@ module.factory('makeRequest', function ($http, $q) {
         },
 
         getUser: function(encoded, username) {
-        	return $http.get('http://' + ip + ':3000/users/1.json', { headers: { 'Authorization': encoded } })
+        	return $http.get('http://' + ip + ':3000/users/' + username + '.json', { headers: { 'Authorization': encoded } })
         	.then(function(response) {
         		if(response.status === 200 && typeof response.data === 'object') {
         			userJson = response.data;
@@ -103,8 +103,8 @@ module.factory('makeRequest', function ($http, $q) {
         	);	   		
         },
 
-        sendPassword: function(encoded, jsonPassword) {
-        	return $http.put('http://' + ip + ':3000/users/' + '2.json', JSON.stringify(jsonPassword), { headers: { 'Authorization': encoded } })
+        sendPassword: function(username, encoded, jsonPassword) {
+        	return $http.put('http://' + ip + ':3000/users/' + username + '.json', JSON.stringify(jsonPassword), { headers: { 'Authorization': encoded } })
         	.then(function(response){
         		if(response.status === 200 && typeof response.data === 'object') {
         			return response.data;

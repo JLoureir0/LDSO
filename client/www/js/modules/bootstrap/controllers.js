@@ -31,6 +31,39 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 		objectTypes: ['frágil', 'inflamável'],
 		minPrice: '5',
 		maxDesv: '20'
+	}, 
+	{startPoint: 'Porto',
+		destPoint: 'Aveiro',
+		weekDay: 'Qua.',
+		monthDay: '20',
+		month: 'Set',
+		startTime: {hour: '19', minute: '30'},
+		scheduleEndTime: {hour: '23', minute: '15'},
+		objectTypes: ['frágil', 'inflamável'],
+		minPrice: '5',
+		maxDesv: '20'
+	},
+	{startPoint: 'Trofa',
+		destPoint: 'Rio Tinto',
+		weekDay: 'Qua.',
+		monthDay: '20',
+		month: 'Set',
+		startTime: {hour: '19', minute: '30'},
+		scheduleEndTime: {hour: '23', minute: '15'},
+		objectTypes: ['frágil', 'inflamável'],
+		minPrice: '5',
+		maxDesv: '20'
+	},
+	{startPoint: 'Algarve',
+		destPoint: 'Bragança',
+		weekDay: 'Qua.',
+		monthDay: '20',
+		month: 'Set',
+		startTime: {hour: '19', minute: '30'},
+		scheduleEndTime: {hour: '23', minute: '15'},
+		objectTypes: ['frágil', 'inflamável'],
+		minPrice: '5',
+		maxDesv: '20'
 	}
 ];
 
@@ -42,29 +75,44 @@ $scope.toggleLeft = function() {
 }
 
 $scope.selectItem = function($index) {
-	switch($index) {
-		case 0:
-			$state.go('menu.my-trips');
-			break;
-		case 1:
-			$state.go('menu.search-trip');
-			break;
-		case 2:
-			$state.go('menu.share-trip');
-			break;
-		case 3:
-			$state.go('menu.messages');
-			break;
-		case 4:
-			$state.go('menu.login');
-			logOut();
-			break;
-		case 5:
-			showDialog();
-			break;
-		default:
-			break;
-	} 
+
+	var currentHash = BACache.get('session');
+	if(currentHash) {
+		switch($index) {
+			case 0:
+				$state.go('menu.my-trips');
+				break;
+			case 1:
+				$state.go('menu.search-trip');
+				break;
+			case 2:
+				$state.go('menu.share-trip');
+				break;
+			case 3:
+				$state.go('menu.messages');
+				break;
+			case 4:
+				$state.go('menu.login');
+				logOut();
+				break;
+			case 5:
+				showDialog();
+				break;
+			default:
+				break;
+		}
+	} else {
+			switch($index) {
+			case 0:
+				$state.go('menu.search-trip');
+				break;
+			case 1:
+				showDialog();
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 $scope.updateFootersAndSidebar = function() {
@@ -118,6 +166,7 @@ function logOut() {
 	BACache.removeAll();
 	makeRequest.resetUserVariables();
 	$scope.updateFootersAndSidebar();
+	$state.go('login');
 }
 
 
