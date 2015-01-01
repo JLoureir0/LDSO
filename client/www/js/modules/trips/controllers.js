@@ -9,10 +9,45 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeReq
 			// then is called when service comes with an answer
 			then(function(data){
 				console.log(data);
-				var tripsJson = JSON.stringify(data.data);
 
-				console.log(tripsJson);
-				//fill trips array with the trips received from the server
+				for(var i = 0; i < data.data.length; i++) {
+					var trip = [];
+					trip.startPoint = data.data[i].starting_point;
+					trip.destPoint = data.data[i].destination;
+
+					if(data.data[i].vehicle === '0') {
+						trip.vehicle = 'Viatura de passageiros';
+					} else if(data.data[i].vehicle === '1') {
+						trip.vehicle = 'Viatura de mercadorias';
+					}
+
+					// HARDCODED ////////////////////////
+					trip.weekDay = 'Qua.';
+					trip.monthDay = '20';
+					trip.month = 'Set';
+					trip.year = '2015';
+					trip.startTime = {hour: '19', minute: '30'};
+					trip.scheduleEndTime = {hour: '22', minute: '30'};
+					////////////////////////////////////
+
+					var objectTypes = [];
+					if(data.data[i].fragile === 'true') {
+						objectTypes.push('frágil');
+					}
+					if(data.data[i].flamable === 'true') {
+						objectTypes.push('inflamável');	
+					}
+					if(data.data[i].big_dimensions === 'true') {
+						objectTypes.push('grandes dimensões');
+					}
+
+					trip.objectTypes = objectTypes;
+					trip.minPrice = data.data[i].min_price;
+					trip.maxDesv = data.data[i].max_deviation;
+					trip.id = data.data[i]._id;
+					
+					$scope.trips.push(trip);
+				}
 
 			}, function(error) {
 				alert("Erro: " + "Resposta do servidor não recebida");

@@ -4,7 +4,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 
 	$scope.username;
 	$scope.items;
-	$scope.trips;
+	$scope.trips = [];
 
 	/*Temporary trip*/
 	$scope.trip = {
@@ -21,8 +21,9 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 	};
 
 	/*Temporary trips*/
+	/*
 	$scope.trips = [
-		{startPoint: 'Paranhos',
+	{startPoint: 'Paranhos',
 		destPoint: 'Lisboa',
 		weekDay: 'Qua.',
 		monthDay: '20',
@@ -66,7 +67,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 		minPrice: '5',
 		maxDesv: '20'
 	}
-];
+];*/
 
 $scope.showRegisterFooter = false;
 $scope.showLoginFooter = false;
