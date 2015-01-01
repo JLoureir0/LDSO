@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 var timeout = 5000;
-var ip = "94.132.196.224";
+var ip = "ricardoneves.noip.me";
 var username;
 var userJson;
 var userEncryptedPassword;
