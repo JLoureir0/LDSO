@@ -22,10 +22,11 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 					}
 
 					// HARDCODED ////////////////////////
+					//var date = new Date(year, month, day);
 					trip.weekDay = 'Qua.';
 					trip.monthDay = '20';
 					trip.month = 'Set';
-					trip.year = '2015';
+					trip.year = '2015'
 					trip.startTime = {hour: '19', minute: '30'};
 					trip.scheduleEndTime = {hour: '22', minute: '30'};
 					trip.contact = "918649442";
@@ -256,6 +257,9 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 	$scope.isLarge = false;
 	$scope.minPrice = "";
 	$scope.maxDeviation = "";
+	$scope.tripDate = "";
+	$scope.tripStartTime = "";
+	$scope.tripEndTime = "";
 
 	$scope.getCurrentLocation = function() {
 		document.getElementById("search-position-icon").className = "fa fa-spinner fa-spin fa-2x";
@@ -329,6 +333,24 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 			$scope.isLarge = $scope.isLarge.toString();
 			$scope.startPoint = document.getElementById("start-location-field").value;
 
+			// new stuff to send
+			/*
+			var weekDay = getWeekDay($scope.tripDate);
+			var monthDay = $scope.tripDate.split('-')[2];
+			var month = getMonth($scope.tripDate);
+			var year = $scope.tripDate.split('-')[0];
+			var startTime = {hour: $scope.tripStartTime.split(':')[0], minute: $scope.tripStartTime.split(':')[1]};
+			var scheduleEndTime = {hour: $scope.tripEndTime.split(':')[0], minute: $scope.tripEndTime.split(':')[1]};
+			var contact = "918649442";
+
+			console.log(weekDay);
+			console.log(monthDay);
+			console.log(month);
+			console.log(year);
+			console.log(startTime);
+			console.log(scheduleEndTime);
+			*/
+
 			var jsonShareTrip = {
 				"starting_point" : $scope.startPoint,
 				"destination" : $scope.destination,
@@ -345,12 +367,106 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 			makeRequest.sendTrip(json, username_password).
 				// then is called when service comes with an answer
 				then(function(data){
-					console.log(data);
+					$state.go('menu.my-trips');
 				}, function(error) {
 					alert("Erro: " + "Resposta do servidor não recebida");
 				});
 
 			}
+	}
+
+	// return a literal day of week
+	function getWeekDay(date) {
+		
+		// 2015-01-08
+		var year = parseInt(date.split('-')[0]);
+		var month = parseInt(date.split('-')[1]);
+		var day = parseInt(date.split('-')[2]);
+
+		var numericWeekDay = new Date(year, month-1, day-1).getDay();
+		var literalWeekDay = '';
+
+		switch(numericWeekDay){
+			case 0:
+				literalWeekDay = "Seg";
+				break;
+			case 1:
+				literalWeekDay = "Ter";
+				break;
+			case 2:
+				literalWeekDay = "Qua";
+				break;
+			case 3:
+				literalWeekDay = "Qui";
+				break;
+			case 4:
+				literalWeekDay = "Sex";
+				break;
+			case 5:
+				literalWeekDay = "Sab";
+				break;
+			case 6:
+				literalWeekDay = "Dom";
+				break;
+			default:
+				literalWeekDay = "Seg";
+				break;
+		}
+
+		return literalWeekDay;
+	}
+
+	//returns literal month
+	function getMonth(date) {
+		
+		// 2015-01-08
+		var month = parseInt(date.split('-')[1]);
+
+		var literalMonth= '';
+
+		switch(month){
+			case 1:
+				literalMonth = "Jan";
+				break;
+			case 2:
+				literalMonth = "Fev";
+				break;
+			case 3:
+				literalMonth = "Mar";
+				break;
+			case 4:
+				literalMonth = "Abr";
+				break;
+			case 5:
+				literalMonth = "Mai";
+				break;
+			case 6:
+				literalMonth = "Jun";
+				break;
+			case 7:
+				literalMonth = "Jul";
+				break;
+			case 8:
+				literalMonth = "Ago";
+				break;
+			case 9:
+				literalMonth = "Set";
+				break;
+			case 10:
+				literalMonth = "Out";
+				break;
+			case 11:
+				literalMonth = "Nov";
+				break;
+			case 12:
+				literalMonth = "Dez";
+				break;
+			default:
+				literalMonth = "Jan";
+				break;
+		}
+
+		return literalMonth;
 	}
 
 	// An alert dialog

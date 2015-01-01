@@ -58,17 +58,38 @@
           <div class="form-list list-insert">
               <label class="item item-input">
                 <i class="form-icon fa fa-eur placeholder-icon"></i>
-                <input type="text" placeholder="Preço mínimo" ng-model="minPrice">
+                <input type="tel" placeholder="Preço mínimo" ng-model="minPrice">
               </label>
           </div>
 
           <div class="form-list list-insert">
               <label class="item item-input">
                 <i class="form-icon fa fa-level-up placeholder-icon"></i>
-                <input type="text" placeholder="Desvio máximo (minutos)" ng-model="maxDeviation">
+                <input type="tel" placeholder="Desvio máximo (minutos)" ng-model="maxDeviation">
               </label>
           </div>
 
+        </div>
+
+        <div class="form-list list-insert">
+            <label class="item item-input">
+              <i class="form-icon ion-ios7-time placeholder-icon"></i>
+              <input placeholder="Data da viagem (AAAA-MM-DD)" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" ng-model="tripDate">
+            </label>
+        </div>
+
+        <div class="form-list list-insert">
+            <label class="item item-input">
+              <i class="form-icon ion-ios7-time placeholder-icon"></i>
+              <input placeholder="Hora prevista de partida" class="textbox-n" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" ng-model="tripStartTime">
+            </label>
+        </div>
+
+        <div class="form-list list-insert">
+            <label class="item item-input">
+              <i class="form-icon ion-ios7-time placeholder-icon"></i>
+              <input placeholder="Hora prevista de chegada" class="textbox-n" type="text" onfocus="(this.type='time')" onblur="(this.type='text')" ng-model="tripEndTime">
+            </label>
         </div>
 
          <div class="shareBtnContainer">
