@@ -1,19 +1,20 @@
 var module = angular.module('tripsModule');
 
-module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeRequest) {
+module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
 
 	$scope.getExistingTrips = function() {
-
 		//call service
 		makeRequest.getTrips().
 			// then is called when service comes with an answer
 			then(function(data){
 				console.log(data);
 
+				$scope.trips = [];
 				for(var i = 0; i < data.data.length; i++) {
 					var trip = [];
 					trip.startPoint = data.data[i].starting_point;
 					trip.destPoint = data.data[i].destination;
+					trip.username = data.data[i].username;
 
 					if(data.data[i].vehicle === '0') {
 						trip.vehicle = 'Viatura de passageiros';
@@ -28,6 +29,7 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeReq
 					trip.year = '2015';
 					trip.startTime = {hour: '19', minute: '30'};
 					trip.scheduleEndTime = {hour: '22', minute: '30'};
+					trip.contact = "918649442";
 					////////////////////////////////////
 
 					var objectTypes = [];
@@ -52,6 +54,37 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeReq
 			}, function(error) {
 				alert("Erro: " + "Resposta do servidor não recebida");
 			});
+	}
+
+	$scope.setCurrentTrip = function(index) {
+		if(BACache.info().size === 0) {
+			showAlert('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+			for(var i = 0; i < $scope.trips.length; i++) {
+				if($scope.trips[i].id === index) {
+					console.log($scope.trips[i]);
+					$scope.trip.startPoint = $scope.trips[i].startPoint;
+					$scope.trip.destPoint = $scope.trips[i].destPoint;
+					$scope.trip.weekDay = $scope.trips[i].weekDay;
+					$scope.trip.monthDay = $scope.trips[i].monthDay;
+					$scope.trip.month = $scope.trips[i].month;
+					$scope.trip.year = $scope.trips[i].year;
+					$scope.trip.startTime = $scope.trips[i].startTime;
+					$scope.trip.scheduleEndTime = $scope.trips[i].scheduleEndTime;
+					$scope.trip.objectTypes = $scope.trips[i].objectTypes;
+					$scope.trip.minPrice = $scope.trips[i].minPrice;
+					$scope.trip.maxDesv = $scope.trips[i].maxDesv;
+					$scope.trip.username = $scope.trips[i].username;
+					$scope.trip.vehicle = $scope.trips[i].vehicle;
+					$scope.trip.contact = $scope.trips[i].contact; 
+					$scope.trip.id = $scope.trips[i].id;
+					break;
+				}
+			}
+			console.log($scope.trip);
+			$state.go('menu.trip');
+		}
 	}
 
 	// An alert dialog
@@ -110,7 +143,7 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeReq
 	}
 });
 
-module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, makeRequest, BACache) {
+module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
 
 	$scope.startPoint = "";
 	$scope.destination = "";
@@ -169,7 +202,6 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, makeRequ
 
 		if(BACache.info().size === 0) {
 			showAlert('Não tem sessão iniciada');
-			// change state
 			$state.go('menu.login');
 		} else {
 

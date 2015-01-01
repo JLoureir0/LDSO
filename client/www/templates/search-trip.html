@@ -24,9 +24,8 @@
           </label>
         </div>
 
-
-        <a ng-href="#/menu/trip">
-          <div nav-clear class="card" ng-repeat="trip in trips | filter: {startPoint: startPoint, destPoint: destPoint}">
+        <div nav-clear class="card" ng-repeat="trip in trips | filter: {startPoint: startPoint, destPoint: destPoint}">
+          <div ng-click="setCurrentTrip(trip.id)">
             <div class="item item-divider trip-header">
               <div class="trip-start-end">
                 {{trip.startPoint}} - {{trip.destPoint}}
@@ -52,7 +51,7 @@
               Preço mínimo: {{trip.minPrice}} €
             </div>
           </div>
-        </a>
+         </div>
 
         
   		</div>

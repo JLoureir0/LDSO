@@ -4,22 +4,8 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 
 	$scope.username;
 	$scope.items;
+	$scope.trip = new Array();
 	$scope.trips = [];
-
-	/*Temporary trip*/
-	$scope.trip = {
-		startPoint: 'Paranhos',
-		destPoint: 'Lisboa',
-		weekDay: 'Qui.',
-		monthDay: '21',
-		month: 'Set',
-		startTime: {hour: '9', minute: '30'},
-		scheduleEndTime: {hour: '15', minute: '15'},
-		objectTypes: ['grandes dimensões', 'inflamável', 'frágil'],
-		minPrice: '4',
-		maxDesv: '10'
-	};
-
 	$scope.showRegisterFooter = false;
 	$scope.showLoginFooter = false;
 
