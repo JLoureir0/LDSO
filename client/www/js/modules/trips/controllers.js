@@ -3,12 +3,20 @@ var module = angular.module('tripsModule');
 module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, makeRequest) {
 
 	$scope.getExistingTrips = function() {
-	
-		var response = makeRequest.getTrips();
-		var tripsJson = JSON.stringify(response);
-		alert(tripsJson);
-	
-		//fill trips array with the trips received from the server
+
+		//call service
+		makeRequest.getTrips().
+			// then is called when service comes with an answer
+			then(function(data){
+				console.log(data);
+				var tripsJson = JSON.stringify(data.data);
+
+				console.log(tripsJson);
+				//fill trips array with the trips received from the server
+
+			}, function(error) {
+				alert("Erro: " + "Resposta do servidor não recebida");
+			});
 	}
 
 	// An alert dialog
@@ -161,7 +169,6 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, makeRequ
 				"max_deviation" : $scope.maxDeviation
 			};
 			var json = JSON.stringify(jsonShareTrip);
-			console.log(json);
 
 			//call service
 			makeRequest.sendTrip(json, username_password).

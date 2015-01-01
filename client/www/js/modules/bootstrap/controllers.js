@@ -4,6 +4,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 
 	$scope.username;
 	$scope.items;
+	$scope.trips;
 
 	/*Temporary trip*/
 	$scope.trip = {
