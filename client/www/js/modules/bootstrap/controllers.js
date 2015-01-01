@@ -80,7 +80,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 		if(typeof username !== 'undefined') {
 			document.getElementById("menu_username").style.display = 'inline';
 			$scope.items = [
-				{item: 'As tuas viagens'},
+				{item: 'Minhas viagens'},
 				{item: 'Procurar viagens'},
 				{item: 'Partilhar viagem'},
 				{item: 'Mensagens'},

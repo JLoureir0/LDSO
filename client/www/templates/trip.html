@@ -90,7 +90,7 @@
           </a>
         </div>       
 
-        <div class="shareBtnContainer">
+        <div ng-show="isMyTrip({{trip.username}})" class="shareBtnContainer">
           <a href="tel:{{trip.contact}}"><button nav-clear class="registerBtn button button-energized"><strong> Contacta-o(a) </strong></button></a>
         </div>
 

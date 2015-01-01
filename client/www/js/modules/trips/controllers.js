@@ -8,7 +8,6 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 			// then is called when service comes with an answer
 			then(function(data){
 				console.log(data);
-
 				$scope.trips = [];
 				for(var i = 0; i < data.data.length; i++) {
 					var trip = [];
@@ -82,7 +81,6 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 					break;
 				}
 			}
-			console.log($scope.trip);
 			$state.go('menu.trip');
 		}
 	}
@@ -141,6 +139,112 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 		}
 		setTimeout(resetSpinner, 0);
 	}
+});
+
+module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
+
+	$scope.getMyTrips = function() {
+		if(BACache.info().size === 0) {
+			showAlert('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+			var username = makeRequest.getUserName();
+
+			makeRequest.getTrips().
+			// then is called when service comes with an answer
+			then(function(data){
+				console.log(data);
+
+				$scope.trips = [];
+				for(var i = 0; i < data.data.length; i++) {
+					if(data.data[i].username === username) {
+						var trip = [];
+						trip.startPoint = data.data[i].starting_point;
+						trip.destPoint = data.data[i].destination;
+						trip.username = data.data[i].username;
+
+						if(data.data[i].vehicle === '0') {
+							trip.vehicle = 'Viatura de passageiros';
+						} else if(data.data[i].vehicle === '1') {
+							trip.vehicle = 'Viatura de mercadorias';
+						}
+
+						// HARDCODED ////////////////////////
+						trip.weekDay = 'Qua.';
+						trip.monthDay = '20';
+						trip.month = 'Set';
+						trip.year = '2015';
+						trip.startTime = {hour: '19', minute: '30'};
+						trip.scheduleEndTime = {hour: '22', minute: '30'};
+						trip.contact = "918649442";
+						////////////////////////////////////
+
+						var objectTypes = [];
+						if(data.data[i].fragile === 'true') {
+							objectTypes.push('frágil');
+						}
+						if(data.data[i].flamable === 'true') {
+							objectTypes.push('inflamável');	
+						}
+						if(data.data[i].big_dimensions === 'true') {
+							objectTypes.push('grandes dimensões');
+						}
+
+						trip.objectTypes = objectTypes;
+						trip.minPrice = data.data[i].min_price;
+						trip.maxDesv = data.data[i].max_deviation;
+						trip.id = data.data[i]._id;
+						
+						$scope.trips.push(trip);
+					}
+				}
+			}, function(error) {
+				alert("Erro: " + "Resposta do servidor não recebida");
+			});
+		}
+	}
+
+	$scope.isMyTrip = function(username) {
+		return (makeRequest.getUserName() === username);
+	}
+
+	$scope.setCurrentTrip = function(index) {
+		if(BACache.info().size === 0) {
+			showAlert('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+			for(var i = 0; i < $scope.trips.length; i++) {
+				if($scope.trips[i].id === index) {
+					console.log($scope.trips[i]);
+					$scope.trip.startPoint = $scope.trips[i].startPoint;
+					$scope.trip.destPoint = $scope.trips[i].destPoint;
+					$scope.trip.weekDay = $scope.trips[i].weekDay;
+					$scope.trip.monthDay = $scope.trips[i].monthDay;
+					$scope.trip.month = $scope.trips[i].month;
+					$scope.trip.year = $scope.trips[i].year;
+					$scope.trip.startTime = $scope.trips[i].startTime;
+					$scope.trip.scheduleEndTime = $scope.trips[i].scheduleEndTime;
+					$scope.trip.objectTypes = $scope.trips[i].objectTypes;
+					$scope.trip.minPrice = $scope.trips[i].minPrice;
+					$scope.trip.maxDesv = $scope.trips[i].maxDesv;
+					$scope.trip.username = $scope.trips[i].username;
+					$scope.trip.vehicle = $scope.trips[i].vehicle;
+					$scope.trip.contact = $scope.trips[i].contact; 
+					$scope.trip.id = $scope.trips[i].id;
+					break;
+				}
+			}
+			$state.go('menu.trip');
+		}
+	}
+
+	// An alert dialog
+	function showAlert(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Erro',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	 }
 });
 
 module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
@@ -256,5 +360,4 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 	     template: "<div style='text-align: center'>" + message + "</div>"
 	   });
 	 }
-
 });
