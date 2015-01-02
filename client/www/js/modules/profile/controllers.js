@@ -292,12 +292,17 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	  });
 	 };
 
+	 $scope.isMyProfile = function() {
+	 	var username = makeRequest.getUserName();
+		var usernameToOpen = makeRequest.getProfileToOpen();
+		return (usernameToOpen === username);
+	 }
 
-  function showAlert(title, message) {
-   var alertPopup = $ionicPopup.alert({
-     title: title,
-     template: message
-   });
- };
+	function showAlert(title, message) {
+	var alertPopup = $ionicPopup.alert({
+	 title: title,
+	 template: message
+	});
+	};
 
 });

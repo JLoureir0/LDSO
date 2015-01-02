@@ -23,7 +23,7 @@
 		    </p>
 		  </div>
 
-			<div class="item tabs tabs-secondary tabs-icon-left">
+			<div ng-show="isMyProfile()" class="item tabs tabs-secondary tabs-icon-left">
 				<a class="tab-item" ng-click="changeDescription()">
 					<div nav-clear>
 					  <i class="fa fa-file-text fa-2x"></i>
@@ -45,7 +45,7 @@
 		    {{profileInfo.phone_number}}
 		  </a>
 
-		  <a href="" class="item item-icon-left">
+		  <a ng-show="isMyProfile()" href="" class="item item-icon-left">
 		    <i class="icon ion-card"></i>
 		    {{profileInfo.citizen_card}}
 		  </a>
@@ -63,7 +63,7 @@
 
 		</div>
 
-		<div class="item tabs tabs-secondary tabs-icon-left">
+		<div ng-show="isMyProfile()" class="item tabs tabs-secondary tabs-icon-left">
 			<a class="tab-item" ng-click="changeProfileInfo()">
 				<div nav-clear>
 				  <i class="fa fa-cog fa-2x"></i>
