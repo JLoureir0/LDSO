@@ -1,8 +1,11 @@
 var module = angular.module('tripsModule');
 
-module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state, $ionicLoading, makeRequest, BACache) {
 
 	$scope.getExistingTrips = function() {
+
+		$scope.show();
+
 		//call service
 		makeRequest.getTrips().
 			// then is called when service comes with an answer
@@ -50,8 +53,9 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 					
 					$scope.trips.push(trip);
 				}
-
+				$scope.hide();
 			}, function(error) {
+				$scope.hide();
 				alert("Erro: " + "Resposta do servidor não recebida");
 			});
 	}
@@ -140,15 +144,29 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 		}
 		setTimeout(resetSpinner, 0);
 	}
+
+	$scope.show = function() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...'
+	    });
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
+
 });
 
-module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $state, makeRequest, BACache) {
 
 	$scope.getMyTrips = function() {
 		if(BACache.info().size === 0) {
 			showAlert('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
+
+			$scope.show();
+
 			var username = makeRequest.getUserName();
 
 			makeRequest.getTrips().
@@ -199,6 +217,7 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $state, ma
 						$scope.trips.push(trip);
 					}
 				}
+				$scope.hide();
 			}, function(error) {
 				alert("Erro: " + "Resposta do servidor não recebida");
 			});
@@ -251,6 +270,16 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $state, ma
 	     template: "<div style='text-align: center'>" + message + "</div>"
 	   });
 	 }
+
+	 $scope.show = function() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...'
+	    });
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
 });
 
 module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {

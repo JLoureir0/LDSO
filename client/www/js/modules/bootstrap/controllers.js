@@ -22,7 +22,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 					$state.go('menu.my-trips');
 					break;
 				case 1:
-					$state.go('menu.search-trip');
+					$state.transitionTo('menu.search-trip', $stateParams, { reload: true, inherit: false, notify: true });
 					break;
 				case 2:
 					$state.go('menu.share-trip');
