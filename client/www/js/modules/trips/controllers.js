@@ -239,6 +239,11 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $state, ma
 		}
 	}
 
+	$scope.loadUserProfile = function(username) {
+		makeRequest.setProfileToOpen(username);
+		$state.go('menu.profile');
+	}
+
 	// An alert dialog
 	function showAlert(message) {
 	   var alertPopup = $ionicPopup.alert({

@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 
-module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, BACache, makeRequest) {
+module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,$stateParams, BACache, makeRequest) {
 
 	$scope.username;
 	$scope.items;
@@ -36,6 +36,11 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 					break;
 				case 5:
 					showDialog();
+					break;
+				case 255:
+					var username = makeRequest.getUserName();
+					makeRequest.setProfileToOpen(username);
+					$state.transitionTo('menu.profile', $stateParams, { reload: true, inherit: false, notify: true });
 					break;
 				default:
 					break;

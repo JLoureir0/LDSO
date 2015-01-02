@@ -21,25 +21,27 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 			// change state
 			$state.go('menu.login');
 		} else {
-			var json = makeRequest.getUserJson();
-			if(typeof json === 'undefined') {
-				var currentHash = BACache.get('session');
-				var username = makeRequest.getUserName();
-
-				console.log(currentHash);
-				if(currentHash) {
-					makeRequest.getUser(currentHash, username).
-					then(function(data) {
-						$scope.profileInfo = data['data'];
-					}, function(error) {
-						showAlert('Acesso negado!');
-					});
-				} else {
-					showAlert('Acesso negado!');
-				}
+			var username = makeRequest.getUserName();
+			var usernameToOpen = makeRequest.getProfileToOpen();
+			if(usernameToOpen === username) {
+				loadUserInfo(username);
 			} else {
-				$scope.profileInfo = json.data;
+				loadUserInfo(usernameToOpen);
 			}
+		}
+	}
+
+	function loadUserInfo(username) {
+		var currentHash = BACache.get('session');
+		if(currentHash) {
+			makeRequest.getUser(currentHash, username).
+			then(function(data) {
+				$scope.profileInfo = data['data'];
+			}, function(error) {
+				showAlert('Acesso negado!');
+			});
+		} else {
+			showAlert('Acesso negado!');
 		}
 	}
 

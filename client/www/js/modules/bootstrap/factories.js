@@ -4,6 +4,8 @@ var ip = "ricardoneves.noip.me";
 var username;
 var userJson;
 var userEncryptedPassword;
+var profileToOpen;
+
 /*
 * Singleton that will provide a singleton to make a server request
 */
@@ -137,6 +139,14 @@ module.factory('makeRequest', function ($http, $q) {
 
         getUserJson: function() {
         	return userJson;
+        },
+
+        setProfileToOpen: function(username) {
+            profileToOpen = username;
+        },
+
+        getProfileToOpen: function() {
+            return profileToOpen;
         },
 
         resetUserVariables: function() {

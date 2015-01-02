@@ -8,8 +8,8 @@
       <div class="list card">
 
         <div class="item item-avatar">
-          <img src="img/User-icon.png">
-          <h2> {{trip.username}} </h2>
+          <img src="img/User-icon.png" ng-click="loadUserProfile(trip.username)">
+          <h2 ng-click="selectItem(trip.username)"> {{trip.username}} </h2>
           <p> {{trip.monthDay + " " + trip.month + ", " + trip.year}} </p>
         </div>
 
