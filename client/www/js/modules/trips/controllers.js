@@ -119,7 +119,8 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 		makeRequest.getLocation(latitude, longitude).
 			// then is called when service comes with an answer
 			then(function(data){
-				document.getElementById("start-location-field").value = data.geonames[0].toponymName;
+				//document.getElementById("start-location-field").value = data.geonames[0].toponymName;
+				$scope.startPoint = data.geonames[0].toponymName;
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
