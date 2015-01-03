@@ -118,7 +118,10 @@ server.get('/trips.json', function(req, res) {
 });
 
 server.post('/trips.json', passport.authenticate('basic', { session: false }), authentication, trips_hdlr.handle_params, function(req, res) {
-  trip_save.create(req.params, function(err, trip) {
-    res.send(201, trip);
+  user_save.findOne({ _id: req.params.username }, function(err, user) {
+    req.params.phone_number = user.phone_number;
+    trip_save.create(req.params, function(err, trip) {
+      res.send(201, trip);
+    });
   });
 });

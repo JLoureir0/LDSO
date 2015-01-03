@@ -14,14 +14,20 @@ var user    = {
 };
 
 var trip    = {
-  starting_point : 'Porto',
-  destination    : 'Vila Real',
-  fragile        : 'true',
-  flamable       : 'false',
-  big_dimensions : 'false',
-  vehicle        : '1',
-  min_price      : '2',
-  max_deviation  : '15',
+  starting_point    : 'Porto',
+  destination       : 'Vila Real',
+  fragile           : 'true',
+  flamable          : 'false',
+  big_dimensions    : 'false',
+  vehicle           : '1',
+  min_price         : '2',
+  max_deviation     : '15',
+  week_day          : 'Qua',
+  month_day         : '20',
+  month             : 'Set',
+  year              : '2015',
+  start_time        : {hour: '19', minute : '30'},
+  schedule_end_time : {hour: '22', minute : '30'}
 };
 
 var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
@@ -42,9 +48,10 @@ describe('/trips.json', function() {
   describe('post request', function() {
     it('should return 201 and the trip on create', function(done) {
       client.post('/trips.json', trip, function(err, req, res, obj) {
-        var response_trip      = JSON.parse(JSON.stringify(trip));
-        response_trip._id      = obj._id;
-        response_trip.username = user.username;
+        var response_trip          = JSON.parse(JSON.stringify(trip));
+        response_trip._id          = obj._id;
+        response_trip.username     = user.username;
+        response_trip.phone_number = user.phone_number;
         expect(res.statusCode).to.be.equal(201);
         expect(obj).to.be.deep.equal(response_trip);
         done();
@@ -194,6 +201,114 @@ describe('/trips.json', function() {
         done();
       });
     });
+    it('should return 409 and an error message if no week_day passed', function(done) {
+      var trip_no_week_day = JSON.parse(JSON.stringify(trip));
+      delete trip_no_week_day.week_day;
+      client.post('/trips.json', trip_no_week_day, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Week day must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if week_day is invalid', function(done) {
+      var trip_invalid_week_day = JSON.parse(JSON.stringify(trip));
+      trip_invalid_week_day.week_day = 'Inval1d';
+      client.post('/trips.json', trip_invalid_week_day, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Week day must be Seg, Ter, Qua, Qui, Sex, Sab or Dom');
+        done();
+      });
+    });
+    it('should return 409 and an error message if no month_day passed', function(done) {
+      var trip_no_month_day = JSON.parse(JSON.stringify(trip));
+      delete trip_no_month_day.month_day;
+      client.post('/trips.json', trip_no_month_day, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Month day must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if month_day is invalid', function(done) {
+      var trip_invalid_month_day = JSON.parse(JSON.stringify(trip));
+      trip_invalid_month_day.month_day = 'Inval1d';
+      client.post('/trips.json', trip_invalid_month_day, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Month day must be a number between 1 and 31');
+        done();
+      });
+    });
+    it('should return 409 and an error message if no month passed', function(done) {
+      var trip_no_month = JSON.parse(JSON.stringify(trip));
+      delete trip_no_month.month;
+      client.post('/trips.json', trip_no_month, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Month must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if month is invalid', function(done) {
+      var trip_invalid_month = JSON.parse(JSON.stringify(trip));
+      trip_invalid_month.month = 'Inval1d';
+      client.post('/trips.json', trip_invalid_month, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec');
+        done();
+      });
+    });
+    it('should return 409 and an error message if no year passed', function(done) {
+      var trip_no_year = JSON.parse(JSON.stringify(trip));
+      delete trip_no_year.year;
+      client.post('/trips.json', trip_no_year, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Year must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if year is invalid', function(done) {
+      var trip_invalid_year = JSON.parse(JSON.stringify(trip));
+      trip_invalid_year.year = 'Inval1d';
+      client.post('/trips.json', trip_invalid_year, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Year must valid');
+        done();
+      });
+    });
+    it('should return 409 and an error message if no start_time passed', function(done) {
+      var trip_no_start_time = JSON.parse(JSON.stringify(trip));
+      delete trip_no_start_time.start_time;
+      client.post('/trips.json', trip_no_start_time, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Start time must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if start_time is invalid', function(done) {
+      var trip_invalid_start_time = JSON.parse(JSON.stringify(trip));
+      trip_invalid_start_time.start_time = 'Inval1d';
+      client.post('/trips.json', trip_invalid_start_time, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Start time must be an object with an hour and a minute members');
+        done();
+      });
+    });
+    it('should return 409 and an error message if no schedule_end_time passed', function(done) {
+      var trip_no_schedule_end_time = JSON.parse(JSON.stringify(trip));
+      delete trip_no_schedule_end_time.schedule_end_time;
+      client.post('/trips.json', trip_no_schedule_end_time, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Schedule end time must be supplied');
+        done();
+      });
+    });
+    it('should return 409 and an error message if schedule_end_time is invalid', function(done) {
+      var trip_invalid_schedule_end_time = JSON.parse(JSON.stringify(trip));
+      trip_invalid_schedule_end_time.schedule_end_time = 'Inval1d';
+      client.post('/trips.json', trip_invalid_schedule_end_time, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Schedule end time must be an object with an hour and a minute members');
+        done();
+      });
+    });
     it('should only parse the correct attributes', function(done) {
       var trip_with_another_attribute = JSON.parse(JSON.stringify(trip));
       trip_with_another_attribute.another_attribute = 'ATTRIBUTE';
@@ -202,6 +317,7 @@ describe('/trips.json', function() {
       client.post('/trips.json', trip_with_another_attribute, function(err, req, res, obj) {
         response_trip._id = obj._id;
         response_trip.username = user.username;
+        response_trip.phone_number = user.phone_number;
         expect(obj).to.be.deep.equal(response_trip);
         done();
       });
