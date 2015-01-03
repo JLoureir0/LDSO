@@ -251,7 +251,7 @@ describe('/trips.json', function() {
       trip_invalid_month.month = 'Inval1d';
       client.post('/trips.json', trip_invalid_month, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec');
+        expect(obj.message).to.be.equal('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez');
         done();
       });
     });

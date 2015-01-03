@@ -114,8 +114,8 @@ function parse_month(month, next) {
   if(month === undefined)
     return next(new restify.InvalidArgumentError('Month must be supplied'));
 
-  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dec)$/.test(month)))
-    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec'));
+  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)$/.test(month)))
+    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez'));
 }
 
 function parse_year(year, next) {
