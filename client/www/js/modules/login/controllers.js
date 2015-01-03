@@ -32,6 +32,8 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 			then(function(data) {
 				BACache.put('session', username_password);
 				makeRequest.setUserName($scope.username);
+				makeRequest.setUserEncryptedPassword($scope.passwordEncrypted);
+				makeRequest.setProfileToOpen($scope.username);
 				$state.go('menu.profile');
 			}, function(error) {
 				showAlert('Por favor reintroduza as suas credenciais!');

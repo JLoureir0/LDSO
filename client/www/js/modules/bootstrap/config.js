@@ -51,7 +51,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
 		url: "/my-trips",
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/my-trips.html"
+				templateUrl: "templates/my-trips.html",
+				controller: "myTripsCtrl"
 			}
 		}
 	}).state('menu.search-trip', {
@@ -95,7 +96,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
 		url: "/trip",
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/trip.html"
+				templateUrl: "templates/trip.html",
+				controller: "myTripsCtrl"
 			}
 		}
 	}).state('menu.edit-message', {

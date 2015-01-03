@@ -1,12 +1,12 @@
-<ion-view title="'my_trips'">
+<ion-view title="'my_trips'" ng-init="getMyTrips()">
   <ion-content scroll='true'>
 
   <!-- Content --> 
-    <div class="trip-container"  ng-init="updateFootersAndSidebar()">
+    <div class="trip-container" ng-init="updateFootersAndSidebar()">
       <h1 class="share-title"> <span class="ion-model-s"></span> Minhas viagens</h1>
 
-        <a ng-href="#/menu/my-trip" ng-repeat="trip in trips">
-         <div nav-clear class="card">
+        <div nav-clear class="card" ng-repeat="trip in trips">
+          <div ng-click="setCurrentTrip(trip.id)">
             <div class="item item-divider trip-header">
               <div class="trip-start-end">
                 {{trip.startPoint}} - {{trip.destPoint}}
@@ -18,18 +18,21 @@
                 Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
                 Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
               </div>
+            </div>      
+            <div class="item item-text-wrap">
+              <table class="objects-type-table">
+                <tr>
+                  <td ng-repeat="objectType in trip.objectTypes">
+                    {{objectType}}
+                  </td>
+                </tr>
+              </table>
             </div>
-          <div class="item item-text-wrap">
-            <table class="objects-type-table">
-              <tr>
-                <td ng-repeat="objectType in trip.objectTypes">
-                  {{objectType}}
-                </td>
-              </tr>
-            </table>
-          </div> 
+            <div class="trip-times item item-divider">
+              Preço mínimo: {{trip.minPrice}} €
+            </div>
           </div>
-        </a>
+         </div>
 
          <div class="shareBtnContainer" ng-init="loadFooters()">
           <a ng-href="#/menu/share-trip">

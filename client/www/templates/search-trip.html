@@ -1,18 +1,17 @@
 <ion-view title="'search_trip'">
   <ion-content scroll='true'>
 
-  	<div class="search-trip-container">
+  	<div class="search-trip-container" ng-init="getExistingTrips()">
 
   		<h1 class="share-title"> <span class="ion-android-search"></span> Procurar Viagem</h1>
 
   		<div class="available-trips" ng-init="updateFootersAndSidebar()">
-  			
 
         <div class="search-container">
           <div class="width-40">
             <div class="width-90">
               <label class="item item-input">
-                <input id="start-location-field" type="text" placeholder="Ponto de Partida" ng-model="startPoint">
+                <input id="start-location-field" type="text" placeholder="Ponto de Partida" ng-model="startPoint" value="{{startPoint}}">
               </label>
             </div>
             <div ng-click="getCurrentLocation()" class="width-10">
@@ -20,15 +19,13 @@
             </div>
           </div>
 
-
           <label class="item item-input">
             <input type="text" placeholder="Ponto de Chegada" ng-model="destPoint">
           </label>
         </div>
 
-
-        <a ng-href="#/menu/trip">
-          <div nav-clear class="card" ng-repeat="trip in trips | filter: {startPoint: startPoint, destPoint: destPoint}">
+        <div nav-clear class="card" ng-repeat="trip in trips | filter: {startPoint: startPoint, destPoint: destPoint}">
+          <div ng-click="setCurrentTrip(trip.id)">
             <div class="item item-divider trip-header">
               <div class="trip-start-end">
                 {{trip.startPoint}} - {{trip.destPoint}}
@@ -54,7 +51,7 @@
               Preço mínimo: {{trip.minPrice}} €
             </div>
           </div>
-        </a>
+         </div>
 
         
   		</div>

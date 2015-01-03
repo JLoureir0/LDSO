@@ -3,14 +3,14 @@
 
   <!-- Content --> 
     <div class="trip-container" ng-init="updateFootersAndSidebar()">
-      <h1 class="trip-title"> <span class="ion-model-s"></span> {{trip.startPoint}}-{{trip.destPoint}}</h1>
+      <h1 class="trip-title"> <span class="ion-model-s"></span> {{trip.startPoint + " - " +  trip.destPoint}}</h1>
 
       <div class="list card">
 
         <div class="item item-avatar">
-          <img src="img/User-icon.png">
-          <h2>João Loureiro</h2>
-          <p>November 05, 2014</p>
+          <img src="img/User-icon.png" ng-click="loadUserProfile(trip.username)">
+          <h2 ng-click="loadUserProfile(trip.username)"> {{trip.username}} </h2>
+          <p> {{trip.monthDay + " " + trip.month + ", " + trip.year}} </p>
         </div>
 
         <div class="item item-body">
@@ -62,9 +62,9 @@
 
           <table style="width:100%;">
            <tr>
-             <td class="my-trip-location">Porto</td>
+             <td class="my-trip-location"> {{trip.startPoint}} </td>
              <td></td>
-             <td class="my-trip-location">Alfragide</td>
+             <td class="my-trip-location"> {{trip.destPoint}} </td>
            </tr>
            <tr class="my-trip-trip-icon-container">
            <td></td>
@@ -83,12 +83,16 @@
             <i nav-clear class="icon fa fa-code-fork"></i>
             Desvio máximo: {{trip.maxDesv}} min
           </a>
+
+          <a href="" class="item item-icon-left">
+            <i nav-clear class="icon fa fa-car"></i>
+            Tipo de veículo: {{trip.vehicle}}
+          </a>
         </div>       
 
-        <div class="shareBtnContainer">
-          <a href="tel:918649442"><button nav-clear class="registerBtn button button-energized"><strong> Contacta-o(a) </strong></button></a>
+        <div ng-hide="isMyTrip(trip.username)" class="shareBtnContainer">
+          <a href="tel:{{trip.contact}}"><button nav-clear class="registerBtn button button-energized"><strong> Contacta-o(a) </strong></button></a>
         </div>
-
     </div>
 
   </ion-content>
