@@ -26,8 +26,8 @@ var trip    = {
   month_day         : '20',
   month             : 'Set',
   year              : '2015',
-  start_time        : {hour: '19', minute : '30'},
-  schedule_end_time : {hour: '22', minute : '30'}
+  start_time        : {hour: '09', minute : '30' },
+  schedule_end_time : {hour: '13', minute : '30' }
 };
 
 var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
@@ -80,7 +80,7 @@ describe('/trips.json', function() {
       delete trip_no_destination.destination;
       client.post('/trips.json', trip_no_destination, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Last name must be supplied');
+        expect(obj.message).to.be.equal('Destination must be supplied');
         done();
       });
     });
@@ -251,7 +251,7 @@ describe('/trips.json', function() {
       trip_invalid_month.month = 'Inval1d';
       client.post('/trips.json', trip_invalid_month, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec');
+        expect(obj.message).to.be.equal('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez');
         done();
       });
     });
@@ -287,7 +287,7 @@ describe('/trips.json', function() {
       trip_invalid_start_time.start_time = 'Inval1d';
       client.post('/trips.json', trip_invalid_start_time, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Start time must be an object with an hour and a minute members');
+        expect(obj.message).to.be.equal('Start time must be an object with a time, an hour and a minute members');
         done();
       });
     });
@@ -305,13 +305,14 @@ describe('/trips.json', function() {
       trip_invalid_schedule_end_time.schedule_end_time = 'Inval1d';
       client.post('/trips.json', trip_invalid_schedule_end_time, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Schedule end time must be an object with an hour and a minute members');
+        expect(obj.message).to.be.equal('Schedule end time must be an object with a time, an hour and a minute members');
         done();
       });
     });
     it('should only parse the correct attributes', function(done) {
       var trip_with_another_attribute = JSON.parse(JSON.stringify(trip));
       trip_with_another_attribute.another_attribute = 'ATTRIBUTE';
+      trip_with_another_attribute.start_time.another_attribute = 'ATTRIBUTE';
       var response_trip = JSON.parse(JSON.stringify(trip));
 
       client.post('/trips.json', trip_with_another_attribute, function(err, req, res, obj) {

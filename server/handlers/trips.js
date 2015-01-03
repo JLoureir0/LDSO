@@ -40,7 +40,7 @@ function parse_starting_point(starting_point, next) {
 
 function parse_destination(destination, next) {
   if(destination === undefined)
-    return next(new restify.InvalidArgumentError('Last name must be supplied'));
+    return next(new restify.InvalidArgumentError('Destination must be supplied'));
 
   if(typeof destination !== 'string' || !(/^[\u00C0-\u00FFa-zA-Z]+(\s[\u00C0-\u00FFa-zA-Z]+)*$/.test(destination)))
     return next(new restify.InvalidArgumentError('Destination must be a string with only letters'));
@@ -114,8 +114,8 @@ function parse_month(month, next) {
   if(month === undefined)
     return next(new restify.InvalidArgumentError('Month must be supplied'));
 
-  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dec)$/.test(month)))
-    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec'));
+  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)$/.test(month)))
+    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez'));
 }
 
 function parse_year(year, next) {
@@ -130,16 +130,16 @@ function parse_start_time(start_time, next) {
   if(start_time === undefined)
     return next(new restify.InvalidArgumentError('Start time must be supplied'));
 
-  if(typeof start_time !== 'object' || start_time.hour === undefined || start_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(start_time.hour)) || !(/^[0-5][0-9]$/.test(start_time.minute)))
-    return next(new restify.InvalidArgumentError('Start time must be an object with an hour and a minute members'));
+  if(typeof start_time !== 'object' || start_time.hour === undefined || start_time.minute === undefined || !(/^(0[0-9]|1[0-9]|2[0-3])$/.test(start_time.hour)) || !(/^[0-5][0-9]$/.test(start_time.minute)))
+    return next(new restify.InvalidArgumentError('Start time must be an object with a time, an hour and a minute members'));
 }
 
 function parse_schedule_end_time(schedule_end_time, next) {
   if(schedule_end_time === undefined)
     return next(new restify.InvalidArgumentError('Schedule end time must be supplied'));
 
-  if(typeof schedule_end_time !== 'object' || schedule_end_time.hour === undefined || schedule_end_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(schedule_end_time.hour)) || !(/^[0-5][0-9]$/.test(schedule_end_time.minute)))
-    return next(new restify.InvalidArgumentError('Schedule end time must be an object with an hour and a minute members'));
+  if(typeof schedule_end_time !== 'object' || schedule_end_time.hour === undefined || schedule_end_time.minute === undefined || !(/^(0[0-9]|1[0-9]|2[0-3])$/.test(schedule_end_time.hour)) || !(/^[0-5][0-9]$/.test(schedule_end_time.minute)))
+    return next(new restify.InvalidArgumentError('Schedule end time must be an object with a time, an hour and a minute members'));
 }
 
 function parse_trip(trip) {
@@ -163,9 +163,29 @@ function parse_trip(trip) {
   ];
 
   for(var key in trip) {
-    if(trip_attributes.indexOf(key) !== -1)
-      new_trip[key] = trip[key];
+    if(trip_attributes.indexOf(key) !== -1) {
+      if(key === 'start_time' || key === 'schedule_end_time')
+        new_trip[key] = parse_time(trip[key]);
+      else
+        new_trip[key] = trip[key];
+    }
   }
 
   return new_trip;
+}
+
+function parse_time(time) {
+  var new_time = {};
+
+  var time_attributes = [
+    'hour',
+    'minute',
+  ];
+
+  for(var key in time) {
+    if(time_attributes.indexOf(key) !== -1)
+      new_time[key] = time[key];
+  }
+
+  return new_time;
 }
