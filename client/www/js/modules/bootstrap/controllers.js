@@ -123,7 +123,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 
   // If the user clicks yes the application will close
   function exitApplication(buttonIndex) {
-  	if(buttonIndex == 1) {
+  	if(buttonIndex == 2) {
   		navigator.app.exitApp();
   	}
   }
