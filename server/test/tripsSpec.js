@@ -26,8 +26,8 @@ var trip    = {
   month_day         : '20',
   month             : 'Set',
   year              : '2015',
-  start_time        : {hour: '7',  minute : '30', time: 'PM'},
-  schedule_end_time : {hour: '10', minute : '30', time: 'PM'}
+  start_time        : {hour: '09', minute : '30' },
+  schedule_end_time : {hour: '13', minute : '30' }
 };
 
 var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
@@ -312,6 +312,7 @@ describe('/trips.json', function() {
     it('should only parse the correct attributes', function(done) {
       var trip_with_another_attribute = JSON.parse(JSON.stringify(trip));
       trip_with_another_attribute.another_attribute = 'ATTRIBUTE';
+      trip_with_another_attribute.start_time.another_attribute = 'ATTRIBUTE';
       var response_trip = JSON.parse(JSON.stringify(trip));
 
       client.post('/trips.json', trip_with_another_attribute, function(err, req, res, obj) {
