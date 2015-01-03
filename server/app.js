@@ -125,3 +125,19 @@ server.post('/trips.json', passport.authenticate('basic', { session: false }), a
     });
   });
 });
+
+server.del(/^\/trips\/(.+)\.json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  trip_save.findOne({ _id: req.params[0] }, function(err, trip) {
+    if(trip === undefined)
+      res.send(404);
+    if(req.user === undefined || trip.username !== req.user.id)
+      res.send(401);
+    else {
+      trip_save.delete(req.params[0], function(err, trip) {
+        if(err)
+          res.send(404);
+        res.send(200);
+      });
+    }
+  });
+});
