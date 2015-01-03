@@ -80,7 +80,7 @@ describe('/trips.json', function() {
       delete trip_no_destination.destination;
       client.post('/trips.json', trip_no_destination, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Last name must be supplied');
+        expect(obj.message).to.be.equal('Destination must be supplied');
         done();
       });
     });
