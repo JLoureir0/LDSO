@@ -22,6 +22,12 @@ function verify_trip_attributes(trip, next) {
   parse_vehicle(trip.vehicle, next);
   parse_min_price(trip.min_price, next);
   parse_max_deviation(trip.max_deviation, next);
+  parse_week_day(trip.week_day, next);
+  parse_month_day(trip.month_day, next);
+  parse_month(trip.month, next);
+  parse_year(trip.year, next);
+  parse_start_time(trip.start_time, next);
+  parse_schedule_end_time(trip.schedule_end_time, next);
 }
 
 function parse_starting_point(starting_point, next) {
@@ -88,6 +94,54 @@ function parse_max_deviation(max_deviation, next) {
     return next(new restify.InvalidArgumentError('Maximum deviation must be a number greater than zero'));
 }
 
+function parse_week_day(week_day, next) {
+  if(week_day === undefined)
+    return next(new restify.InvalidArgumentError('Week day must be supplied'));
+
+  if(typeof week_day !== 'string' || !(/^(Seg|Ter|Qua|Qui|Sex|Sab|Dom)$/.test(week_day)))
+    return next(new restify.InvalidArgumentError('Week day must be Seg, Ter, Qua, Qui, Sex, Sab or Dom'));
+}
+
+function parse_month_day(month_day, next) {
+  if(month_day === undefined)
+    return next(new restify.InvalidArgumentError('Month day must be supplied'));
+
+  if(typeof month_day !== 'string' || !(/^([1-9]|[1-2][0-9]|30|31)$/.test(month_day)))
+    return next(new restify.InvalidArgumentError('Month day must be a number between 1 and 31'));
+}
+
+function parse_month(month, next) {
+  if(month === undefined)
+    return next(new restify.InvalidArgumentError('Month must be supplied'));
+
+  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dec)$/.test(month)))
+    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec'));
+}
+
+function parse_year(year, next) {
+  if(year === undefined)
+    return next(new restify.InvalidArgumentError('Year must be supplied'));
+
+  if(typeof year !== 'string' || !(/^20(1[5-9]|[2-9][0-9])$/.test(year)))
+    return next(new restify.InvalidArgumentError('Year must valid'));
+}
+
+function parse_start_time(start_time, next) {
+  if(start_time === undefined)
+    return next(new restify.InvalidArgumentError('Start time must be supplied'));
+
+  if(typeof start_time !== 'object' || start_time.hour === undefined || start_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(start_time.hour)) || !(/^[0-5][0-9]$/.test(start_time.minute)))
+    return next(new restify.InvalidArgumentError('Start time must be an object with an hour and a minute members'));
+}
+
+function parse_schedule_end_time(schedule_end_time, next) {
+  if(schedule_end_time === undefined)
+    return next(new restify.InvalidArgumentError('Schedule end time must be supplied'));
+
+  if(typeof schedule_end_time !== 'object' || schedule_end_time.hour === undefined || schedule_end_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(schedule_end_time.hour)) || !(/^[0-5][0-9]$/.test(schedule_end_time.minute)))
+    return next(new restify.InvalidArgumentError('Schedule end time must be an object with an hour and a minute members'));
+}
+
 function parse_trip(trip) {
   var new_trip = {};
 
@@ -100,6 +154,12 @@ function parse_trip(trip) {
     'vehicle',
     'min_price',
     'max_deviation',
+    'week_day',
+    'month_day',
+    'month',
+    'year',
+    'start_time',
+    'schedule_end_time'
   ];
 
   for(var key in trip) {
