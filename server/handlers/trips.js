@@ -114,8 +114,8 @@ function parse_month(month, next) {
   if(month === undefined)
     return next(new restify.InvalidArgumentError('Month must be supplied'));
 
-  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dec)$/.test(month)))
-    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dec'));
+  if(typeof month !== 'string' || !(/^(Jan|Feb|Mar|Abr|Mai|Jun|Jul|Ago|Set|Out|Nov|Dez)$/.test(month)))
+    return next(new restify.InvalidArgumentError('Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez'));
 }
 
 function parse_year(year, next) {
@@ -130,16 +130,16 @@ function parse_start_time(start_time, next) {
   if(start_time === undefined)
     return next(new restify.InvalidArgumentError('Start time must be supplied'));
 
-  if(typeof start_time !== 'object' || start_time.hour === undefined || start_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(start_time.hour)) || !(/^[0-5][0-9]$/.test(start_time.minute)))
-    return next(new restify.InvalidArgumentError('Start time must be an object with an hour and a minute members'));
+  if(typeof start_time !== 'object' || start_time.hour === undefined || start_time.minute === undefined || !(/^([1-9]|1[0-2])$/.test(start_time.hour)) || !(/^[0-5][0-9]$/.test(start_time.minute)))
+    return next(new restify.InvalidArgumentError('Start time must be an object with a time, an hour and a minute members'));
 }
 
 function parse_schedule_end_time(schedule_end_time, next) {
   if(schedule_end_time === undefined)
     return next(new restify.InvalidArgumentError('Schedule end time must be supplied'));
 
-  if(typeof schedule_end_time !== 'object' || schedule_end_time.hour === undefined || schedule_end_time.minute === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(schedule_end_time.hour)) || !(/^[0-5][0-9]$/.test(schedule_end_time.minute)))
-    return next(new restify.InvalidArgumentError('Schedule end time must be an object with an hour and a minute members'));
+  if(typeof schedule_end_time !== 'object' || schedule_end_time.hour === undefined || schedule_end_time.minute === undefined || schedule_end_time.time === undefined || !(/^([1-9]|1[0-9]|2[0-4])$/.test(schedule_end_time.hour)) || !(/^[0-5][0-9]$/.test(schedule_end_time.minute)) || !(/^(AM|PM)$/.test(schedule_end_time.time)))
+    return next(new restify.InvalidArgumentError('Schedule end time must be an object with a time, an hour and a minute members'));
 }
 
 function parse_trip(trip) {
