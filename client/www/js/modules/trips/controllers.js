@@ -24,16 +24,14 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 						trip.vehicle = 'Viatura de mercadorias';
 					}
 
-					// HARDCODED ////////////////////////
-					//var date = new Date(year, month, day);
-					trip.weekDay = 'Qua.';
-					trip.monthDay = '20';
-					trip.month = 'Set';
-					trip.year = '2015'
-					trip.startTime = {hour: '19', minute: '30'};
-					trip.scheduleEndTime = {hour: '22', minute: '30'};
-					trip.contact = "918649442";
-					////////////////////////////////////
+
+					trip.weekDay = data.data[i].week_day + ".";
+					trip.monthDay = data.data[i].month_day;
+					trip.month = data.data[i].month + ".";
+					trip.year = data.data[i].year;
+					trip.startTime = data.data[i].start_time;
+					trip.scheduleEndTime = data.data[i].schedule_end_time;
+					trip.contact = data.data[i].phone_number;
 
 					var objectTypes = [];
 					if(data.data[i].fragile === 'true') {
