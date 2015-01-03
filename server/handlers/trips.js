@@ -40,7 +40,7 @@ function parse_starting_point(starting_point, next) {
 
 function parse_destination(destination, next) {
   if(destination === undefined)
-    return next(new restify.InvalidArgumentError('Last name must be supplied'));
+    return next(new restify.InvalidArgumentError('Destination must be supplied'));
 
   if(typeof destination !== 'string' || !(/^[\u00C0-\u00FFa-zA-Z]+(\s[\u00C0-\u00FFa-zA-Z]+)*$/.test(destination)))
     return next(new restify.InvalidArgumentError('Destination must be a string with only letters'));
