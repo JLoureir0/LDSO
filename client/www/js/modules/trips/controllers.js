@@ -158,11 +158,11 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 
 });
 
-module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $state, makeRequest, BACache) {
+module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoading, $state, $stateParams, makeRequest, BACache) {
 
 	$scope.getMyTrips = function() {
 		if(BACache.info().size === 0) {
-			showAlert('Não tem sessão iniciada');
+			showError('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
 
@@ -189,15 +189,13 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 							trip.vehicle = 'Viatura de mercadorias';
 						}
 
-						// HARDCODED ////////////////////////
-						trip.weekDay = 'Qua.';
-						trip.monthDay = '20';
-						trip.month = 'Set';
-						trip.year = '2015';
-						trip.startTime = {hour: '19', minute: '30'};
-						trip.scheduleEndTime = {hour: '22', minute: '30'};
-						trip.contact = "918649442";
-						////////////////////////////////////
+						trip.weekDay = data.data[i].week_day + ".";
+						trip.monthDay = data.data[i].month_day;
+						trip.month = data.data[i].month + ".";
+						trip.year = data.data[i].year;
+						trip.startTime = data.data[i].start_time;
+						trip.scheduleEndTime = data.data[i].schedule_end_time;
+						trip.contact = data.data[i].phone_number;
 
 						var objectTypes = [];
 						if(data.data[i].fragile === 'true') {
@@ -231,12 +229,12 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 
 	$scope.setCurrentTrip = function(index) {
 		if(BACache.info().size === 0) {
-			showAlert('Não tem sessão iniciada');
+			showError('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
 			for(var i = 0; i < $scope.trips.length; i++) {
 				if($scope.trips[i].id === index) {
-					console.log($scope.trips[i]);
+					console.log($scope.trips[i].id);
 					$scope.trip.startPoint = $scope.trips[i].startPoint;
 					$scope.trip.destPoint = $scope.trips[i].destPoint;
 					$scope.trip.weekDay = $scope.trips[i].weekDay;
@@ -259,15 +257,48 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 		}
 	}
 
+	$scope.deleteTrip = function(index) {
+		if(BACache.info().size === 0) {
+			showError('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+			for(var i = 0; i < $scope.trips.length; i++) {
+				if($scope.trips[i].id === index) {
+					var username_password = "Basic " + btoa(makeRequest.getUserName() + ':' + makeRequest.getUserEncryptedPassword());
+					$scope.show();
+					makeRequest.delTrip(username_password, $scope.trips[i].id).
+					// then is called when service comes with an answer
+					then(function(data){
+						// get the most updated trips and display them
+						$scope.getMyTrips();
+						$state.go('menu.my-trips');
+						showInfo('Viagem apagada com sucesso');
+					}, function(error) {
+						showError('Viagem não apagada');
+					});
+					break;
+				}
+			}
+		}
+	}
+
 	$scope.loadUserProfile = function(username) {
 		makeRequest.setProfileToOpen(username);
 		$state.go('menu.profile');
 	}
 
 	// An alert dialog
-	function showAlert(message) {
+	function showError(message) {
 	   var alertPopup = $ionicPopup.alert({
 	     title: 'Erro',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	 }
+
+	// An alert dialog
+	function showInfo(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Sucesso',
 	     template: "<div style='text-align: center'>" + message + "</div>"
 	   });
 	 }
@@ -283,7 +314,7 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 	};
 });
 
-module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, $ionicLoading, makeRequest, BACache) {
 
 	$scope.startPoint = "";
 	$scope.destination = "";
@@ -319,23 +350,23 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 				setTimeout(resetSpinner(), 0);
 			}, function(error) {
 				setTimeout(resetSpinner(), 0);
-				showAlert('O sistema não conseguiu receber as informações do GPS');
+				showError('O sistema não conseguiu receber as informações do GPS');
 			});
 	}  
 
 	function onError(error) {
 		switch(error.code) {
 		case 1:
-			showAlert('Permissão negada');
+			showError('Permissão negada');
 			break;
 		case 2:
-			showAlert('Posição indisponível');
+			showError('Posição indisponível');
 			break;
 		case 3:
-			showAlert('Tempo de ligação expirado');
+			showError('Tempo de ligação expirado');
 			break;
 		default:
-			showAlert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+			showError('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 			break;
 		}
 		setTimeout(resetSpinner, 0);
@@ -344,7 +375,7 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 	$scope.shareTripSubmit = function() {
 
 		if(BACache.info().size === 0) {
-			showAlert('Não tem sessão iniciada');
+			showError('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
 
@@ -368,24 +399,6 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 			$scope.isLarge = $scope.isLarge.toString();
 			$scope.startPoint = document.getElementById("start-location-field").value;
 
-			// new stuff to send
-			/*
-			var weekDay = getWeekDay($scope.tripDate);
-			var monthDay = $scope.tripDate.split('-')[2];
-			var month = getMonth($scope.tripDate);
-			var year = $scope.tripDate.split('-')[0];
-			var startTime = {hour: $scope.tripStartTime.split(':')[0], minute: $scope.tripStartTime.split(':')[1]};
-			var scheduleEndTime = {hour: $scope.tripEndTime.split(':')[0], minute: $scope.tripEndTime.split(':')[1]};
-			var contact = "918649442";
-
-			console.log(weekDay);
-			console.log(monthDay);
-			console.log(month);
-			console.log(year);
-			console.log(startTime);
-			console.log(scheduleEndTime);
-			*/
-
 			var jsonShareTrip = {
 				"starting_point" : $scope.startPoint,
 				"destination" : $scope.destination,
@@ -394,17 +407,29 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 				"big_dimensions" : $scope.isLarge,
 				"vehicle" : vehicleCode,
 				"min_price" : $scope.minPrice,
-				"max_deviation" : $scope.maxDeviation
+				"max_deviation" : $scope.maxDeviation,
+				"week_day" : getWeekDay($scope.tripDate),
+				"month_day" : parseInt($scope.tripDate.split('-')[2], "10").toString(),
+				"month" : getMonth($scope.tripDate),
+				"year" : $scope.tripDate.split('-')[0],
+				"start_time" : {hour: $scope.tripStartTime.split(':')[0], minute: $scope.tripStartTime.split(':')[1]},
+				"schedule_end_time" : {hour: $scope.tripEndTime.split(':')[0], minute: $scope.tripEndTime.split(':')[1]}
 			};
 			var json = JSON.stringify(jsonShareTrip);
 
+			console.log(json);
+
 			//call service
+			$scope.show();
 			makeRequest.sendTrip(json, username_password).
 				// then is called when service comes with an answer
 				then(function(data){
 					$state.go('menu.my-trips');
+					showInfo('Viagem partilhada com sucesso');
 				}, function(error) {
-					alert("Erro: " + "Resposta do servidor não recebida");
+					//if(error.code === '409')
+					translateError(error.message);
+					console.log('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 				});
 
 			}
@@ -504,11 +529,103 @@ module.controller('shareTripCtrl', function($scope, $http, $ionicPopup, $state, 
 		return literalMonth;
 	}
 
-	// An alert dialog
-	function showAlert(message) {
+
+	 // An alert dialog
+	function showError(message) {
 	   var alertPopup = $ionicPopup.alert({
 	     title: 'Erro',
 	     template: "<div style='text-align: center'>" + message + "</div>"
 	   });
-	 }
+	}
+
+	// An alert dialog
+	function showInfo(message) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Sucesso',
+	     template: "<div style='text-align: center'>" + message + "</div>"
+	   });
+	}
+
+	$scope.show = function() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...'
+	    });
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
+
+
+	function translateError(message) {
+
+		var translated = "";
+		console.log("Original error: " + message);
+
+		switch(message){
+			case 'Starting point must be supplied':
+				translated = "Ponto de partida tem que ser especificado";
+				break;
+			case 'Starting point must be a string with only letters':
+				translated = "Ponto de partida apenas pode conter letras";
+				break;
+			case 'Destination must be a string with only letters':
+				translated = "Destino apenas pode conter letras";
+				break;
+			case 'Minimum price must be supplied':
+				translated = "Preço mínimo tem que ser especificado";
+				break;
+			case 'Minimum price must be a number greater than zero':
+				translated = "Preço mínimo tem que ser um número maior ou igual a zero";
+				break;
+			case 'Maximum deviation must be supplied':
+				translated = "Desvio máximo tem que ser especificado";
+				break;
+			case 'Maximum deviation must be a number greater than zero':
+				translated = "Desvio máximo tem que ser um número maior ou igual a zero";
+				break;
+			case 'Week day must be supplied':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Week day must be Seg, Ter, Qua, Qui, Sex, Sab or Dom':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Month day must be supplied':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Month day must be a number between 1 and 31':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Month must be supplied':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Month must be Jan, Feb, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov or Dez':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Year must be supplied':
+				translated = "Data da viagem tem que ser especificada";
+				break;
+			case 'Year must valid':
+				translated = "Ano da realização da viagem tem que ser válido";
+				break;
+			case 'Start time must be supplied':
+				translated = "Hora de inicio da viagem tem que ser especificada";
+				break;
+			case 'Start time must be an object with a time, an hour and a minute members':
+				translated = "Hora de início da viagem tem que ser especificada no formato correto";
+				break;
+			case 'Schedule end time must be supplied':
+				translated = "Hora de conclusão da viagem tem que ser especificada";
+				break;
+			case 'Schedule end time must be an object with a time, an hour and a minute members':
+				translated = "Hora de conclusão da viagem tem que ser especificada no formato correto";
+				break;
+			default:
+				translated = "Erro desconhecido";
+				break;
+		}
+
+		showError(translated);
+
+	}
 });

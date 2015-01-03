@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 
-module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,$stateParams, BACache, makeRequest) {
+module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, $stateParams, BACache, makeRequest) {
 
 	$scope.username;
 	$scope.items;
@@ -123,7 +123,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 
   // If the user clicks yes the application will close
   function exitApplication(buttonIndex) {
-  	if(buttonIndex == 2) {
+  	if(buttonIndex == 1) {
   		navigator.app.exitApp();
   	}
   }

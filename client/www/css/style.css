@@ -127,6 +127,10 @@
     margin: 0px auto; 
 }
 
+.del-trip {
+  text-align: center;
+}
+
 /**********My-Trip**********/
 
 .trip-title {

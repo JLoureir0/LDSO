@@ -5,33 +5,40 @@
     <div class="trip-container" ng-init="updateFootersAndSidebar()">
       <h1 class="share-title"> <span class="ion-model-s"></span> Minhas viagens</h1>
 
-        <div nav-clear class="card" ng-repeat="trip in trips">
-          <div ng-click="setCurrentTrip(trip.id)">
-            <div class="item item-divider trip-header">
-              <div class="trip-start-end">
-                {{trip.startPoint}} - {{trip.destPoint}}
+        <div nav-clear ng-repeat="trip in trips">
+          <div nav-clear class="card">
+            <div ng-click="setCurrentTrip(trip.id)">
+              <div class="item item-divider trip-header">
+                <div class="trip-start-end">
+                  {{trip.startPoint}} - {{trip.destPoint}}
+                </div>
+                <div class="trip-date">
+                  {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+                </div>
+                <div class="trip-times">
+                  Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
+                  Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
+                </div>
+              </div>      
+              <div class="item item-text-wrap">
+                <table class="objects-type-table">
+                  <tr>
+                    <td ng-repeat="objectType in trip.objectTypes">
+                      {{objectType}}
+                    </td>
+                  </tr>
+                </table>
               </div>
-              <div class="trip-date">
-                {{trip.weekDay}} {{trip.monthDay}} {{trip.month}}
+              <div class="trip-times item item-divider">
+                Preço mínimo: {{trip.minPrice}} €
               </div>
-              <div class="trip-times">
-                Partida: {{trip.startTime.hour}}h{{trip.startTime.minute}}
-                Chegada: {{trip.scheduleEndTime.hour}}h{{trip.scheduleEndTime.minute}}
-              </div>
-            </div>      
-            <div class="item item-text-wrap">
-              <table class="objects-type-table">
-                <tr>
-                  <td ng-repeat="objectType in trip.objectTypes">
-                    {{objectType}}
-                  </td>
-                </tr>
-              </table>
             </div>
-            <div class="trip-times item item-divider">
-              Preço mínimo: {{trip.minPrice}} €
-            </div>
-          </div>
+           </div>
+           <div class="del-trip">
+             <button ng-click="deleteTrip(trip.id)"class="registerBtn button button-assertive">
+                  Eliminar <span class="ion-trash-a"></span>
+             </button>
+           </div>
          </div>
 
          <div class="shareBtnContainer" ng-init="loadFooters()">

@@ -43,6 +43,24 @@ module.factory('makeRequest', function ($http, $q) {
             );
         },
 
+        delTrip: function(encoded, id) {
+            return $http.delete('http://' + ip + ':3000/trips/' + id + '.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if(response.status === 200) {
+                    console.log('tudo bem');
+                    return response.data;
+                } else {
+                    console.log('tudo mal');
+                    return $q.reject(response);
+                }
+            }, function(response) {
+                    // something went wrong
+                    console.log('mesmo mal');
+                    return $q.reject(response);
+                }
+            );
+        },
+
         register: function(json) {
         	return $http.post('http://' + ip + ':3000/users.json', json, {timeout: timeout})
         	.then(function(response){
