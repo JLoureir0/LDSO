@@ -26,8 +26,8 @@ var trip    = {
   month_day         : '20',
   month             : 'Set',
   year              : '2015',
-  start_time        : {hour: '19', minute : '30'},
-  schedule_end_time : {hour: '22', minute : '30'}
+  start_time        : {hour: '7',  minute : '30', time: 'PM'},
+  schedule_end_time : {hour: '10', minute : '30', time: 'PM'}
 };
 
 var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
@@ -287,7 +287,7 @@ describe('/trips.json', function() {
       trip_invalid_start_time.start_time = 'Inval1d';
       client.post('/trips.json', trip_invalid_start_time, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Start time must be an object with an hour and a minute members');
+        expect(obj.message).to.be.equal('Start time must be an object with a time, an hour and a minute members');
         done();
       });
     });
@@ -305,7 +305,7 @@ describe('/trips.json', function() {
       trip_invalid_schedule_end_time.schedule_end_time = 'Inval1d';
       client.post('/trips.json', trip_invalid_schedule_end_time, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj.message).to.be.equal('Schedule end time must be an object with an hour and a minute members');
+        expect(obj.message).to.be.equal('Schedule end time must be an object with a time, an hour and a minute members');
         done();
       });
     });
