@@ -124,6 +124,21 @@ module.factory('makeRequest', function ($http, $q) {
         	);	   		
         },
 
+        updateUserInfo: function(encoded, json) {
+            return $http.put('http://' + ip + ':3000/users/' + username + '.json', json, { headers: { 'Authorization': encoded } })
+            .then(function(response){
+                if(response.status === 200 && typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    return $q.reject(response);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response);
+                }
+            );          
+        },
+
         sendPassword: function(username, encoded, jsonPassword) {
         	return $http.put('http://' + ip + ':3000/users/' + username + '.json', JSON.stringify(jsonPassword), { headers: { 'Authorization': encoded } })
         	.then(function(response){
