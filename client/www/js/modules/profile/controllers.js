@@ -267,25 +267,35 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	        	var confirmPassword = $scope.data.confirmPassword;
 
 	        	var username = makeRequest.getUserName();
+	        	var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
 
 	        	var oldEncoded = CryptoJS.SHA256($scope.oldPassword);
 	        	var newEncoded = CryptoJS.SHA256($scope.newPassword);
-	        	
-	        	var username_password = "Basic " + btoa(username + ':' + oldEncoded);
 
-	        	var jsonPassword = {
-					"password" : newEncoded.toString()
-				};
+	        	if($scope.newPassword == null || $scope.newPassword == undefined || $scope.oldPassword == null 
+	        		|| $scope.oldPassword == undefined || confirmPassword == null || confirmPassword == undefined) {
+					showAlert("Password", "<div style='text-align: center'>Deverá preencher todos os campos.</div>");
+	        	} else if($scope.newPassword !== confirmPassword) {
+	        		showAlert("Password", "<div style='text-align: center'>A password não corresponde com a sua confimação.</div>");
+	        	} else if($scope.newPassword.length < 8) {
+					showAlert("Password", "<div style='text-align: center'>A password deve ter no mínimo tamanho 8.</div>");
+	        	} else if(oldEncoded.toString() !== userEncryptedPassword.toString()) {
+	        		showAlert("Password", "<div style='text-align: center'>A password antiga está errada.</div>");
+	        	} else {
+	        		var username_password = "Basic " + btoa(username + ':' + oldEncoded);
+		        	var jsonPassword = {
+						"password" : newEncoded.toString()
+					};
 
-	        	makeRequest.sendPassword(username, username_password, jsonPassword).
-				// then is called when service comes with an answer
-					then(function(data) {
-						showAlert("Password", "<div style='text-align: center'>Password alterada com sucesso.</div>");
-						console.log('password alterada');
-					}, function(error) {
-						showPasswordAlert("Password", "<div style='text-align: center'>Erro na alteração da password.</div>");
-				});
-	        	
+		        	makeRequest.sendPassword(username, username_password, jsonPassword).
+					// then is called when service comes with an answer
+						then(function(data) {
+							showAlert("Password", "<div style='text-align: center'>Password alterada com sucesso.</div>");
+							console.log('password alterada');
+						}, function(error) {
+							showAlert("Password", "<div style='text-align: center'>Erro na alteração da password.</div>");
+					});
+	        	}       	
 	        }
 	      },
 	    ]

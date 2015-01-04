@@ -1,6 +1,6 @@
 var module = angular.module('starter');
 
-module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,$stateParams, BACache, makeRequest) {
+module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state, $stateParams, BACache, makeRequest) {
 
 	$scope.username;
 	$scope.items;
