@@ -124,7 +124,7 @@ module.factory('makeRequest', function ($http, $q) {
         	);	   		
         },
 
-        updateUserInfo: function(encoded, json) {
+        updateUserInfo: function(username, encoded, json) {
             return $http.put('http://' + ip + ':3000/users/' + username + '.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response){
                 if(response.status === 200 && typeof response.data === 'object') {

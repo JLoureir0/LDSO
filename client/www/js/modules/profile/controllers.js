@@ -1,6 +1,6 @@
 var module = angular.module('profileModule');
 
-module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('profileCtrl', function($scope, $ionicPopup, $state, $stateParams, makeRequest, BACache) {
 
 	$scope.profileInfo;
 	$scope.checkedPasswords = false;
@@ -14,6 +14,9 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	$scope.newContact = "";
 	$scope.newHomeTown = "";
 	$scope.newEmail = "";
+
+	var alreadyShownedSucessMessage;
+	var alreadyShownedErrorMessage;
 
 	$scope.loadProfile = function() {
 		if(BACache.info().size === 0) {
@@ -108,6 +111,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 
 	 	if($scope.newHomeTown == null || $scope.newHomeTown == undefined) {
 	 		isHometownValid = true;
+	 		$scope.newHomeTown = "";
 	 	} else if($scope.newHomeTown.length > 0) {
 	 		if(validateHometown() == true) {
 	 			isHometownValid = true;
@@ -122,6 +126,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 
 	 	if($scope.newContact == null || $scope.newContact == undefined) {
 	 		isContactValid = true;
+	 		$scope.newContact = "";
 	 	} else if($scope.newContact.length > 0) {
 	 		if(validateContact() == true) {
 	 			isContactValid = true;
@@ -136,6 +141,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 
 	 	if($scope.newEmail == null || $scope.newEmail == undefined) {
 	 		isEmailValid = true;
+	 		$scope.newEmail = "";
 	 	} else if($scope.newEmail.length > 0) {
 	 		if(validateEmail() == true) {
 	 			isEmailValid = true;
@@ -158,8 +164,29 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	 	}
 	}
 
+	function updateProfile(username, encoded, json) {
+    	makeRequest.updateUserInfo(username, encoded, json).
+		// then is called when service comes with an answer
+			then(function(data) {
+				makeRequest.setProfileToOpen(username);
+				$state.transitionTo('menu.profile', $stateParams, { reload: true, inherit: false, notify: true });
+				if(alreadyShownedSucessMessage === false) {
+					showAlert("Perfil", "<div style='text-align: center'>Perfil alterado com sucesso.</div>");
+					alreadyShownedSucessMessage = true;
+				}
+			}, function(error) {
+				if(alreadyShownedErrorMessage === false) {
+					showAlert("Perfil", "<div style='text-align: center'>Erro na alteração do perfil.</div>");
+					alreadyShownedErrorMessage = true;
+				}					
+		});		
+	}
+
 	 // Triggered on a button click, or some other target
 	$scope.changeProfileInfo = function() {
+
+	  alreadyShownedErrorMessage = false;
+	  alreadyShownedSucessMessage = false;
 
 	  // An elaborate, custom popup
 	  var myPopup = $ionicPopup.show({
@@ -182,12 +209,39 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	        	var result = checkIfChangesAreValid();
 
 	        	if(result == true) {
-	        		//checkIfValid
-	        		//make request
 	        		console.log("profile changed");
 	        		console.log("new hometown: " + $scope.newHomeTown);
 	        		console.log("new contact: " + $scope.newContact);
 	        		console.log("new email: " + $scope.newEmail);
+
+	        		var username = makeRequest.getUserName();
+	        		var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+	        		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
+
+	        		if($scope.newHomeTown !== "") {
+	        			$scope.newHomeTown = $scope.newHomeTown.toString();
+		        		var jsonHomeTown = {
+		        			"home_town" : $scope.newHomeTown
+		        		};
+		        		var json = JSON.stringify(jsonHomeTown);
+		        		updateProfile(username, encoded, json);
+	        		}
+	        		if($scope.newContact !== "") {
+						$scope.newContact = $scope.newContact.toString();
+						var jsonContact = {
+		        			"phone_number" : $scope.newContact
+		        		};
+		        		var json = JSON.stringify(jsonContact);	
+						updateProfile(username, encoded, json);
+	        		}
+	        		if($scope.newEmail !== "") {
+	        			$scope.newEmail = $scope.newEmail.toString();
+						var jsonEmail = {
+		        			"email" : $scope.newEmail
+		        		};
+		        		var json = JSON.stringify(jsonEmail);
+		        		updateProfile(username, encoded, json);    			
+	        		}
 	        	} else if(result === "allNull") {
 	        		showAlert("Edit", "Deve preencher no minimo um campo");
 	        	} else if(result === "emailNotValid") {
@@ -233,9 +287,25 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, makeReque
 	        	if(checkIfNewDescriptionIsValid() == false) {
 					showAlert("Descrição", "A descrição não deve ser nula");
 	        	} else {   		
-		        	//make request
-		        	console.log("changed description");
-		        	console.log("mew description: " + $scope.newDescription);
+	        		$scope.newDescription.toString();
+		        	var username = makeRequest.getUserName();
+	        		var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+	        		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
+
+	        		var jsonBiography = {
+						"biography" : $scope.newDescription
+					};
+					var json = JSON.stringify(jsonBiography);
+
+		        	makeRequest.updateUserInfo(username, encoded, json).
+					// then is called when service comes with an answer
+						then(function(data) {
+							makeRequest.setProfileToOpen(username);
+							$state.transitionTo('menu.profile', $stateParams, { reload: true, inherit: false, notify: true });
+							showAlert("Biografia", "<div style='text-align: center'>Biografia alterada com sucesso.</div>");
+						}, function(error) {
+							showAlert("Biografia", "<div style='text-align: center'>Erro na alteração da biografia.</div>");
+					});		        	
 	        	}
 	        }
 	      },
