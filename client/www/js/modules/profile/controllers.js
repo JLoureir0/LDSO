@@ -1,6 +1,6 @@
 var module = angular.module('profileModule');
 
-module.controller('profileCtrl', function($scope, $ionicPopup, $state, $stateParams, makeRequest, BACache) {
+module.controller('profileCtrl', function($scope, $ionicPopup, $state, $stateParams, $ionicLoading, makeRequest, BACache) {
 
 	$scope.profileInfo;
 	$scope.checkedPasswords = false;
@@ -171,11 +171,13 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 				makeRequest.setProfileToOpen(username);
 				$state.transitionTo('menu.profile', $stateParams, { reload: true, inherit: false, notify: true });
 				if(alreadyShownedSucessMessage === false) {
+					$scope.hide();
 					showAlert("Perfil", "<div style='text-align: center'>Perfil alterado com sucesso.</div>");
 					alreadyShownedSucessMessage = true;
 				}
 			}, function(error) {
 				if(alreadyShownedErrorMessage === false) {
+					$scope.hide();
 					showAlert("Perfil", "<div style='text-align: center'>Erro na alteração do perfil.</div>");
 					alreadyShownedErrorMessage = true;
 				}					
@@ -191,7 +193,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 	  // An elaborate, custom popup
 	  var myPopup = $ionicPopup.show({
 	    template: 'Nova localidade: <input type="text" ng-model="data.newHomeTown">' +
-	    'Novo contacto: <input type="text" ng-model="data.newContact">' +
+	    'Novo contacto: <input type="number" ng-model="data.newContact">' +
 	    'Novo email: <input type="text" ng-model="data.newEmail">',
 	    title: 'Alterar dados',
 	    scope: $scope,
@@ -201,7 +203,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 	        text: '<b>Alterar</b>',
 	        type: 'button-positive',
 	        onTap: function(e) {
-
+	        	$scope.show();
 	        	$scope.newHomeTown = $scope.data.newHomeTown;
 	        	$scope.newContact = $scope.data.newContact;
 	        	$scope.newEmail = $scope.data.newEmail;
@@ -383,6 +385,16 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 	 title: title,
 	 template: message
 	});
+	};
+
+	$scope.show = function() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...'
+	    });
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
 	};
 
 });
