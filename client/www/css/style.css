@@ -292,14 +292,6 @@
   background-color: blue;
 }
 
-.red {
-  background-color: red;
-}
-
-.green {
-  background-color: green;
-}
-
 .box {
     width:100%;
     height:100%;
@@ -323,6 +315,15 @@
     color: white;
 }
 
+.subtitle-slide {
+  color: white;
+  font-weight: 100;
+}
+
+.welcome-link {
+  color: white;
+  font-weight: italic;
+}
 
 /**********Validation icons**********/
 
