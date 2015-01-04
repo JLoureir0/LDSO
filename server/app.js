@@ -95,10 +95,12 @@ server.get(/^\/users\/(.+)\.json$/, function(req, res, next) {
   });
 });
 
-server.put(/^\/users\/(.+)\.json$/, user_hdlr.handle_params, function(req, res, next) {
+server.put(/^\/users\/(.+)\.json$/, passport.authenticate('basic', { session: false }), authentication, user_hdlr.handle_params, function(req, res, next) {
   user_save.update(req.params, function (err, user) {
     if(err)
       res.send(404);
+    else if(req.user === undefined || req.params._id !== req.user.id)
+      res.send(401);
     res.send(user);
   });
 });

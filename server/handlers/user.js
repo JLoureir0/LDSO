@@ -9,6 +9,8 @@ exports.handle_params = function(req, res, next) {
   parse_password(user.password, next);
   parse_email(user.email, next);
   parse_phone_number(user.phone_number, next);
+  parse_home_town(user.home_town, next);
+  parse_biography(user.biography, next);
 
   req.params = parse_user(user);
   next();
@@ -35,6 +37,18 @@ function parse_phone_number(phone_number, next) {
       return next(new restify.InvalidArgumentError('Phone number must be a string with only 9 numbers'));
 }
 
+function parse_home_town(home_town, next) {
+  if(home_town !== undefined)
+    if(typeof home_town !== 'string' || !(/^[\u00C0-\u00FFa-zA-Z]+(\s[\u00C0-\u00FFa-zA-Z]+)*$/.test(home_town)))
+      return next(new restify.InvalidArgumentError('Home town must be a string with only letters'));
+}
+
+function parse_biography(biography, next) {
+  if(biography !== undefined)
+    if(typeof biography !== 'string' || biography.length < 1 || biography.length > 200)
+      return next(new restify.InvalidArgumentError('Biography must be a string with a maximum of 200 characters'));
+}
+
 function parse_user(user) {
   var new_user = {};
 
@@ -42,7 +56,9 @@ function parse_user(user) {
     '_id',
     'password',
     'email',
-    'phone_number'
+    'phone_number',
+    'home_town',
+    'biography'
   ];
 
   for(var key in user)

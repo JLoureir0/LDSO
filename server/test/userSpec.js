@@ -1,6 +1,5 @@
 var expect  = require('chai').expect;
 var restify = require('restify');
-var client  = restify.createJsonClient({ url: 'http://localhost:3000' });
 
 var user    = {
   first_name   : 'John',
@@ -13,6 +12,13 @@ var user    = {
   phone_number : '123456789',
   home_town    : 'Porto'
 };
+
+var authorization = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
+
+var client  = restify.createJsonClient({
+  url: 'http://localhost:3000',
+  headers: { 'Authorization': authorization }
+});
 
 describe('/users/:id.json', function() {
   var url;
@@ -96,9 +102,9 @@ describe('/users/:id.json', function() {
       });
     });
     it('should return the user on update', function(done) {
-      user.password = 'password12345';
+      user.phone_number = '987654321';
 
-      client.put(url, { password: 'password12345' }, function(err, req, res, obj) {
+      client.put(url, { phone_number: '987654321' }, function(err, req, res, obj) {
         expect(obj).to.be.deep.equal(user);
         done();
       });
@@ -121,6 +127,20 @@ describe('/users/:id.json', function() {
       client.put(url, { phone_number: '123456' }, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
         expect(obj.message).to.be.equal('Phone number must be a string with only 9 numbers');
+        done();
+      });
+    });
+    it('should return 409 and an error message if home_town is invalid', function(done) {
+      client.put(url, { home_town: 'inval1d' }, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Home town must be a string with only letters');
+        done();
+      });
+    });
+    it('should return 409 and an error message if biography is invalid', function(done) {
+      client.put(url, { biography: '' }, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj.message).to.be.equal('Biography must be a string with a maximum of 200 characters');
         done();
       });
     });
