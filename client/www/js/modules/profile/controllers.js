@@ -275,7 +275,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 	  // An elaborate, custom popup
 	  var myPopup = $ionicPopup.show({
 	    template: 'Nova descrição: <textarea rows="4" cols="50" type="text" ng-model="data.newDescription">',
-	    title: 'Alterar password',
+	    title: 'Alterar descrição',
 	    scope: $scope,
 	    buttons: [
 	      { text: 'Cancelar' },

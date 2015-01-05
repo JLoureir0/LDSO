@@ -6,12 +6,46 @@ var userJson;
 var userEncryptedPassword;
 var profileToOpen;
 var sendMessageUser;
+var sendMessageSubject;
 
 /*
 * Singleton that will provide a singleton to make a server request
 */
 module.factory('makeRequest', function ($http, $q) {
 	return {
+
+        sendMessage: function(json, encoded, receiver) {
+            return $http.post('http://' + ip + ':3000/users/' + receiver + '/messages.json', json, { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
+        getUserMessages: function(username, encoded) {
+            return $http.get('http://' + ip + ':3000/users/' + username + '/messages.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
 		sendTrip: function(json, encoded) {
             return $http.post('http://' + ip + ':3000/trips.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response) {
@@ -191,8 +225,20 @@ module.factory('makeRequest', function ($http, $q) {
             return sendMessageUser;
         },
 
+        setMessageSubject: function(subject) {
+            sendMessageSubject = subject;
+        },
+
+        getMessageSubject: function() {
+            return sendMessageSubject;
+        },
+
         resetMessageUser: function() {
             sendMessageUser = undefined;
+        },
+
+        resetMessageSubject: function() {
+            sendMessageSubject = undefined;
         },
         
         resetUserVariables: function() {

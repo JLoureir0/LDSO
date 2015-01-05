@@ -1,12 +1,11 @@
 <ion-view title="'mensagens'">
   <ion-content scroll='true'>
 
-  	<div class="messages-container">
+  	<div class="messages-container" ng-init="getMyMesssages()">
 
   	 	<h1 class="messages-title"> <span class="ion-android-mail"></span> Mensagens</h1>
 
-  	 	<div class="card" ng-init="updateFootersAndSidebar
-      ()">
+  	 	<div class="card" ng-init="updateFootersAndSidebar()">
 
             <a ng-href="#/menu/message">
              <div nav-clear class="item item-divider trip-header">
