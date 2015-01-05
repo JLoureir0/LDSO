@@ -1,7 +1,6 @@
 // Define all your modules with no dependencies
 angular.module('registerModule', []);
 angular.module('loginModule', []);
-angular.module('messagesModule', []);
 angular.module('welcomeModule', []);
 angular.module('tripsModule', []);
 angular.module('profileModule', []);
@@ -12,7 +11,6 @@ angular.module('starter',
   [
     'registerModule',
     'loginModule',
-    'messagesModule',
     'welcomeModule',
     'profileModule',
     'tripsModule',

@@ -6,12 +6,79 @@ var userJson;
 var userEncryptedPassword;
 var profileToOpen;
 var sendMessageUser;
+var sendMessageSubject;
+
+var messageToOpen;
 
 /*
 * Singleton that will provide a singleton to make a server request
 */
 module.factory('makeRequest', function ($http, $q) {
 	return {
+
+        sendMessage: function(json, encoded, receiver) {
+            return $http.post('http://' + ip + ':3000/users/' + receiver + '/messages.json', json, { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
+        getUserMessages: function(username, encoded) {
+            return $http.get('http://' + ip + ':3000/users/' + username + '/messages.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
+        getCurrentMessage: function(username, encoded, id) {
+            return $http.get('http://' + ip + ':3000/users/' + username + '/messages/' + id + '.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
+        deleteCurrentMesssage: function(username, encoded, id) {
+            return $http.delete('http://' + ip + ':3000/users/' + username + '/messages/' + id + '.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if(response.status === 200) {
+                    return response.data;
+                } else {
+                    return $q.reject(response);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response);
+                }
+            );
+        },
+
 		sendTrip: function(json, encoded) {
             return $http.post('http://' + ip + ':3000/trips.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response) {
@@ -191,8 +258,28 @@ module.factory('makeRequest', function ($http, $q) {
             return sendMessageUser;
         },
 
+        setMessageSubject: function(subject) {
+            sendMessageSubject = subject;
+        },
+
+        getMessageSubject: function() {
+            return sendMessageSubject;
+        },
+
+        setMessageToOpen: function(message) {
+            messageToOpen = message;
+        },
+
+        getMessageToOpen: function() {
+            return messageToOpen;
+        },
+
         resetMessageUser: function() {
             sendMessageUser = undefined;
+        },
+
+        resetMessageSubject: function() {
+            sendMessageSubject = undefined;
         },
         
         resetUserVariables: function() {

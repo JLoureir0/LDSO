@@ -1,33 +1,29 @@
 <ion-view title="'message'">
-  <ion-content scroll='true'>
-
-  	<div class="message-container" ng-init="setDestination()">
-
-  		<h2 class="message-title"> <span class="ion-android-mail"></span>  </h2>
+	<ion-content scroll='true' ng-init="updateFootersAndSidebar()">
+	
+	<div class="message-container" ng-controller="messageCtrl" ng-init="setDestinationAndSubject()">
+		
+		<h2 class="message-title"> <span class="ion-android-mail"></span>  </h2>
 
   		<div class="list card">
-		  <label class="item item-input">
-		    <span class="input-label">Destinatário:</span>
-		    <input type="text" ng-model="destination">
-		  </label>
-
+			<label class="item item-input">
+		    	<span class="input-label">Destinatário:</span>
+		    	<input type="text" ng-model="destination">
+		  	</label>
+ 
+			<label class="item item-input">
+		    	<span class="input-label">Assunto:</span>
+		    	<input type="text" ng-model="subject">
+			</label>
 		 
-		   <label class="item item-input">
-		    <span class="input-label">Assunto:</span>
-		    <input type="text">
-		  </label>
-		 
-
-		  <div class="item item-body">
-		    <textarea style="height: 150px;" id="message-body" placeholder = "Mensagem"></textarea>
-		  </div>
-
-		  
-	</div>
+			<div class="item item-body">
+		    	<textarea style="height: 150px;" id="message-body" placeholder = "Mensagem" ng-model="messageContent"></textarea>
+			</div>
+		</div>
+		
 		<div class="loginBtnContainer">
-        	<button ng-click="submitLogin()" class="registerBtn button button-calm"> <strong> Enviar Mensagem </strong> </button>
-     	 </div>
-
+        	<button ng-click="sendMessage()" class="registerBtn button button-calm"> <strong> Enviar Mensagem </strong> </button>
+     	</div>
   	</div>
 
   </ion-content>
