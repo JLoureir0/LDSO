@@ -3,6 +3,7 @@ var server        = restify.createServer({ name: 'Carryit' });
 
 var user_save     = require('save')('user');
 var trip_save     = require('save')('trip');
+var message_save  = require('save')('message');
 
 var passport      = require('passport');
 var passport_http = require('passport-http');
@@ -13,6 +14,8 @@ var users_hdlr    = require('./handlers/users.js');
 var user_hdlr     = require('./handlers/user.js');
 
 var trips_hdlr    = require('./handlers/trips.js');
+
+var messages_hdlr = require('./handlers/messages.js');
 
 restify.CORS.ALLOW_HEADERS.push('authorization');
 
@@ -69,6 +72,57 @@ server.get('/login', passport.authenticate('basic', { session: false }), functio
   else
     res.send(401);
 
+});
+
+server.del(/^\/users\/(.+)\/messages\/(.+).json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  if(req.user === undefined || req.params[0] !== req.user.id)
+    res.send(401);
+  else {
+    message_save.delete(req.params[1], function(err, trip) {
+      if(err)
+        res.send(404);
+      res.send(200);
+    });
+  }
+});
+
+server.get(/^\/users\/(.+)\/messages\/(.+).json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  if(req.user === undefined || req.params[0] !== req.user.id)
+    res.send(401);
+  else {
+    message_save.findOne({ _id: req.params[1] }, function (err, message) {
+      if(message) {
+        message.unread = "false";
+        message_save.update(message, function(err, mess) {
+          res.send({ data: message });
+        });
+      }
+      else
+        res.send(404);
+    });
+  }
+});
+
+server.get(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  if(req.user === undefined || req.params[0] !== req.user.id)
+    res.send(401);
+  else {
+    message_save.find({ receiver: req.user.id }, function (err, messages) {
+      res.send({ data: messages });
+    });
+  }
+});
+
+server.post(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, messages_hdlr.handle_params, function(req, res) {
+  user_save.findOne({ _id: req.params.receiver }, function(err, user) {
+    if(user) {
+      message_save.create(req.params, function(err, message) {
+        res.send(201, message);
+      });
+    }
+    else
+      res.send(409,'Receiver must be a valid user');
+  });
 });
 
 server.get('/users.json', passport.authenticate('basic', { session: false }), authentication, function(req, res) {
