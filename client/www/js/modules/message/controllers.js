@@ -1,10 +1,12 @@
 var module = angular.module('messageModule');
 
-module.controller('messageCtrl', function($scope, $ionicPopup, $state, makeRequest, BACache) {
+module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoading, makeRequest, BACache) {
 
 	$scope.destination = "";
 	$scope.subject = "";
 	$scope.messageContent = "";
+	$scope.messages = [];
+	$scope.currentMessage = [];
 
 	$scope.updateEditor = function(keyCode) {
 		alert(keyCode);
@@ -41,29 +43,29 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, makeReque
 			showError('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
-				if($scope.destination === "") {
-					showError("Deve preencher no mínimo o destinatário");
-				} else {
-					var username = makeRequest.getUserName();
-				    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
-		    		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
+			if($scope.destination === "") {
+				showError("Deve preencher no mínimo o destinatário");
+			} else {
+				var username = makeRequest.getUserName();
+			    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+	    		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
 
-		    		var jsonMessage = {
-		    			"subject" : $scope.subject,
-		    			"message" : $scope.messageContent 
-		    		};
-		    		var json = JSON.stringify(jsonMessage);
+	    		var jsonMessage = {
+	    			"subject" : $scope.subject,
+	    			"message" : $scope.messageContent 
+	    		};
+	    		var json = JSON.stringify(jsonMessage);
 
-		    		makeRequest.sendMessage(json, encoded, $scope.destination).
-		    		// then is called when service comes with an answer
-					then(function(data){
-						console.log(data);
-						$state.go('menu.messages');
-						showInfo("Mensagem enviada com sucesso");
-					}, function(error) {
-						alert("Erro: " + "Resposta do servidor não recebida");
-					});
-				}
+	    		makeRequest.sendMessage(json, encoded, $scope.destination).
+	    		// then is called when service comes with an answer
+				then(function(data){
+					console.log(data);
+					$state.go('menu.messages');
+					showInfo("Mensagem enviada com sucesso");
+				}, function(error) {
+					alert("Erro: " + "Resposta do servidor não recebida");
+				});
+			}
 		}
 	}
 
@@ -110,6 +112,64 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, makeReque
 		}
 	};
 
+	$scope.loadMessage = function(id) {
+		if(BACache.info().size === 0) {
+			showError('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+
+			var username = makeRequest.getUserName();
+		    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+    		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
+		
+			makeRequest.getCurrentMessage(username, encoded, id).
+			// then is called when service comes with an answer
+			then(function(data){
+				console.log(data);
+
+				currentMessage.subject = data.data[i].subject;
+				currentMessage.message = data.data[i].message;
+				currentMessage.sender = data.data[i].sender;
+				currentMessage.receiver = data.data[i].receiver;
+				currentMessage.unread = data.data[i].unread;
+				currentMessage.week_day = data.data[i].week_day;
+				currentMessage.month_day = data.data[i].month_day;
+				currentMessage.month = data.data[i].month;
+				currentMessage.year = data.data[i].year;
+				currentMessage.hour = data.data[i].hour;
+				currentMessage.minute = data.data[i].minute;
+				currentMessage.id = data.data[i]._id;
+
+				console.log(currentMessage);
+
+			}, function(error) {
+				alert("Erro: " + "Resposta do servidor não recebida");
+			});   		
+
+		}
+	};
+
+	$scope.deleteMessage = function(id) {
+		if(BACache.info().size === 0) {
+			showError('Não tem sessão iniciada');
+			$state.go('menu.login');
+		} else {
+
+			var username = makeRequest.getUserName();
+		    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
+    		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
+
+			makeRequest.getCurrentMessage(username, encoded, id).
+			// then is called when service comes with an answer
+			then(function(data) {
+				showInfo("Mensagem apagada com sucesso");
+				$state.go("menu.messages");
+			}, function(error) {
+				alert("Erro: " + "Resposta do servidor não recebida");
+			});      		
+		}
+	}
+
 	 // An alert dialog
 	function showError(message) {
 	   var alertPopup = $ionicPopup.alert({
@@ -133,4 +193,14 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, makeReque
 	     template: message
 	   });
 	 }
+
+	$scope.show = function() {
+	    $ionicLoading.show({
+	      template: 'Aguarde...'
+	    });
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
 });

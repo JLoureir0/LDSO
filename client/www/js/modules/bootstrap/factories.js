@@ -46,6 +46,40 @@ module.factory('makeRequest', function ($http, $q) {
             );
         },
 
+        getCurrentMessage: function(username, encoded, id) {
+            return $http.get('http://' + ip + ':3000/users/' + username + '/messages/' + id + '.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if (typeof response.data === 'object') {
+                    return response.data;
+                } else {
+                    // invalid response
+                    return $q.reject(response.data);
+                }
+            }, function(response) {
+                    // something went wrong
+                    return $q.reject(response.data);
+                }
+            );
+        },
+
+        deleteCurrentMesssage: function(username, encoded, id) {
+            return $http.delete('http://' + ip + ':3000/users/' + username + '/messages/' + id + '.json', { headers: { 'Authorization': encoded } })
+            .then(function(response) {
+                if(response.status === 200) {
+                    console.log('tudo bem');
+                    return response.data;
+                } else {
+                    console.log('tudo mal');
+                    return $q.reject(response);
+                }
+            }, function(response) {
+                    // something went wrong
+                    console.log('mesmo mal');
+                    return $q.reject(response);
+                }
+            );
+        },
+
 		sendTrip: function(json, encoded) {
             return $http.post('http://' + ip + ':3000/trips.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response) {

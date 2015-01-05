@@ -67,14 +67,16 @@ module.config(function($stateProvider, $urlRouterProvider) {
 		url: '/messages',
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/messages.html"
+				templateUrl: "templates/messages.html",
+				controller: "messageCtrl"
 			}
 		}
 	}).state('menu.message', {
 		url: '/message',
 		views: {
 			'menuContent' :{
-				templateUrl: "templates/message.html"
+				templateUrl: "templates/message.html",
+				controller: "messageCtrl"
 			}
 		}
 	}).state('menu.profile', {
