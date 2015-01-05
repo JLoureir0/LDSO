@@ -25,14 +25,14 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 		makeRequest.resetMessageUser();
 
 		if(makeRequest.getMessageSubject()) {
-			if(!makeRequest.getMessageSubject.match('^Re:'))
+			if(!makeRequest.getMessageSubject().match('^Re:'))
 				$scope.subject = "Re: " + makeRequest.getMessageSubject();
 		}
 
 		makeRequest.resetMessageSubject();
 
 		if(makeRequest.getsendMessageBody())
-			$scope.messageContent = "\n\n\n" + makeRequest.getsendMessageBody();
+			$scope.messageContent = '<pre>' + makeRequest.getsendMessageBody() + '</pre>';
 
 		makeRequest.resetMessageBody();
 	};
@@ -44,6 +44,10 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 		makeRequest.setsendMessageBody(body);
 		$state.go('menu.edit-message');
 	};
+
+	$scope.createMessage = function() {
+		$state.transitionTo('menu.edit-message', $stateParams, { reload: true, inherit: false, notify: true });
+	}
 
 	$scope.sendMessage = function() {
 		if(BACache.info().size === 0) {
@@ -59,7 +63,7 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 
 	    		var jsonMessage = {
 	    			"subject" : $scope.subject,
-	    			"message" : $scope.messageContent 
+	    			"message" : $scope.messageContent
 	    		};
 	    		var json = JSON.stringify(jsonMessage);
 
@@ -70,10 +74,37 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 					$state.go('menu.messages');
 					showInfo("Mensagem enviada com sucesso");
 				}, function(error) {
-					alert("Erro: " + "Resposta do servidor não recebida");
+					translateError(error.message);
 				});
 			}
 		}
+	}
+
+	function translateError(message) {
+		var translated = "";
+		console.log("Original error: " + message);
+
+		switch(message){
+			case 'Subject must be supplied':
+				translated = "Assunto tem que ser especificado";
+				break;
+			case 'Subject must be a string with a maximum of 30 characters':
+				translated = "Assunto pode conter no máximo 30 carateres";
+				break;
+			case 'Message must be supplied':
+				translated = "Corpo da mensagem tem que ser especificada";
+				break;
+			case 'Message must be a string with a maximum of 500 characters':
+				translated = "Corpo da mensagem pode conter no máximo 500 carateres";
+				break;
+			case 'Receiver must be a valid user':
+				translated = "Destinatário inexistente";
+				break;
+			default:
+				translated = "Erro desconhecido";
+				break;
+		}
+		showError(translated);
 	}
 
 	$scope.getMyMesssages = function() {
