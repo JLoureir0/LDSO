@@ -113,7 +113,7 @@ describe(url, function() {
     it('should return 409 and an error message if receiver is invalid', function(done) {
       sender_client.post('/users/INVAL1D/messages.json', message, function(err, req, res, obj) {
         expect(res.statusCode).to.be.equal(409);
-        expect(obj).to.be.equal('Receiver must be a valid user');
+        expect(obj.message).to.be.equal('Receiver must be a valid user');
         done();
       });
     });

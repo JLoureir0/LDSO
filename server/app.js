@@ -113,7 +113,7 @@ server.get(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { se
   }
 });
 
-server.post(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, messages_hdlr.handle_params, function(req, res) {
+server.post(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, messages_hdlr.handle_params, function(req, res, next) {
   user_save.findOne({ _id: req.params.receiver }, function(err, user) {
     if(user) {
       message_save.create(req.params, function(err, message) {
@@ -121,7 +121,7 @@ server.post(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { s
       });
     }
     else
-      res.send(409,'Receiver must be a valid user');
+      return next(new restify.InvalidArgumentError('Receiver must be a valid user'));
   });
 });
 
