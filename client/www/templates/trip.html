@@ -91,7 +91,15 @@
         </div>       
 
         <div ng-hide="isMyTrip(trip.username)" class="shareBtnContainer">
-          <a href="tel:{{trip.contact}}"><button nav-clear class="registerBtn button button-energized"><strong> Contacta-o(a) </strong></button></a>
+          <a href="tel:{{trip.contact}}">
+            <button nav-clear class="button icon-left ion-android-call button-balanced">
+              <strong> Telefonar </strong>
+            </button>
+          </a>
+
+          <button nav-clear ng-click="contactCreator(trip.username)" class="button icon-left ion-android-mail button-energized">
+            <strong> Enviar mensagem </strong>
+          </button>
         </div>
     </div>
 

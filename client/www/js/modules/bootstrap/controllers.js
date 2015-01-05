@@ -19,7 +19,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 		if(currentHash) {
 			switch($index) {
 				case 0:
-					$state.go('menu.my-trips');
+					$state.transitionTo('menu.my-trips', $stateParams, { reload: true, inherit: false, notify: true });
 					break;
 				case 1:
 					$state.transitionTo('menu.search-trip', $stateParams, { reload: true, inherit: false, notify: true });
@@ -28,7 +28,7 @@ module.controller('toogleCtrl', function($scope, $ionicSideMenuDelegate, $state,
 					$state.go('menu.share-trip');
 					break;
 				case 3:
-					$state.go('menu.messages');
+					$state.transitionTo('menu.messages', $stateParams, { reload: true, inherit: false, notify: true });
 					break;
 				case 4:
 					$state.go('menu.login');

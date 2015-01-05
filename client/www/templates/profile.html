@@ -27,7 +27,7 @@
 				<a class="tab-item" ng-click="changeDescription()">
 					<div nav-clear>
 					  <i class="fa fa-file-text fa-2x"></i>
-					   Alterar descrição
+					   Alterar biografia
 					</div>
 				</a>
 			</div>
@@ -76,6 +76,21 @@
 				   Alterar password
 				</div>
 			</a>
+		</div>
+
+
+		<div ng-hide="isMyProfile()" class="shareBtnContainer">
+			<a href="tel:{{profileInfo.phone_number}}">
+	            <button nav-clear class="button icon-left ion-android-call button-balanced">
+	              <strong> Telefonar </strong>
+	            </button>
+	      	</a>
+
+	      	<!--
+	        <button nav-clear ng-click="contactCreator(trip.username)" class="button icon-left ion-android-mail button-energized">
+	        	<strong> Enviar mensagem </strong>
+	        </button>
+	        -->
 		</div>
 
   	</div>

@@ -5,6 +5,7 @@ var username;
 var userJson;
 var userEncryptedPassword;
 var profileToOpen;
+var sendMessageUser;
 
 /*
 * Singleton that will provide a singleton to make a server request
@@ -124,7 +125,7 @@ module.factory('makeRequest', function ($http, $q) {
         	);	   		
         },
 
-        updateUserInfo: function(encoded, json) {
+        updateUserInfo: function(username, encoded, json) {
             return $http.put('http://' + ip + ':3000/users/' + username + '.json', json, { headers: { 'Authorization': encoded } })
             .then(function(response){
                 if(response.status === 200 && typeof response.data === 'object') {
@@ -182,6 +183,18 @@ module.factory('makeRequest', function ($http, $q) {
             return profileToOpen;
         },
 
+        setMessageUser: function(username) {
+            sendMessageUser = username;
+        },
+
+        getMessageUser: function(username) {
+            return sendMessageUser;
+        },
+
+        resetMessageUser: function() {
+            sendMessageUser = undefined;
+        },
+        
         resetUserVariables: function() {
             username = undefined;
             userJson = undefined;
