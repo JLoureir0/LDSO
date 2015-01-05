@@ -32,7 +32,7 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 		makeRequest.resetMessageSubject();
 
 		if(makeRequest.getsendMessageBody())
-			$scope.messageContent = '<pre>' + makeRequest.getsendMessageBody() + '</pre>';
+			$scope.messageContent = makeRequest.getsendMessageBody()
 
 		makeRequest.resetMessageBody();
 	};
