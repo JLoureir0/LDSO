@@ -110,6 +110,13 @@ describe(url, function() {
         done();
       });
     });
+    it('should return 409 and an error message if receiver is invalid', function(done) {
+      sender_client.post('/users/INVAL1D/messages.json', message, function(err, req, res, obj) {
+        expect(res.statusCode).to.be.equal(409);
+        expect(obj).to.be.equal('Receiver must be a valid user');
+        done();
+      });
+    });
     it('should only parse the correct attributes', function(done) {
       var message_with_another_attribute = JSON.parse(JSON.stringify(message));
       message_with_another_attribute.another_attribute = 'ATTRIBUTE';

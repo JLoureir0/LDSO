@@ -74,6 +74,35 @@ server.get('/login', passport.authenticate('basic', { session: false }), functio
 
 });
 
+server.del(/^\/users\/(.+)\/messages\/(.+).json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  if(req.user === undefined || req.params[0] !== req.user.id)
+    res.send(401);
+  else {
+    message_save.delete(req.params[1], function(err, trip) {
+      if(err)
+        res.send(404);
+      res.send(200);
+    });
+  }
+});
+
+server.get(/^\/users\/(.+)\/messages\/(.+).json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
+  if(req.user === undefined || req.params[0] !== req.user.id)
+    res.send(401);
+  else {
+    message_save.findOne({ _id: req.params[1] }, function (err, message) {
+      if(message) {
+        message.unread = "false";
+        message_save.update(message, function(err, mess) {
+          res.send({ data: message });
+        });
+      }
+      else
+        res.send(404);
+    });
+  }
+});
+
 server.get(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, function(req, res) {
   if(req.user === undefined || req.params[0] !== req.user.id)
     res.send(401);
@@ -85,8 +114,14 @@ server.get(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { se
 });
 
 server.post(/^\/users\/(.+)\/messages.json$/, passport.authenticate('basic', { session: false }), authentication, messages_hdlr.handle_params, function(req, res) {
-  message_save.create(req.params, function(err, message) {
-    res.send(201, message);
+  user_save.findOne({ _id: req.params.receiver }, function(err, user) {
+    if(user) {
+      message_save.create(req.params, function(err, message) {
+        res.send(201, message);
+      });
+    }
+    else
+      res.send(409,'Receiver must be a valid user');
   });
 });
 
