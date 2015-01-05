@@ -25,10 +25,8 @@ describe('/users/:id.json', function() {
 
   before(function(done) {
     client.post('/users.json', user, function(err, req, res, obj) {
-      user._id = obj._id;
-      user.reputation = obj.reputation;
+      user = obj;
 
-      user.biography = obj.biography;
       url = '/users/' + user._id + '.json';
       done();
     });
