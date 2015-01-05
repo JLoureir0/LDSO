@@ -12,6 +12,15 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, makeReque
 			var element = document.getElementById("message-body");
 	    	element.style.height = element.scrollHeight + 6 + "px";
 		}
-	    
+	};
+
+	$scope.destination = "";
+
+	$scope.setDestination = function() {
+		if(makeRequest.getMessageUser())
+			$scope.destination = makeRequest.getMessageUser();
+
+		makeRequest.resetMessageUser();
+
 	};
 });

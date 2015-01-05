@@ -1,14 +1,14 @@
 <ion-view title="'message'">
   <ion-content scroll='true'>
 
-  	<div class="message-container" ng-init="updateFootersAndSidebar()">
+  	<div class="message-container" ng-init="setDestination()">
 
   		<h2 class="message-title"> <span class="ion-android-mail"></span>  </h2>
 
   		<div class="list card">
 		  <label class="item item-input">
 		    <span class="input-label">Destinatário:</span>
-		    <input type="text">
+		    <input type="text" ng-model="destination">
 		  </label>
 
 		 

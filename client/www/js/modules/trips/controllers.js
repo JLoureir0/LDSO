@@ -280,6 +280,13 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 		}
 	}
 
+	// redirects to message class
+	$scope.contactCreator = function(username) {
+		makeRequest.setMessageUser(username);
+		$state.go('menu.edit-message');
+
+	}
+
 	$scope.loadUserProfile = function(username) {
 		makeRequest.setProfileToOpen(username);
 		$state.go('menu.profile');
