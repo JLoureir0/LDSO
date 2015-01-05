@@ -65,7 +65,6 @@ module.controller('searchTripCtrl', function($scope, $http, $ionicPopup, $state,
 		} else {
 			for(var i = 0; i < $scope.trips.length; i++) {
 				if($scope.trips[i].id === index) {
-					console.log($scope.trips[i]);
 					$scope.trip.startPoint = $scope.trips[i].startPoint;
 					$scope.trip.destPoint = $scope.trips[i].destPoint;
 					$scope.trip.weekDay = $scope.trips[i].weekDay;
@@ -284,7 +283,6 @@ module.controller('myTripsCtrl', function($scope, $http, $ionicPopup, $ionicLoad
 	$scope.contactCreator = function(username) {
 		makeRequest.setMessageUser(username);
 		$state.go('menu.edit-message');
-
 	}
 
 	$scope.loadUserProfile = function(username) {

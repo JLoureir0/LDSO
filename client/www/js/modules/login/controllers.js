@@ -15,7 +15,7 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 	$scope.submitLogin = function() {
 
 		// show loading
-		show();
+		$scope.show();
 		
 		$scope.passwordEncrypted = CryptoJS.SHA256($scope.password);
 
@@ -34,22 +34,23 @@ module.controller('loginCtrl', function($scope, $ionicPopup, $state, makeRequest
 				makeRequest.setUserName($scope.username);
 				makeRequest.setUserEncryptedPassword($scope.passwordEncrypted);
 				makeRequest.setProfileToOpen($scope.username);
+				$scope.hide();
 				$state.go('menu.profile');
 			}, function(error) {
+				$scope.hide();
 				showAlert('Por favor reintroduza as suas credenciais!');
 		});
 	}
 
-	function show() {
+	$scope.show = function() {
 	    $ionicLoading.show({
-	      template: 'Aguarde...',
-	      duration: 500
+	      template: 'Aguarde...'
 	    });
-  	};
-  
-  	function hide(){
-    	$ionicLoading.hide();
-  	};
+ 	};
+
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
 
 	// An alert dialog
 	function showAlert(message) {

@@ -1,12 +1,11 @@
 var module = angular.module('messageModule');
 
-module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoading, makeRequest, BACache) {
+module.controller('messageCtrl', function($scope, $ionicPopup, $state, $stateParams, $ionicLoading, makeRequest, BACache) {
 
 	$scope.destination = "";
 	$scope.subject = "";
 	$scope.messageContent = "";
 	$scope.messages = [];
-	$scope.currentMessage = [];
 
 	$scope.updateEditor = function(keyCode) {
 		alert(keyCode);
@@ -25,16 +24,24 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoa
 
 		makeRequest.resetMessageUser();
 
-		if(makeRequest.getMessageSubject())
-			$scope.subject = makeRequest.getMessageSubject();
+		if(makeRequest.getMessageSubject()) {
+			if(!makeRequest.getMessageSubject.match('^Re:'))
+				$scope.subject = "Re: " + makeRequest.getMessageSubject();
+		}
 
 		makeRequest.resetMessageSubject();
+
+		if(makeRequest.getsendMessageBody())
+			$scope.messageContent = "\n\n\n" + makeRequest.getsendMessageBody();
+
+		makeRequest.resetMessageBody();
 	};
 
 	// redirects to message class
-	$scope.contactCreator = function(username, subject) {
+	$scope.contactCreator = function(username, subject, body) {
 		makeRequest.setMessageUser(username);
 		makeRequest.setMessageSubject(subject);
+		makeRequest.setsendMessageBody(body);
 		$state.go('menu.edit-message');
 	};
 
@@ -117,7 +124,7 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoa
 			showError('Não tem sessão iniciada');
 			$state.go('menu.login');
 		} else {
-
+			$scope.show();
 			var username = makeRequest.getUserName();
 		    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
     		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
@@ -125,23 +132,24 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoa
 			makeRequest.getCurrentMessage(username, encoded, id).
 			// then is called when service comes with an answer
 			then(function(data){
-				console.log(data);
+				$scope.currentMessage = {
+					subject: data.data.subject,
+					message: data.data.message,
+					sender: data.data.sender,
+					receiver: data.data.receiver,
+					unread: data.data.unread,
+					week_day: data.data.week_day,
+					month_day: data.data.month_day,
+					month: data.data.month,
+					year: data.data.year,
+					hour: data.data.hour,
+					minute: data.data.minute,
+					id: data.data._id
+				}
 
-				currentMessage.subject = data.data[i].subject;
-				currentMessage.message = data.data[i].message;
-				currentMessage.sender = data.data[i].sender;
-				currentMessage.receiver = data.data[i].receiver;
-				currentMessage.unread = data.data[i].unread;
-				currentMessage.week_day = data.data[i].week_day;
-				currentMessage.month_day = data.data[i].month_day;
-				currentMessage.month = data.data[i].month;
-				currentMessage.year = data.data[i].year;
-				currentMessage.hour = data.data[i].hour;
-				currentMessage.minute = data.data[i].minute;
-				currentMessage.id = data.data[i]._id;
-
-				console.log(currentMessage);
-
+				makeRequest.setMessageToOpen($scope.currentMessage);
+				$scope.hide();
+				$state.go('menu.message');
 			}, function(error) {
 				alert("Erro: " + "Resposta do servidor não recebida");
 			});   		
@@ -159,7 +167,7 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoa
 		    var userEncryptedPassword = makeRequest.getUserEncryptedPassword();
     		var encoded = "Basic " + btoa(username + ':' + userEncryptedPassword);
 
-			makeRequest.getCurrentMessage(username, encoded, id).
+			makeRequest.deleteCurrentMesssage(username, encoded, id).
 			// then is called when service comes with an answer
 			then(function(data) {
 				showInfo("Mensagem apagada com sucesso");
@@ -168,6 +176,14 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $ionicLoa
 				alert("Erro: " + "Resposta do servidor não recebida");
 			});      		
 		}
+	}
+
+	$scope.back = function() {
+		$state.transitionTo('menu.messages', $stateParams, { reload: true, inherit: false, notify: true });
+	}
+
+	$scope.getMessage = function() {
+		$scope.currentMessage = makeRequest.getMessageToOpen();
 	}
 
 	 // An alert dialog

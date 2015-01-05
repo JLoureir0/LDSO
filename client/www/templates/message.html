@@ -1,5 +1,5 @@
 <ion-view title="'message'">
-  <ion-content scroll='true'>
+  <ion-content scroll='true' ng-init="getMessage()">
 
   	<div class="message-container" ng-init="updateFootersAndSidebar()">
 
@@ -9,9 +9,11 @@
   			<a ng-href="#/menu/profile" class="link">
 		  		<div class="item item-avatar">
 		    		<img src="img/User-icon.png">
-		    		<h2>{{currentMessage.sender}}</h2>month
-		    		<p>{{currentMessage.month + " " + currentMessage.month_day + ", " + currentMessage.year}}</p>
-		    		<p>{{currentMessage.hour + ":" + currentMessage.minute}}</p>
+		    		<h2> {{currentMessage.sender}} </h2>
+		    		<div>
+		    		<h> {{currentMessage.month + " " + currentMessage.month_day + ", " + currentMessage.year}} </h>
+		    		<h style="float:right"> {{currentMessage.hour + ":" + currentMessage.minute}} </h>
+		    		</div>
 		  		</div>
 		  	</a>
 
@@ -20,22 +22,22 @@
 		  </div>
 
 		  <div class="item tabs tabs-secondary tabs-icon-left">
-		    <a class="tab-item" ng-href="#/menu/messages">
+		    <a class="tab-item" ng-click="back()">
 		    	<div nav-clear>
 		    		<i class="fa fa-reply fa-2x"></i>
-		     		Back
+		     		Retroceder
 		    	</div>
 		    </a>
-		    <a class="tab-item" ng-click="contactCreator(trip.username)">
+		    <a class="tab-item" ng-click="contactCreator(currentMessage.sender, currentMessage.subject, currentMessage.message)">
 		    	<div nav-clear>
 		      		<i nav-clear class="icon ion-chatbox"></i>
-		       		Reply
+		       		Responder
 		       </div>
 		    </a>
 		    <a class="tab-item" ng-click="deleteMessage(currentMessage.id)">
 		    	<div nav-clear>
 		    		<i nav-clear class="fa fa-trash fa-2x"></i>
-		       		Delete
+		       		Apagar
 		       </div>
 		    </a>
 		  </div>

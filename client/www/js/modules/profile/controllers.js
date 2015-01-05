@@ -14,6 +14,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 	$scope.newContact = "";
 	$scope.newHomeTown = "";
 	$scope.newEmail = "";
+	$scope.usernameToEmail = "";
 
 	var alreadyShownedSucessMessage;
 	var alreadyShownedErrorMessage;
@@ -26,6 +27,7 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 		} else {
 			var username = makeRequest.getUserName();
 			var usernameToOpen = makeRequest.getProfileToOpen();
+			$scope.usernameToEmail = usernameToOpen;
 			if(usernameToOpen === username) {
 				loadUserInfo(username);
 			} else {
@@ -54,6 +56,12 @@ module.controller('profileCtrl', function($scope, $ionicPopup, $state, $statePar
 			$scope.checkedPasswords = false;
 		else 
 			$scope.checkedPasswords = true;
+	}
+
+	// redirects to message class
+	$scope.contactCreator = function(username) {
+		makeRequest.setMessageUser(username);
+		$state.go('menu.edit-message');
 	}
 
 	// An alert dialog

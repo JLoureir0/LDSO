@@ -7,6 +7,8 @@ var userEncryptedPassword;
 var profileToOpen;
 var sendMessageUser;
 var sendMessageSubject;
+var sendMessageBody;
+var messageToOpen;
 
 /*
 * Singleton that will provide a singleton to make a server request
@@ -66,15 +68,12 @@ module.factory('makeRequest', function ($http, $q) {
             return $http.delete('http://' + ip + ':3000/users/' + username + '/messages/' + id + '.json', { headers: { 'Authorization': encoded } })
             .then(function(response) {
                 if(response.status === 200) {
-                    console.log('tudo bem');
                     return response.data;
                 } else {
-                    console.log('tudo mal');
                     return $q.reject(response);
                 }
             }, function(response) {
                     // something went wrong
-                    console.log('mesmo mal');
                     return $q.reject(response);
                 }
             );
@@ -267,6 +266,22 @@ module.factory('makeRequest', function ($http, $q) {
             return sendMessageSubject;
         },
 
+        setMessageToOpen: function(message) {
+            messageToOpen = message;
+        },
+
+        getMessageToOpen: function() {
+            return messageToOpen;
+        },
+
+        setsendMessageBody: function(body) {
+            sendMessageBody = body;
+        },
+
+        getsendMessageBody: function() {
+            return sendMessageBody;
+        },
+
         resetMessageUser: function() {
             sendMessageUser = undefined;
         },
@@ -278,6 +293,10 @@ module.factory('makeRequest', function ($http, $q) {
         resetUserVariables: function() {
             username = undefined;
             userJson = undefined;
+        },
+
+        resetMessageBody: function() {
+            sendMessageBody = undefined;
         }
     };
 });
