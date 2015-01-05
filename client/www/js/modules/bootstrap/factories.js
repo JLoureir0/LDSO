@@ -7,7 +7,7 @@ var userEncryptedPassword;
 var profileToOpen;
 var sendMessageUser;
 var sendMessageSubject;
-var sendMessageBody;
+
 var messageToOpen;
 
 /*
@@ -274,14 +274,6 @@ module.factory('makeRequest', function ($http, $q) {
             return messageToOpen;
         },
 
-        setsendMessageBody: function(body) {
-            sendMessageBody = body;
-        },
-
-        getsendMessageBody: function() {
-            return sendMessageBody;
-        },
-
         resetMessageUser: function() {
             sendMessageUser = undefined;
         },
@@ -293,10 +285,6 @@ module.factory('makeRequest', function ($http, $q) {
         resetUserVariables: function() {
             username = undefined;
             userJson = undefined;
-        },
-
-        resetMessageBody: function() {
-            sendMessageBody = undefined;
         }
     };
 });

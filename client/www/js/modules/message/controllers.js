@@ -30,18 +30,12 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 		}
 
 		makeRequest.resetMessageSubject();
-
-		if(makeRequest.getsendMessageBody())
-			$scope.messageContent = makeRequest.getsendMessageBody()
-
-		makeRequest.resetMessageBody();
 	};
 
 	// redirects to message class
 	$scope.contactCreator = function(username, subject, body) {
 		makeRequest.setMessageUser(username);
 		makeRequest.setMessageSubject(subject);
-		makeRequest.setsendMessageBody(body);
 		$state.go('menu.edit-message');
 	};
 
@@ -124,7 +118,7 @@ module.controller('messageCtrl', function($scope, $ionicPopup, $state, $statePar
 				console.log(data);
 
 				$scope.messages = [];
-				for(var i = 0; i < data.data.length; i++) {
+				for(var i = data.data.length -1 ; i >= 0; i--) {
 
 					var message = [];
 					message.subject = data.data[i].subject;
